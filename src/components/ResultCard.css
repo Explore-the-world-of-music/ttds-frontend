@@ -1,0 +1,69 @@
+.result-card{
+    background-color: white;
+    width: 70%;
+    margin: 1.2rem 0;
+    padding: 2rem 3rem;
+}
+
+.bottom{
+    display: flex;
+    flex-direction: row;
+}
+
+.top{
+    text-align: left;
+}
+
+.left{
+    flex-grow: 1;
+    text-align: left;
+}
+
+
+.lyrics{
+    white-space: pre-wrap;
+}
+
+.title{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.author{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.album-cover{
+    overflow: hidden;
+    height: 12rem;
+    width: 12rem;
+    padding-left: 1rem;
+    
+}
+
+.album-cover > img{
+    display: block; /* Otherwise it keeps some space around baseline */
+    min-width: 100%;    /* Scale up to fill container width */
+    min-height: 100%;   /* Scale up to fill container height */
+    -ms-interpolation-mode: bicubic; /* Scaled images look a bit better in IE now */
+}
+
+@media only screen and (max-width: 1200px) {
+    .result-card{
+        width:100%;
+    }
+
+    .bottom{
+        flex-direction: column-reverse;
+    }
+
+    .right{
+        margin-bottom: 2rem;
+    }
+}

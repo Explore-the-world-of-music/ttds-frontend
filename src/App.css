@@ -1,38 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
+
+
+@keyframes loading {
+  from {background-color: rgb(214, 214, 214);}
+  to {background-color: rgb(231, 231, 231);}
+}
+
+html{
+  width: 100%;
+}
+
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  box-sizing: border-box;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+ 
+.header {
+  background-color: #244AA7;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  color: white;
+  transition: all 1s;
+  min-height: 0;
+}
+
+.inner-header {
+  background-color: #3E66D0;
+  width: 90rem;
+  padding-bottom: 2rem;
+}
+
+.logo{
+  font-family: 'Goudy Bookletter 1911', serif;
+  font-size: 8rem;
+  font-style: normal;
+  font-weight: normal;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.fa-angle-down-icon{
+  vertical-align: bottom;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.main{
+  background-color: #EAEFFD;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.inner-main{
+  background-color: #F5F6FF;
+  width: 90rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 1.2rem;
+}
+
+.header-full{
+  min-height:100vh;
+  background-color: #3E66D0;
+}
+
+.placeholder{
+  animation: loading 1s linear infinite alternate;
+  width: 70%;
+  height: 20rem;
+  margin: 1.2rem 0;
+}
+
+
+@media only screen and (max-width: 1400px) {
+  .inner-header{
+    width: 100%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .inner-main{
+    width: 100%;
+  }
+} 
+
+
+@media only screen and (max-width: 1200px) {
+  .logo{
+      font-size: 6rem;
   }
 }
