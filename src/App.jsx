@@ -53,7 +53,7 @@ function App() {
       <header className={"header" + isHeaderFullScreen}> 
         <div className="inner-header">
           <div className="logo">McLyrics</div>
-          <Search className="search" onLoadingResults={handleLoadingResults} onResultsReceived={handleResultsReceived}/>
+          <Search className="search" onLoadingResults={handleLoadingResults} onResultsReceived={handleResultsReceived} fullscreen={fullscreen}/>
         </div> 
       </header>
       <main className="main"> 

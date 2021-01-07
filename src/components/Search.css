@@ -13,9 +13,18 @@
     padding-left: 4rem;
 }
 
+.search-box-wrapper{
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;  
+    width: 100%;
+    height: 100%;
+}
 
-.advanced-options-content{
-    position: absolute;
+.wrapper{
+    width: 80%;
+    margin: auto;
+    text-align: left;
 }
 
 .fa-search-icon{ 
@@ -50,7 +59,16 @@
     margin-left: 5rem;
     font-size: 1rem;
     position: relative;
-   
+}
+
+.advanced-options-content{
+    transition: max-height 0.5s;
+    max-height: 100px;
+}
+
+.advanced-options-hidden{
+    max-height:0;
+    overflow: hidden;
 }
 
 .advanced-options-button{
@@ -61,23 +79,7 @@
     color: darkgray
 }
 
-.search-box-wrapper{
-    box-sizing: border-box;
-    position: relative;
-    display: inline-block;  
-    width: 100%;
-    height: 100%;
+.advanced-options-fullscreen{
+    position: absolute;
 }
 
-.options-hidden{
-    max-height:0;
-    overflow: hidden;
-}
-
-
-
-.wrapper{
-    width: 80%;
-    margin: auto;
-    text-align: left;
-}
