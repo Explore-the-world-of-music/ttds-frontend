@@ -69,7 +69,7 @@ class Search extends Component {
 
                 <div className="advanced-options-box">
                     <div className="advanced-options-button" onClick={this.handleOptionsToggle}>Advanced options <FontAwesomeIcon icon="angle-down" className="fa-angle-down-icon" /></div>
-                    <div className={"advanced-options-content" + (this.state.advOptionsExpanded ? "" : " options-hidden") }>COMING SOON </div>
+                    <div className={"advanced-options-content" + (this.state.advOptionsExpanded ? "" : " advanced-options-hidden") + (this.props.fullscreen ? " advanced-options-fullscreen" : "")}>COMING SOON </div>
                 </div>
             </div>
         );
