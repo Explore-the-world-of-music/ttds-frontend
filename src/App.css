@@ -27,6 +27,8 @@ html{
   align-items: center;
   justify-content: center;
   color: white;
+  transition: all 1s;
+  min-height: 0;
 }
 
 .inner-header {
