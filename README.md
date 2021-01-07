@@ -24,4 +24,7 @@ By default, the project is configured to send all API requests to [http://localh
 
 ## Deployment
 This repo is configured to automatically deploy the master branch to [https://ttds-frontend.vercel.app/](https://ttds-frontend.vercel.app/). At the moment, it does not forward any API requests to any server, but it can be changed once we have a backend server running. 
+
 Note that by default a build will fail if the code contains any warnings (like unused imports). 
+
+You can find all other deployments [here](https://github.com/Explore-the-world-of-music/ttds-frontend/deployments).
