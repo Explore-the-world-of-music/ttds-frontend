@@ -1,0 +1,12 @@
+.logo-small{
+    font-size: 4rem;
+}
+
+.logo a:visited, .logo a:link, .logo a{
+    text-decoration: none;
+    color: white;
+}
+
+.inner-main{
+    padding: 3rem;
+}

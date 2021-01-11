@@ -7,7 +7,6 @@ class Search extends Component {
         super(props);
         this.state = {
             // results: {},
-            loading: false,
             query: "",
             advOptionsExpanded: false
         };
@@ -21,7 +20,9 @@ class Search extends Component {
 
     handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-            this.makeSearchRequest()
+            if (this.state.query !== "") {
+                this.props.onSearchRequest(this.state.query)
+            }
         }
     }
 
@@ -39,22 +40,13 @@ class Search extends Component {
         })
     }
 
-    makeSearchRequest = () => {
-        if (this.state.query !== "") {
-            this.props.onLoadingResults()
-            fetch(`https://randomuser.me/api/?results=35&seed=${this.state.query}`, { mode: 'cors' }).then(res => res.json()).then(res => {
-                //setTimeout(() => this.props.onResultsReceived(res),100000000)
-                this.props.onResultsReceived(res)
-            })
-        }
-    }
-
     render() {
         return (
             <div className="wrapper">
                 <div className="search-box-wrapper">
                     <input
                         className="search-box"
+                        defaultValue ={this.props.defaultQuery}
                         type="text"
                         id="search-input"
                         ref={input => this.search = input}

@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
+
+
+@keyframes loading {
+  from {background-color: rgb(214, 214, 214);}
+  to {background-color: rgb(231, 231, 231);}
+}
+
+.header-full{
+  min-height:100vh;
+  background-color: #3E66D0;
+}
+
+.placeholder{
+  animation: loading 1s linear infinite alternate;
+  width: 70%;
+  height: 20rem;
+  margin: 1.2rem 0;
+}
+
+
+@media only screen and (max-width: 1400px) {
+  .inner-header{
+    width: 100%;
+  }
+
+  .inner-main{
+    width: 100%;
+  }
+} 
+
+
+@media only screen and (max-width: 1200px) {
+  .logo{
+      font-size: 6rem;
+  }
+}
+
+.pagination{
+    margin-bottom: 1.2rem;
+}
+
+.logo a:visited, .logo a:link, .logo a{
+    text-decoration: none;
+    color: white;
+}
