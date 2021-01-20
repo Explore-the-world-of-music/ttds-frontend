@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
-
-
-@keyframes loading {
-  from {background-color: rgb(214, 214, 214);}
-  to {background-color: rgb(231, 231, 231);}
+.MainPage {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
+
+
 
 .header-full{
   min-height:100vh;
@@ -40,7 +40,7 @@
     margin-bottom: 1.2rem;
 }
 
-.logo a:visited, .logo a:link, .logo a{
-    text-decoration: none;
-    color: white;
+@keyframes loading {
+  from {background-color: rgb(214, 214, 214);}
+  to {background-color: rgb(231, 231, 231);}
 }

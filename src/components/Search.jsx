@@ -6,7 +6,6 @@ class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // results: {},
             query: "",
             advOptionsExpanded: false
         };
@@ -42,7 +41,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div className="wrapper">
+            <div className="search">
                 <div className="search-box-wrapper">
                     <input
                         className="search-box"

@@ -59,6 +59,14 @@
         width:100%;
     }
 
+    .result-card > *{
+        align-items: center;
+        text-align: center;
+    }
+
+
+
+
     .bottom{
         flex-direction: column-reverse;
     }

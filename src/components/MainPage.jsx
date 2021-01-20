@@ -4,6 +4,7 @@ import Search from './Search'
 import ResultCard from './ResultCard';
 import Pagination from "@material-ui/lab/Pagination";
 
+import {Link} from 'react-router-dom';
 
 
 class MainPage extends Component {
@@ -19,9 +20,6 @@ class MainPage extends Component {
       query: "",
       fullscreen: true
     }
-
-    //this.props.location.state ||
-
 
     this.handlePaginationChange = this.handlePaginationChange.bind(this)
     this.handleSearchRequest = this.handleSearchRequest.bind(this)
@@ -57,18 +55,9 @@ class MainPage extends Component {
       this.setState({ results: this.processResults(res), loading: false })
 
       this.props.history.push(`/?query=${this.state.query}&page=${this.state.page}`)
-      //this.props.history.replace(this.props.location.pathname, this.state)
 
     })
   }
-
-
-  // const [results, setResults] = useState( handleSearchRequest(props?.location?.state?.query))
-  // const [page, setPage] = useState(1)
-  // const [loading, setLoading] = useState(false)
-  // const [fullscreen, setFullscreen] = useState( props?.location?.state?.fullscreen ?? true)
-
-
 
   handlePaginationChange(_, newPage) {
     this.setState({ page: newPage })
@@ -93,7 +82,7 @@ class MainPage extends Component {
       <div className="MainPage">
         <header className={"header" + (this.state.fullscreen ? " header-full" : "")}>
           <div className="inner-header">
-          <div className="logo"><a href="/">McLyrics</a></div>
+          <div className="logo"><Link to="/">Explore the World of Music</Link></div>
             <Search className="search" defaultQuery={this.props?.location?.state?.query ?? ""} onSearchRequest={this.handleSearchRequest} fullscreen={this.state.fullscreen} />
           </div>
         </header>

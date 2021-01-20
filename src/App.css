@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
+
 html{
   width: 100%;
 }
@@ -11,14 +13,6 @@ html, body, #root, .App, .MainPage, .LyricsPage {
   box-sizing: border-box;
 }
  
-
-.MainPage, .LyricsPage {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
-
 .header {
   flex: 0 1 auto;
   background-color: #244AA7;
@@ -38,10 +32,12 @@ html, body, #root, .App, .MainPage, .LyricsPage {
 
 .logo{
   font-family: 'Goudy Bookletter 1911', serif;
-  font-size: 8rem;
+  font-size: 6rem;
   font-style: normal;
   font-weight: normal;
-  color: white;
+  color: white;  
+  margin-bottom: 1rem;
+
 }
 
 .fa-angle-down-icon{
