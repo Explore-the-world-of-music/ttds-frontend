@@ -4,7 +4,7 @@ import Search from './Search'
 import ResultCard from './ResultCard';
 import Pagination from "@material-ui/lab/Pagination";
 
-import {Link} from 'react-router-dom';
+//import {Link} from 'react-router-dom';
 
 
 class MainPage extends Component {
@@ -82,8 +82,8 @@ class MainPage extends Component {
       <div className="MainPage">
         <header className={"header" + (this.state.fullscreen ? " header-full" : "")}>
           <div className="inner-header">
-          <div className="logo"><Link to="/">Explore the World of Music</Link></div>
-            <Search className="search" defaultQuery={this.props?.location?.state?.query ?? ""} onSearchRequest={this.handleSearchRequest} fullscreen={this.state.fullscreen} />
+          <div className="logo"><a href="/">Explore the World of Music</a></div>
+            <Search className="search" defaultQuery={this.props?.location?.state?.query ?? ""} onSearchRequest={this.handleSearchRequest} fullscreen={this.state.fullscreen} nostretch={this.state.fullscreen} />
           </div>
         </header>
         <main className="main">

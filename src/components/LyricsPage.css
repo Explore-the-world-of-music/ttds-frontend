@@ -1,6 +1,7 @@
 .LyricsPage {
     display: flex;
     flex-direction: column;
+    font-family: Roboto;
 }
 
 .logo-small{

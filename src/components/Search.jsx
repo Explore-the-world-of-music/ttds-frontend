@@ -2,6 +2,20 @@ import './Search.css';
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import Accordion from '@semcore/accordion';
+import { Text } from '@semcore/typography';
+import { Flex, Box } from '@semcore/flex-box';
+import Button from '@semcore/button';
+
+import AutoSuggest from './AutoSuggest'
+import ReactTooltip from 'react-tooltip';
+
+import MultiSelect from './MultiSelect'
+
+import styles from './custom.shadow.css';
+
+
+
 class Search extends Component {
     constructor(props) {
         super(props);
@@ -39,6 +53,8 @@ class Search extends Component {
         })
     }
 
+
+
     render() {
         return (
             <div className="search">
@@ -57,10 +73,46 @@ class Search extends Component {
                     <FontAwesomeIcon icon="times" className="fa-times-icon" onClick={this.handleClear} />
 
                 </div>
+                
+                <div className="queries-row">
+                    <Button size="l" use="primary" data-tip data-for="template1" styles={styles}>Template 1</Button>
+                    <ReactTooltip id='template1' type='dark'  effect="solid">
+                    <h2>Hint 1</h2>
+                    <span>Content</span>
+                    </ReactTooltip>
+                    <Button size="l" use="primary" data-tip data-for="template2" styles={styles}>Template 2</Button>
+                    <ReactTooltip id='template2' type='dark' effect="solid">
+                    <h2>Hint 2</h2>
+                    <span>Content</span>
+                    </ReactTooltip>
+                    <Button size="l" use="primary" data-tip data-for="template3" styles={styles}>Template 3</Button>
+                    <ReactTooltip id='template3' type='dark' effect="solid">
+                    <h2>Hint 3</h2>
+                    <span>Content</span>
+                    </ReactTooltip>
+                </div>
 
-                <div className="advanced-options-box">
-                    <div className="advanced-options-button" onClick={this.handleOptionsToggle}>Advanced options <FontAwesomeIcon icon="angle-down" className="fa-angle-down-icon" /></div>
-                    <div className={"advanced-options-content" + (this.state.advOptionsExpanded ? "" : " advanced-options-hidden") + (this.props.fullscreen ? " advanced-options-fullscreen" : "")}>COMING SOON </div>
+                <div className={"advanced-options-box" + (this.props.nostretch === true ? " advanced-options-no-stretch":  "")}>
+                    <Accordion>
+                        <Accordion.Item>
+                            <Accordion.Item.Toggle tag={Flex} alignItems="center">
+                            <Accordion.Item.Chevron color="stone" mr={2} />
+                            <Text>{'Advanced Options'}</Text>
+                            </Accordion.Item.Toggle>
+                            <Accordion.Item.Collapse>
+                                
+                            <Box p="0rem 1.3rem" className="author-row">
+                                <span>Author:</span> 
+                                <AutoSuggest/>
+                            </Box>
+                            <Box p="0rem 1.3rem" className="author-row">
+                                <span>Genre:</span> 
+                                <MultiSelect/>
+                            </Box>
+
+                            </Accordion.Item.Collapse>
+                        </Accordion.Item>
+                    </Accordion>    
                 </div>
             </div>
         );

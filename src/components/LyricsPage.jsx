@@ -6,7 +6,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import SuggestionCard from './SuggestionCard'
-import {Link} from 'react-router-dom';
+//import {Link} from 'react-router-dom';
 
 
 
@@ -50,8 +50,8 @@ class LyricsPage extends Component {
             <div className="LyricsPage">
                 <header className={"header"}>
                     <div className="inner-header">
-                        <div className="logo logo-small"><Link to="/">Explore the World of Music</Link></div>
-                        <Search onSearchRequest={this.redirectRequest} fullscreen={false} />
+                        <div className="logo logo-small"><a href="/">Explore the World of Music</a></div>
+                        <Search onSearchRequest={this.redirectRequest} fullscreen={false} nostretch />
 
                     </div>
                     <div className="header-details">

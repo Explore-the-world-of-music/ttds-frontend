@@ -57,30 +57,45 @@
 .advanced-options-box{
     color: white;
     margin-top: 1.2rem;
-    margin-left: 5rem;
+    margin-left: 3rem;
     font-size: 1rem;
     position: relative;
+    z-index: 2;
+    width: 20rem;
 }
 
-.advanced-options-content{
-    transition: max-height 0.5s;
-    max-height: 100px;
-}
-
-.advanced-options-hidden{
-    max-height:0;
-    overflow: hidden;
-}
-
-.advanced-options-button{
-    cursor:pointer;
-}
-
-.advanced-options-button:hover{
-    color: darkgray
-}
-
-.advanced-options-fullscreen{
+.advanced-options-no-stretch{
     position: absolute;
 }
 
+.queries-row{
+    margin: 1.5rem 0rem 0rem 3rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.queries-row > button {
+    margin-right: 1rem;
+}
+
+
+.author-row{
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.5rem;
+}
+
+.author-row > span{
+    width: 5rem;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.author-row > div{
+    width: 100%;    
+}
+
+.search{
+    position: relative;
+}
