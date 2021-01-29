@@ -8,7 +8,6 @@ html, body, #root, .App, .MainPage, .LyricsPage {
   height: 100%;
 }
 
-
 * {
   box-sizing: border-box;
 }
@@ -19,7 +18,6 @@ html, body, #root, .App, .MainPage, .LyricsPage {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   color: white;
   transition: all 1s;
 }

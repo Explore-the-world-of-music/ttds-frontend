@@ -1,6 +1,6 @@
 import React from 'react';
-import Select from '@semcore/select';
-import Input from '@semcore/input';
+import Select from '@semcore/ui/select';
+import Input from '@semcore/ui/input';
 import './AutoSuggest.css';
 
 
@@ -14,7 +14,7 @@ function setUnderlineWord(searchValue, value) {
         `<span style="text-decoration: underline; padding: 2px 0">${searchValue}</span>`,
       ),
   };
-  return <h3 dangerouslySetInnerHTML={title} />;
+  return <span dangerouslySetInnerHTML={title} />;
 }
 class AutoSuggest extends React.PureComponent {
   timer = null;

@@ -2,18 +2,19 @@ import './Search.css';
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import Accordion from '@semcore/accordion';
-import { Text } from '@semcore/typography';
-import { Flex, Box } from '@semcore/flex-box';
-import Button from '@semcore/button';
+import Slider from "@material-ui/core/Slider";
 
-import AutoSuggest from './AutoSuggest'
+
+import Accordion from '@semcore/ui/accordion';
+import { Text } from '@semcore/ui/typography';
+import { Flex, Box } from '@semcore/ui/flex-box';
+import Button from '@semcore/ui/button';
+
+//import AutoSuggest from './AutoSuggest'
 import ReactTooltip from 'react-tooltip';
 
+import ArtistSelect from './ArtistSelect'
 import MultiSelect from './MultiSelect'
-
-import styles from './custom.shadow.css';
-
 
 
 class Search extends Component {
@@ -21,8 +22,10 @@ class Search extends Component {
         super(props);
         this.state = {
             query: "",
-            advOptionsExpanded: false
+            advOptionsExpanded: false,
+            yearRange: [1960, 2021],
         };
+        this.handleYearSlider = this.handleYearSlider.bind(this)
     }
 
     handleInputChange = (_) => {
@@ -53,9 +56,21 @@ class Search extends Component {
         })
     }
 
-
+    handleYearSlider = (_, newYearRange) => {
+        this.setState({yearRange: newYearRange})
+    }
 
     render() {
+        const marks = [
+            {
+              value: 1960,
+              label: '1960',
+            },
+            {
+              value: 2021,
+              label: '2021',
+            }]
+
         return (
             <div className="search">
                 <div className="search-box-wrapper">
@@ -75,24 +90,24 @@ class Search extends Component {
                 </div>
                 
                 <div className="queries-row">
-                    <Button size="l" use="primary" data-tip data-for="template1" styles={styles}>Template 1</Button>
+                    <Button size="l" use="primary" className="template-button" data-tip data-for="template1">Template 1</Button>
                     <ReactTooltip id='template1' type='dark'  effect="solid">
                     <h2>Hint 1</h2>
                     <span>Content</span>
                     </ReactTooltip>
-                    <Button size="l" use="primary" data-tip data-for="template2" styles={styles}>Template 2</Button>
+                    <Button size="l" use="primary" className="template-button" data-tip data-for="template2">Template 2</Button>
                     <ReactTooltip id='template2' type='dark' effect="solid">
                     <h2>Hint 2</h2>
                     <span>Content</span>
                     </ReactTooltip>
-                    <Button size="l" use="primary" data-tip data-for="template3" styles={styles}>Template 3</Button>
+                    <Button size="l" use="primary" className="template-button" data-tip data-for="template3">Template 3</Button>
                     <ReactTooltip id='template3' type='dark' effect="solid">
                     <h2>Hint 3</h2>
                     <span>Content</span>
                     </ReactTooltip>
                 </div>
 
-                <div className={"advanced-options-box" + (this.props.nostretch === true ? " advanced-options-no-stretch":  "")}>
+                <div className={"advanced-options-box" + (this.props.fullscreen === false ? " advanced-options-no-fullscreen":  "") + (this.props.nostretch === true ? " advanced-options-no-stretch":  "")}>
                     <Accordion>
                         <Accordion.Item>
                             <Accordion.Item.Toggle tag={Flex} alignItems="center">
@@ -101,14 +116,29 @@ class Search extends Component {
                             </Accordion.Item.Toggle>
                             <Accordion.Item.Collapse>
                                 
-                            <Box p="0rem 1.3rem" className="author-row">
+                            <Box p="0rem 1.3rem" className="option-row">
                                 <span>Author:</span> 
-                                <AutoSuggest/>
+                                <ArtistSelect/>
                             </Box>
-                            <Box p="0rem 1.3rem" className="author-row">
+                            <Box p="0rem 1.3rem" className="option-row">
                                 <span>Genre:</span> 
                                 <MultiSelect/>
                             </Box>
+                            <Box p="0rem 1.3rem" className="option-row">
+                                <span>Year range:</span> 
+                                <Slider
+                                    value={this.state.yearRange}
+                                    onChange={this.handleYearSlider}
+                                    valueLabelDisplay="auto"
+                                    aria-labelledby="range-slider"
+                                    getAriaValueText={(value) => value}
+                                    step={1}
+                                    marks={marks}
+                                    min={1960}
+                                    max={2021}
+                                />
+                            </Box>
+                            
 
                             </Accordion.Item.Collapse>
                         </Accordion.Item>

@@ -40,6 +40,7 @@
     background-color: #3E66D0;
     width: 90rem;
     padding-bottom: 2rem;
+    
     position: relative;
 }
 
@@ -55,6 +56,8 @@
     text-align: left;
     padding-left: 28rem;
 }
+
+
 
 .LyricsPage .album-cover img{
     max-width:100%;
