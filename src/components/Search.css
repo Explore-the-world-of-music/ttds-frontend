@@ -11,6 +11,7 @@
     font-size: 1.5rem;
     width: 100%;
     padding-left: 4rem;
+    padding-right: 4rem;
 }
 
 .search-box-wrapper{
@@ -21,7 +22,7 @@
     height: 100%;
 }
 
-.wrapper{
+.search{
     width: 80%;
     margin: auto;
     text-align: left;
@@ -56,30 +57,77 @@
 .advanced-options-box{
     color: white;
     margin-top: 1.2rem;
-    margin-left: 5rem;
+    margin-left: 3rem;
     font-size: 1rem;
     position: relative;
+    z-index: 2;
+    width: 20rem;
 }
 
-.advanced-options-content{
-    transition: max-height 0.5s;
-    max-height: 100px;
-}
-
-.advanced-options-hidden{
-    max-height:0;
-    overflow: hidden;
-}
-
-.advanced-options-button{
-    cursor:pointer;
-}
-
-.advanced-options-button:hover{
-    color: darkgray
-}
-
-.advanced-options-fullscreen{
+.advanced-options-no-stretch{
     position: absolute;
 }
 
+.advanced-options-no-fullscreen.advanced-options-no-stretch{
+    background-color: #4e7bec;
+    padding: 0.3rem 0.5rem 0.3rem 0.3rem;
+    border-radius: 4px;
+}
+.advanced-options-no-fullscreen.advanced-options-no-stretch> *:nth-child(2) {
+    padding-bottom: 1rem;
+}
+
+.MuiSlider-markLabel{
+    color: white !important;
+}
+
+
+
+.queries-row{
+    margin: 1.5rem 0rem 0rem 3rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.queries-row > button {
+    margin-right: 1rem;
+}
+
+
+.option-row{
+    margin-top: 0.5rem;
+}
+
+.option-row > * {
+    display: block; 
+    margin: 0.24rem 0.5rem !important; 
+}
+
+.option-row > *{
+    max-width: 20rem !important;
+}
+
+.search{
+    position: relative;
+}
+
+.template-button{
+    background-color: #4e7bec !important; 
+    
+}
+
+.template-button:hover{
+    background-color: #6b93f8 !important; 
+}
+
+.MuiSlider-root.MuiSlider-colorPrimary{
+    color: white;
+}
+
+.MuiSlider-root.MuiSlider-colorPrimary > span > span > span  > span{
+    color: black;
+}
+
+.MuiSlider-markLabel{
+    color: white;
+}

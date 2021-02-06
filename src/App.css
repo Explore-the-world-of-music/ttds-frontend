@@ -1,19 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
 
-
-@keyframes loading {
-  from {background-color: rgb(214, 214, 214);}
-  to {background-color: rgb(231, 231, 231);}
-}
-
 html{
   width: 100%;
 }
 
-.App {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
+html, body, #root, .App, .MainPage, .LyricsPage {
+  height: 100%;
 }
 
 * {
@@ -21,14 +13,13 @@ html{
 }
  
 .header {
+  flex: 0 1 auto;
   background-color: #244AA7;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   color: white;
   transition: all 1s;
-  min-height: 0;
 }
 
 .inner-header {
@@ -39,10 +30,12 @@ html{
 
 .logo{
   font-family: 'Goudy Bookletter 1911', serif;
-  font-size: 8rem;
+  font-size: 6rem;
   font-style: normal;
   font-weight: normal;
-  color: white;
+  color: white;  
+  margin-bottom: 1rem;
+
 }
 
 .fa-angle-down-icon{
@@ -50,6 +43,7 @@ html{
 }
 
 .main{
+  flex: 1 1 auto;
   background-color: #EAEFFD;
   display: flex;
   flex-direction: column;
@@ -65,35 +59,4 @@ html{
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 1.2rem;
-}
-
-.header-full{
-  min-height:100vh;
-  background-color: #3E66D0;
-}
-
-.placeholder{
-  animation: loading 1s linear infinite alternate;
-  width: 70%;
-  height: 20rem;
-  margin: 1.2rem 0;
-}
-
-
-@media only screen and (max-width: 1400px) {
-  .inner-header{
-    width: 100%;
-  }
-
-  .inner-main{
-    width: 100%;
-  }
-} 
-
-
-@media only screen and (max-width: 1200px) {
-  .logo{
-      font-size: 6rem;
-  }
 }

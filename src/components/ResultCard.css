@@ -59,6 +59,14 @@
         width:100%;
     }
 
+    .result-card > *{
+        align-items: center;
+        text-align: center;
+    }
+
+
+
+
     .bottom{
         flex-direction: column-reverse;
     }
@@ -67,3 +75,29 @@
         margin-bottom: 2rem;
     }
 }
+
+.button-lyrics button {
+    background-color: #3E66D0; 
+    border: none;
+    color: white; 
+    padding: 1rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 0.2rem 0.3rem;
+    border-radius: 2rem;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+.button-lyrics button:hover {
+    background-color: #244AA7;
+    color: white;
+  }
+
+.button-lyrics a:visited, .button-lyrics a:link{
+    text-decoration: none;
+    color: white;
+}
+  
