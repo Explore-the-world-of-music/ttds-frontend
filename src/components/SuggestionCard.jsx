@@ -19,3 +19,4 @@ class SuggestionCard extends Component {
 }
 
 export default SuggestionCard
+

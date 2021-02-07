@@ -69,13 +69,11 @@ class LyricsPage extends Component {
                                     {cards}
                                 </Carousel>
                             </div>
-
                         </div>
                     </div>
 
                 </main>
             </div>
-
         )
     }
 }
