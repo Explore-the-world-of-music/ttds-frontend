@@ -1,37 +1,36 @@
-.result-card{
+.ResultCard {
     background-color: white;
     width: 70%;
     margin: 1.2rem 0;
     padding: 2rem 3rem;
 }
 
-.bottom{
+.ResultCard .bottom {
     display: flex;
     flex-direction: row;
 }
 
-.top{
+.ResultCard .top {
     text-align: left;
 }
 
-.left{
+.ResultCard .left {
     flex-grow: 1;
     text-align: left;
 }
 
-
-.lyrics{
+.ResultCard .lyrics {
     white-space: pre-wrap;
 }
 
-.title{
+.ResultCard .title {
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 2.5rem;
 }
 
-.author{
+.ResultCard .author {
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -39,47 +38,24 @@
     margin-bottom: 1rem;
 }
 
-.album-cover{
+.ResultCard .album-cover {
     overflow: hidden;
     height: 12rem;
     width: 12rem;
     padding-left: 1rem;
-    
+
 }
 
-.album-cover > img{
-    display: block; /* Otherwise it keeps some space around baseline */
-    min-width: 100%;    /* Scale up to fill container width */
-    min-height: 100%;   /* Scale up to fill container height */
-    -ms-interpolation-mode: bicubic; /* Scaled images look a bit better in IE now */
+.ResultCard .album-cover>img {
+    display: block;
+    min-width: 100%;
+    min-height: 100%;
 }
 
-@media only screen and (max-width: 1200px) {
-    .result-card{
-        width:100%;
-    }
-
-    .result-card > *{
-        align-items: center;
-        text-align: center;
-    }
-
-
-
-
-    .bottom{
-        flex-direction: column-reverse;
-    }
-
-    .right{
-        margin-bottom: 2rem;
-    }
-}
-
-.button-lyrics button {
-    background-color: #3E66D0; 
+.ResultCard .button-lyrics button {
+    background-color: #3E66D0;
     border: none;
-    color: white; 
+    color: white;
     padding: 1rem 2rem;
     text-align: center;
     text-decoration: none;
@@ -89,15 +65,34 @@
     border-radius: 2rem;
     transition-duration: 0.4s;
     cursor: pointer;
-  }
-  
-.button-lyrics button:hover {
+}
+
+.ResultCard .button-lyrics button:hover {
     background-color: #244AA7;
     color: white;
-  }
+}
 
-.button-lyrics a:visited, .button-lyrics a:link{
+.ResultCard .button-lyrics a:visited,
+.ResultCard .button-lyrics a:link {
     text-decoration: none;
     color: white;
 }
-  
+
+@media only screen and (max-width: 1200px) {
+    .ResultCard {
+        width: 100%;
+    }
+
+    .ResultCard > .top, .ResultCard > .bottom{
+        align-items: center;
+        text-align: center;
+    }
+
+    .ResultCard .bottom {
+        flex-direction: column-reverse;
+    }
+
+    .ResultCard .right {
+        margin-bottom: 2rem;
+    }
+}

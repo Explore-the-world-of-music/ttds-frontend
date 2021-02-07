@@ -1,0 +1,12 @@
+.ArtistSelectSuggest .artistselect-trigger:hover {
+    background-color: #d1d1d1 !important;
+}
+
+.ArtistSelectSuggest div[aria-pressed=true] {
+    background-color: #d1d1d1 !important;
+}
+
+.ArtistSelectSuggest .spinner>div {
+    margin: auto;
+    margin-top: 0.3rem
+}

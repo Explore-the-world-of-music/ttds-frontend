@@ -1,48 +1,51 @@
+
+@keyframes loading {
+    from {
+        background-color: rgb(214, 214, 214);
+    }
+
+    to {
+        background-color: rgb(231, 231, 231);
+    }
+}
+
 .MainPage {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  font-family: Roboto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: Roboto;
 }
 
-
-
-.header-full{
-  min-height:100%;
-  background-color: #3E66D0;
-  padding-top: 30vh;
+.header-full {
+    min-height: 100%;
+    background-color: #3E66D0;
+    padding-top: 30vh;
 }
 
-.placeholder{
-  animation: loading 1s linear infinite alternate;
-  width: 70%;
-  height: 20rem;
-  margin: 1.2rem 0;
+.MainPage .placeholder {
+    animation: loading 1s linear infinite alternate;
+    width: 70%;
+    height: 20rem;
+    margin: 1.2rem 0;
 }
 
-
-@media only screen and (max-width: 1400px) {
-  .inner-header{
-    width: 100%;
-  }
-
-  .inner-main{
-    width: 100%;
-  }
-} 
-
-
-@media only screen and (max-width: 1200px) {
-  .logo{
-      font-size: 6rem;
-  }
-}
-
-.pagination{
+.MainPage .pagination {
     margin-bottom: 1.2rem;
 }
 
-@keyframes loading {
-  from {background-color: rgb(214, 214, 214);}
-  to {background-color: rgb(231, 231, 231);}
+@media only screen and (max-width: 1400px) {
+    .MainPage .inner-header {
+        width: 100%;
+    }
+
+    .MainPage .inner-main {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .MainPage .logo {
+        font-size: 3rem;
+    }
 }
