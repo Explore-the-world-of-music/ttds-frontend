@@ -1,34 +1,33 @@
-.suggestion-card{
+.SuggestionCard {
     padding: 1rem;
     color: white;
     margin: 1rem;
+    text-align: center;
 }
 
-.suggestion-album-cover {
-    height: 20rem;
-    width: 20rem;
+.SuggestionCard .suggestion-album-cover img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
-.suggestion-album-cover img{
-    max-width:100%;
-    max-height:100%;
-}
-
-.suggestion-card .title{
+.SuggestionCard .title {
     margin-top: 1rem;
     font-size: 2rem;
 }
 
-.suggestion-card .author{
+.SuggestionCard .author {
     font-size: 1.6rem;
     margin-top: 0.8rem;
 }
 
-.suggestion-card a:link, .suggestion-card a:visited, .suggestion-card a:hover, .suggestion-card a:active {
+.SuggestionCard a:link,
+.SuggestionCard a:visited,
+.SuggestionCard a:hover,
+.SuggestionCard a:active {
     text-decoration: none;
     color: white
-  }
-  
-  .suggestion-card:hover{
-      background-color: #4473eb;
-  }
+}
+
+.SuggestionCard:hover {
+    background-color: #4473eb;
+}

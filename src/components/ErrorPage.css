@@ -1,0 +1,22 @@
+.ErrorPage {
+    background: #00E7DC;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.ErrorPage h1 {
+    font-family: 'Nunito', sans-serif;
+    color: #fff;
+    text-align: center;
+    padding: 2em 0 0;
+    opacity: 0;
+}
+
+.ErrorPage svg {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%
+}

@@ -1,54 +1,45 @@
-import React, { Component } from 'react';
-import './LyricsPage.css';
-import Search from './Search';
+import React, { Component } from 'react'
+import './LyricsPage.css'
+import Search from './Search'
 
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
 
 import SuggestionCard from './SuggestionCard'
-//import {Link} from 'react-router-dom';
-
-
+// import {Link} from 'react-router-dom';
 
 class LyricsPage extends Component {
-
-    constructor(props) {
+    constructor (props) {
         super(props)
-        this.redirectRequest = this.redirectRequest.bind(this);
+        this.redirectRequest = this.redirectRequest.bind(this)
     }
 
-    redirectRequest(query) {
-        this.props.history.push({
-            pathname: '/',
-            state: {
-                query: query,
-                fullscreen: false,
-            }
-        })
+    redirectRequest (data) {
+        this.props.history.push(`/?query=${data.query}&author=${data.author}&genre=${data.genre}&years=${data.years}`)
     }
 
-    render() {
+    render () {
         const responsive = {
             desktop: {
-                breakpoint: { max: 3000, min: 1024 },
-                items: 3,
+                breakpoint: { max: 3000, min: 900 },
+                items: 3
             },
             tablet: {
-                breakpoint: { max: 1024, min: 464 },
-                items: 2,
+                breakpoint: { max: 900, min: 464 },
+                items: 2
             },
             mobile: {
                 breakpoint: { max: 464, min: 0 },
-                items: 1,
+                items: 1
             }
-        };
+        }
 
-        const cards = [1,2,3,4,5,6,7,8,9,10].map(result =>
-            <SuggestionCard key={result} author={"Rick Astley"} title={"Never Gonna Give You Up"} picture="https://images.genius.com/a23b3135f345a510fefe813084192479.600x600x1.jpg"/>)
+        const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(result =>
+            <SuggestionCard key={result} author={'Rick Astley'} title={'Never Gonna Give You Up'} picture="https://images.genius.com/a23b3135f345a510fefe813084192479.600x600x1.jpg"/>)
 
         return (
             <div className="LyricsPage">
-                <header className={"header"}>
+                <header className={'header'}>
                     <div className="inner-header">
                         <div className="logo logo-small"><a href="/">Explore the World of Music</a></div>
                         <Search onSearchRequest={this.redirectRequest} fullscreen={false} nostretch />
@@ -74,19 +65,17 @@ class LyricsPage extends Component {
                         <div className="suggestions">
                             <div className="suggestions-title">You might also like:</div>
                             <div className="carousel-wrapper">
-                                <Carousel responsive={responsive}  containerClass="carousel-wrapper" item-class="suggestion-card">
+                                <Carousel responsive={responsive} containerClass="carousel-wrapper" item-class="suggestion-card">
                                     {cards}
                                 </Carousel>
                             </div>
-                            
                         </div>
                     </div>
 
                 </main>
             </div>
-
-        );
+        )
     }
 }
 
-export default LyricsPage;
+export default LyricsPage

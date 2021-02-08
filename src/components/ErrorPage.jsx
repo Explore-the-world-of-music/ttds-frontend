@@ -1,9 +1,9 @@
-import './Error.css'
+import './ErrorPage.css'
 import React, { Component } from 'react'
 import { gsap, TweenMax, Power3, Power1 } from 'gsap/all'
 gsap.registerPlugin(TweenMax, Power3, Power1)
 
-class Error extends Component {
+class ErrorPage extends Component {
     componentDidMount () {
         TweenMax.to('h1', 1, {
             alpha: 1,
@@ -58,7 +58,7 @@ class Error extends Component {
 
     render () {
         return (
-            <div className="error-page">
+            <div className="ErrorPage">
                 <h1>Page not found.</h1>
                 <svg xmlns="http://www.w3.org/2000/svg" width="1226.887px" height="908px" viewBox="0 0 1226.887 908">
                     <g id="water">
@@ -174,4 +174,4 @@ class Error extends Component {
     }
 }
 
-export default Error
+export default ErrorPage

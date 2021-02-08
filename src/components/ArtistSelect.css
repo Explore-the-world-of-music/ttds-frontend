@@ -1,7 +1,7 @@
-.artistselect-trigger:hover{
+.ArtistSelect:hover {
     background-color: #d1d1d1 !important;
 }
 
-div[aria-pressed=true]{
+.ArtistSelect[aria-pressed=true] {
     background-color: #d1d1d1 !important;
 }

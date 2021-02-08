@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
-import './SuggestionCard.css';
-import {Link} from 'react-router-dom';
-
+import React, { Component } from 'react'
+import './SuggestionCard.css'
+import { Link } from 'react-router-dom'
 
 class SuggestionCard extends Component {
-    render() {
+    render () {
         return (
-            <div className="suggestion-card">
-                <Link to={"/song/" + this.props.title}>
+            <div className="SuggestionCard">
+                <Link to={'/song/' + this.props.title}>
                     <div className="suggestion-album-cover">
                         <img src={this.props.picture} alt="Album Cover" />
                     </div>
@@ -15,8 +14,8 @@ class SuggestionCard extends Component {
                     <div className="author">{this.props.author}</div>
                 </Link>
             </div>
-        );
+        )
     }
 }
 
-export default SuggestionCard;
+export default SuggestionCard

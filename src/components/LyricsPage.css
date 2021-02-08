@@ -1,50 +1,67 @@
 .LyricsPage {
     display: flex;
     flex-direction: column;
-    font-family: Roboto;
+    height: 100%
 }
 
-.logo-small{
+.LyricsPage .Search{
+    width: auto;
+}
+
+.LyricsPage .logo-small {
     font-size: 4rem;
 }
 
-.logo a:visited, .logo a:link, .logo a{
-    text-decoration: none;
-    color: white;
-}
-
-.LyricsPage .inner-main{
+.LyricsPage .inner-main {
     padding-top: 3rem;
     text-align: left;
 }
 
-.LyricsPage .inner-header{
+.LyricsPage .inner-header {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     align-items: flex-start;
-    padding: 3rem 1rem 0 4rem;
+    padding: 3rem;
 }
 
-.LyricsPage .logo{
+.LyricsPage .logo {
     flex-grow: 2;
 }
 
-.LyricsPage .search{
+.LyricsPage .search {
     width: auto;
     padding: 1rem;
 }
 
+.LyricsPage .title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
 
-.header-details{
+.LyricsPage .author {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.LyricsPage .lyrics {
+    white-space: pre-wrap;
+}
+
+.LyricsPage .header-details {
     background-color: #3E66D0;
     width: 90rem;
     padding-bottom: 2rem;
-    
+
     position: relative;
 }
 
-.LyricsPage .album-cover{
+.LyricsPage .album-cover {
     height: 20rem;
     width: 20rem;
     position: absolute;
@@ -52,19 +69,17 @@
     left: 3rem;
 }
 
-.LyricsPage .song-details{
+.LyricsPage .song-details {
     text-align: left;
     padding-left: 28rem;
 }
 
-
-
-.LyricsPage .album-cover img{
-    max-width:100%;
-    max-height:100%;
+.LyricsPage .album-cover img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
-.LyricsPage .lyrics{
+.LyricsPage .lyrics {
     font-size: 1.6rem;
     text-align: left;
     width: 100%;
@@ -72,23 +87,72 @@
     padding-bottom: 3rem;
 }
 
-.suggestions{
+.LyricsPage .suggestions {
     background-color: #3E66D0;
     width: 100%;
     padding: 2rem 0;
 }
 
-.carousel-wrapper{
+.LyricsPage .carousel-wrapper {
     width: 90%;
     margin: auto;
     padding-top: 1rem;
 }
 
-.suggestions-title{
+.LyricsPage .suggestions-title {
     text-align: center;
     color: white;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    font-size: 2.5rem;   
+    font-size: 2.5rem;
+}
+
+@media only screen and (max-width: 1400px) {
+    .LyricsPage .inner-header {
+        width: 100%;
+        display: block;
+    }
+
+    .LyricsPage .header-details {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .LyricsPage .header-details>* {
+        padding-left: 0;
+        left: 0;
+        text-align: center;
+    }
+
+    .LyricsPage .lyrics {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .LyricsPage .inner-main {
+        width: 100%;
+    }
+
+    .LyricsPage .logo {
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .LyricsPage .album-cover{
+        position: relative;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .LyricsPage .album-cover{
+        width: auto;
+        margin-left: 0;
+    }
+
+    .LyricsPage .lyrics {
+        padding: 0.5rem;
+    }
 }
