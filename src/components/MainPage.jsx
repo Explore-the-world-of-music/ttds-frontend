@@ -15,7 +15,6 @@ class MainPage extends Component {
             genre: queryString.get('genre')?.split(',').filter(r => r !== ''),
             years: queryString.get('years')?.split(',').filter(r => r !== '').map(Number)
         }
-        console.log(this.defaults.genre)
         this.state = {
             results: [],
             page: queryString.get('page') !== null ? queryString.get('page') : 1,
@@ -47,15 +46,14 @@ class MainPage extends Component {
         fetch(`https://randomuser.me/api/?results=35&seed=${data.query}`).then(res => res.json()).then((res) => {
             // setTimeout(() => {}},100000000)
             this.setState({ results: this.processResults(res), loading: false, reportedQueryData: data })
-
-            this.props.history.push(`/?query=${data.query}&page=${this.state.page}&author=${data.author}&genre=${data.genre}&years=${data.years}`)
+            this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&author=${data.author.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&years=${data.years}`)
         })
     }
 
     handlePaginationChange (_, newPage) {
         this.setState({ page: newPage })
         const data = this.state.reportedQueryData
-        this.props.history.push(`/?query=${data.query}&page=${newPage}&author=${data.author}&genre=${data.genre}&years=${data.years}`)
+        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&author=${data.author.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&years=${data.years}`)
     }
 
     componentDidUpdate (prevProps, prevState) {
