@@ -76,6 +76,10 @@
     border-radius: 4px;
 }
 
+.Search .advanced-options-no-stretch>*:nth-child(2) {
+    padding-bottom: 7rem;
+}
+
 .Search .advanced-options-no-fullscreen.advanced-options-no-stretch>*:nth-child(2) {
     padding-bottom: 1rem;
 }

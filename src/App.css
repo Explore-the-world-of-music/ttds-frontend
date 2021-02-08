@@ -2,19 +2,15 @@
 
 @import-normalize;
 
-html {
-    width: 100%;
-}
-
-html,
-body,
-#root,
-.App {
-    height: 100%;
-}
-
 * {
     box-sizing: border-box;
+}
+
+
+
+html, body, .root, .MainPage, .spinner-wrapper{ 
+    min-height: 100vh;
+    overflow: auto;
 }
 
 .header {
