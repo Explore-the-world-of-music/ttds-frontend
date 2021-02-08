@@ -130,7 +130,7 @@ class Search extends Component {
                     </ReactTooltip>
                 </div>
 
-                <div className={'advanced-options-box' + (this.props.fullscreen === false ? ' advanced-options-no-fullscreen' : '') + (this.props.nostretch === true ? ' advanced-options-no-stretch' : '')}>
+                <div className={'advanced-options-box' + (this.props.fullscreen === false ? ' advanced-options-no-fullscreen' : ' advanced-options-fullscreen') + (this.props.nostretch === true ? ' advanced-options-no-stretch' : '')}>
                     <Accordion>
                         <Accordion.Item>
                             <Accordion.Item.Toggle tag={Flex} alignItems="center">
