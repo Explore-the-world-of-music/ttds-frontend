@@ -134,6 +134,11 @@
 }
 
 @media only screen and (max-width: 900px) {
+    .Search{
+        width: 100%;
+        padding: 0 1rem;
+    }
+
     .Search .advanced-options-box {
         width: auto;
         margin: 0;
