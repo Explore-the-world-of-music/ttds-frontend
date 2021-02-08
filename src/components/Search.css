@@ -103,13 +103,12 @@
     margin: 0.24rem 0.5rem;
 }
 
-.Search .option-row>* {
+.Search .option-row>span>* {
     max-width: 15rem ;
 }
 
 .Search .template-button {
     background-color: #4e7bec !important;
-
 }
 
 .Search .template-button:hover {
