@@ -95,6 +95,7 @@ class Search extends Component {
             <div className="Search">
                 <div className="search-box-wrapper">
                     <input
+                        aria-label="Search field"
                         className="search-box"
                         value = {this.state.query}
                         type="text"
@@ -104,9 +105,8 @@ class Search extends Component {
                         onKeyPress={this.handleKeyPress}
                         onChange={this.handleInputChange}
                     />
-                    <FontAwesomeIcon icon="search" className="fa-search-icon" onClick={this.handleKeyPress} />
-                    <FontAwesomeIcon icon="times" className="fa-times-icon" onClick={this.handleClear} />
-
+                    <FontAwesomeIcon icon="search" aria-label="Search" className="fa-search-icon" onClick={this.handleKeyPress} />
+                    <FontAwesomeIcon icon="times" aria-label="Clear" className="fa-times-icon" onClick={this.handleClear} />
                 </div>
 
                 <div className="queries-row">

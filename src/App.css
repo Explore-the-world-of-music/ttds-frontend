@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
 
+@import-normalize;
+
 html {
     width: 100%;
 }

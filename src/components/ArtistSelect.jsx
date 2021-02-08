@@ -43,9 +43,8 @@ class ArtistSelect extends React.Component {
                 if (!value.length) {
                     options = []
                 }
-                this.setState({ options })
+                this.setState({ options, loading: false })
             })
-            .then(this.setState({ loading: false }))
             .catch(console.error)
     };
 
@@ -68,9 +67,7 @@ class ArtistSelect extends React.Component {
                         {(() => {
                             if (this.state.loading) {
                                 return (
-                                    <span className="spinner">
-                                        <Spin size="xs" />
-                                    </span>
+                                    <Spin centered size="xs" />
                                 )
                             } else if (this.state.filter !== '' && this.state.options.length) {
                                 return (this.state.options.map((option, idx) => {
