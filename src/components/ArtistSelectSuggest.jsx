@@ -60,8 +60,8 @@ class ArtistSelectSuggest extends React.Component {
 
     render () {
         return (
-            <Select classname="ArtistSelectSuggest" multiselect placeholder="Select value" value={this.state.value} size="l" onChange={this.handleChange}>
-                <Select.Trigger className="artistselect-trigger" />
+            <Select multiselect placeholder="Select value" value={this.state.value} size="l" onChange={this.handleChange}>
+                <Select.Trigger className="ArtistSelectSuggest" />
                 <Select.Popper>
                     <InputSearch value={this.state.filter} onChange={this.handleFilterChange} placeholder="Search"/>
                     <Select.List hMax={'10rem'}>

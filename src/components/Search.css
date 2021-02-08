@@ -100,11 +100,11 @@
 
 .Search .option-row>* {
     display: block;
-    margin: 0.24rem 0.5rem !important;
+    margin: 0.24rem 0.5rem;
 }
 
 .Search .option-row>* {
-    max-width: 15rem !important;
+    max-width: 15rem ;
 }
 
 .Search .template-button {

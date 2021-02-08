@@ -113,57 +113,7 @@ class Search extends Component {
                     <FontAwesomeIcon icon="times" className="fa-times-icon" onClick={this.handleClear} />
 
                 </div>
-                
-                <div className="queries-row">
-                    <Button size="l" use="primary" className="template-button" data-tip data-for="template1">Template 1</Button>
-                    <ReactTooltip id='template1' type='dark'  effect="solid">
-                    <h2>Hint 1</h2>
-                    <span>Content</span>
-                    </ReactTooltip>
-                    <Button size="l" use="primary" className="template-button" data-tip data-for="template2">Template 2</Button>
-                    <ReactTooltip id='template2' type='dark' effect="solid">
-                    <h2>Hint 2</h2>
-                    <span>Content</span>
-                    </ReactTooltip>
-                    <Button size="l" use="primary" className="template-button" data-tip data-for="template3">Template 3</Button>
-                    <ReactTooltip id='template3' type='dark' effect="solid">
-                    <h2>Hint 3</h2>
-                    <span>Content</span>
-                    </ReactTooltip>
-                </div>
 
-                <div className={"advanced-options-box" + (this.props.fullscreen === false ? " advanced-options-no-fullscreen":  "") + (this.props.nostretch === true ? " advanced-options-no-stretch":  "")}>
-                    <Accordion>
-                        <Accordion.Item>
-                            <Accordion.Item.Toggle tag={Flex} alignItems="center">
-                            <Accordion.Item.Chevron color="stone" mr={2} />
-                            <Text>{'Advanced Options'}</Text>
-                            </Accordion.Item.Toggle>
-                            <Accordion.Item.Collapse>
-                                
-                            <Box p="0rem 1.3rem" className="option-row">
-                                <span>Author:</span> 
-                                <ArtistSelect/>
-                            </Box>
-                            <Box p="0rem 1.3rem" className="option-row">
-                                <span>Genre:</span> 
-                                <MultiSelect/>
-                            </Box>
-                            <Box p="0rem 1.3rem" className="option-row">
-                                <span>Year range:</span> 
-                                <Slider
-                                    value={this.state.yearRange}
-                                    onChange={this.handleYearSlider}
-                                    valueLabelDisplay="auto"
-                                    aria-labelledby="range-slider"
-                                    getAriaValueText={(value) => value}
-                                    step={1}
-                                    marks={marks}
-                                    min={1960}
-                                    max={2021}
-                                />
-                            </Box>
-                            
                 <div className="queries-row">
                     <Button size="l" use="primary" className="template-button" data-tip data-for="template1" onClick={(e) => this.handleClick('Phrase')}>Phrase Search</Button>
                     <ReactTooltip multiline id='template1' type='dark' effect="solid">
@@ -196,25 +146,31 @@ class Search extends Component {
 
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Author:</span>
-                                    <ArtistSelectSuggest defaultValue={this.props.author} handler={this.handleArtist}/>
+                                    <span>
+                                        <ArtistSelectSuggest defaultValue={this.props.author} handler={this.handleArtist}/>
+                                    </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Genre:</span>
-                                    <MultiSelect defaultValue={this.props.genre} handler={this.handleGenre}/>
+                                    <span>
+                                        <MultiSelect defaultValue={this.props.genre} handler={this.handleGenre}/>
+                                    </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Year range:</span>
-                                    <Slider
-                                        defaultValue={this.props.years}
-                                        onChange={this.handleYearSlider}
-                                        valueLabelDisplay="auto"
-                                        aria-labelledby="range-slider"
-                                        getAriaValueText={(value) => value}
-                                        step={1}
-                                        marks={marks}
-                                        min={1960}
-                                        max={2021}
-                                    />
+                                    <span>
+                                        <Slider
+                                            defaultValue={this.props.years}
+                                            onChange={this.handleYearSlider}
+                                            valueLabelDisplay="auto"
+                                            aria-labelledby="range-slider"
+                                            getAriaValueText={(value) => value}
+                                            step={1}
+                                            marks={marks}
+                                            min={1960}
+                                            max={2021}
+                                        />
+                                    </span>
                                 </Box>
 
                             </Accordion.Item.Collapse>

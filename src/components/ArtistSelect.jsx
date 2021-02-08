@@ -18,8 +18,8 @@ class ArtistSelect extends React.Component {
 
     render () {
         return (
-            <Select className="ArtistSelect" multiselect value={this.state.selected} placeholder="Select value" size="l" defaultValue={this.props.defaultValue} onChange={v => this.setState({ selected: v })}>
-                <Select.Trigger className="artistselect-trigger" />
+            <Select multiselect value={this.state.selected} placeholder="Select value" size="l" defaultValue={this.props.defaultValue} onChange={v => this.setState({ selected: v })}>
+                <Select.Trigger className="ArtistSelect" />
                 <Select.Popper>
                     <InputSearch value={this.state.filter} onChange={(filter) => this.setState({ filter })} placeholder="Search" />
                     <Select.List hMax={'10rem'}>

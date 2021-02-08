@@ -1,12 +1,12 @@
-.ArtistSelectSuggest .artistselect-trigger:hover {
+.ArtistSelectSuggest:hover {
     background-color: #d1d1d1 !important;
 }
 
-.ArtistSelectSuggest div[aria-pressed=true] {
+.ArtistSelectSuggest[aria-pressed=true] {
     background-color: #d1d1d1 !important;
 }
 
-.ArtistSelectSuggest .spinner>div {
+div[data-ui-name="Select.Popper"] .spinner>div {
     margin: auto;
     margin-top: 0.3rem
 }
