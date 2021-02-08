@@ -4,8 +4,6 @@ import Search from './Search'
 import ResultCard from './ResultCard'
 import Pagination from '@material-ui/lab/Pagination'
 
-// import {Link} from 'react-router-dom';
-
 class MainPage extends Component {
     constructor (props) {
         super(props)
@@ -18,7 +16,6 @@ class MainPage extends Component {
             years: queryString.get('years')?.split(',').filter(r => r !== '').map(Number)
         }
         console.log(this.defaults.genre)
-        // this.props.history.replace()
         this.state = {
             results: [],
             page: queryString.get('page') !== null ? queryString.get('page') : 1,
@@ -32,12 +29,6 @@ class MainPage extends Component {
     }
 
     componentDidMount () {
-        console.log('message')
-        // if (this?.props?.location?.state?.query !== undefined) {  //what does this do?
-        //   let data = {query: this.state.query, author: this.state.author, genre: this.state.genre, years: this.state.years}
-        //   this.handleSearchRequest(data)
-        // }
-
         if (this.state.queryUrlData.query !== null) {
             this.handleSearchRequest(this.defaults)
         }

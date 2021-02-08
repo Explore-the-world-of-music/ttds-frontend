@@ -1,5 +1,5 @@
 {
-  "short_name": "McLyrics",
+  "short_name": "World of Music",
   "name": "Lyrics Search Engine",
   "icons": [
     {
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#ffffff",
+  "background_color": "#3E66D0"
 }
