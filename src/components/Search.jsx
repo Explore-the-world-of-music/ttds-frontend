@@ -170,6 +170,7 @@ class Search extends Component {
 
                             </Accordion.Item.Collapse>
                         </Accordion.Item>
+                        <div className="fix"></div>
                     </Accordion>
                 </div>
             </div>

@@ -76,7 +76,7 @@
     border-radius: 4px;
 }
 
-.Search .advanced-options-no-stretch>*:nth-child(2) {
+.Search .advanced-options-no-stretch div[data-ui-name="Item.Collapse"] + .fix {
     padding-bottom: 7rem;
 }
 
