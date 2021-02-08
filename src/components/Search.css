@@ -133,7 +133,7 @@
     }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 600px) {
     .Search{
         width: 100%;
         padding: 0 1rem;
