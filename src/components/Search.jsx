@@ -6,13 +6,8 @@ import Accordion from '@semcore/ui/accordion'
 import { Text } from '@semcore/ui/typography'
 import { Flex, Box } from '@semcore/ui/flex-box'
 import Button from '@semcore/ui/button'
-
-// import AutoSuggest from './AutoSuggest'
 import ReactTooltip from 'react-tooltip'
-
-// import ArtistSelect from './ArtistSelect'
-import ArtistSelectSuggest from './ArtistSelectSuggest'
-
+import ArtistSelect from './ArtistSelect'
 import MultiSelect from './MultiSelect'
 
 class Search extends Component {
@@ -147,7 +142,7 @@ class Search extends Component {
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Author:</span>
                                     <span>
-                                        <ArtistSelectSuggest defaultValue={this.props.author} handler={this.handleArtist}/>
+                                        <ArtistSelect defaultValue={this.props.author} handler={this.handleArtist}/>
                                     </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">

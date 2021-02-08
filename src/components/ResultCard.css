@@ -97,7 +97,7 @@
     }
 }
 
-.button-lyrics button {
+.ResultCard .button-lyrics button {
     background-color: #3E66D0; 
     border: none;
     color: white; 
@@ -112,12 +112,12 @@
     cursor: pointer;
   }
   
-.button-lyrics button:hover {
+  .ResultCard .button-lyrics button:hover {
     background-color: #244AA7;
     color: white;
   }
 
-.button-lyrics a:visited, .button-lyrics a:link{
+  .ResultCard .button-lyrics a:visited, .button-lyrics a:link{
     text-decoration: none;
     color: white;
 }
