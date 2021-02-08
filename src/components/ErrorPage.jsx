@@ -54,13 +54,63 @@ class ErrorPage extends Component {
             yoyo: true,
             ease: Power1.easeInOut
         }, '-=5')
+
+        TweenMax.staggerTo('#tent1', 4, {
+            x: '+=10',
+            y: '+=35',
+            repeat: -1,
+            rotation: 5,
+            skewX: '10deg',
+            yoyo: true,
+            ease: Power1.easeInOut
+        }, '-=5')
+
+        TweenMax.staggerTo('#tent2', 4, {
+            x: '+=10',
+            y: '+=35',
+            rotation: 2,
+            skewY: '10deg',
+            repeat: -1,
+            yoyo: true,
+            ease: Power1.easeInOut
+        }, '-=5')
+
+        TweenMax.staggerTo('#tent3', 4, {
+            x: '-=0',
+            y: '+=3',
+            rotation: 2,
+            skewY: '5deg',
+            repeat: -1,
+            yoyo: true,
+            ease: Power1.easeInOut
+        }, '-=5')
+
+        TweenMax.staggerTo('#tent4', 4, {
+            x: '+=0',
+            y: '+=10',
+            rotation: -2,
+            repeat: -1,
+            skewY: '7deg',
+            yoyo: true,
+            ease: Power1.easeInOut
+        }, '-=5')
+
+        TweenMax.staggerTo('#tent5', 4, {
+            x: '+=3',
+            y: '+=10',
+            rotation: -4,
+            skewY: '3deg',
+            repeat: -1,
+            yoyo: true,
+            ease: Power1.easeInOut
+        }, '-=5')
     }
 
     render () {
         return (
             <div className="ErrorPage">
                 <h1>Page not found.</h1>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1226.887px" height="908px" viewBox="0 0 1226.887 908">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1226.887 908">
                     <g id="water">
                         <path id="leftWater" fill="#00B6FF" d="M1226.887,908H1887V330.333c0,0-17.78-23.951-43.113-23.951s-50.667,32.724-144.667,32.724
         s-99.333-32.724-177.333-32.724s-76.667,32.724-172,32.724s-166.77-31.173-218.174-31.173c-73.012,0-73.012,33.725-146.023,33.725

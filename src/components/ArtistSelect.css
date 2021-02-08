@@ -1,9 +1,9 @@
 .ArtistSelectSuggest:hover {
-    background-color: #d1d1d1 !important;
+    background-color: lightgrey !important;
 }
 
 .ArtistSelectSuggest[aria-pressed=true] {
-    background-color: #d1d1d1 !important;
+    background-color: lightgrey !important;
 }
 
 div[data-ui-name="Select.Popper"] .spinner>div {

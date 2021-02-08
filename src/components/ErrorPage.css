@@ -1,5 +1,5 @@
 .ErrorPage {
-    background: #00E7DC;
+    background: #4473eb;
     height: 100%;
     overflow: hidden;
     position: relative;
@@ -16,7 +16,5 @@
 .ErrorPage svg {
     position: fixed;
     bottom: 0;
-    left: 0;
-    height: 100%;
-    width: 100%
+    width: 100%;
 }
