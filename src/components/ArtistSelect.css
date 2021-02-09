@@ -5,8 +5,3 @@
 .ArtistSelectSuggest[aria-pressed=true] {
     background-color: lightgrey !important;
 }
-
-div[data-ui-name="Select.Popper"] .spinner>div {
-    margin: auto;
-    margin-top: 0.3rem
-}

@@ -76,8 +76,8 @@
     border-radius: 4px;
 }
 
-.Search .advanced-options-no-fullscreen.advanced-options-no-stretch>*:nth-child(2) {
-    padding-bottom: 1rem;
+.Search .advanced-options-fullscreen.advanced-options-no-stretch div[data-ui-name="Item.Collapse"] + .fix {
+    padding-bottom: 7rem;
 }
 
 .Search .MuiSlider-markLabel {

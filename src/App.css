@@ -1,18 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
 
-html {
-    width: 100%;
-}
-
-html,
-body,
-#root,
-.App {
-    height: 100%;
-}
+@import-normalize;
 
 * {
     box-sizing: border-box;
+}
+
+
+
+html, body, .root, .MainPage, .spinner-wrapper{ 
+    min-height: 100vh;
+    overflow: auto;
 }
 
 .header {
@@ -57,7 +55,6 @@ body,
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .inner-main {

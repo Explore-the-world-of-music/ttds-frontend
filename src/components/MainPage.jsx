@@ -56,12 +56,6 @@ class MainPage extends Component {
         this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&author=${data.author.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&years=${data.years}`)
     }
 
-    componentDidUpdate (prevProps, prevState) {
-        if (prevProps.location !== this.props.location) {
-            console.log(prevState)
-        }
-    }
-
     render () {
         let cards
         if (this.state.loading) {
@@ -69,8 +63,12 @@ class MainPage extends Component {
                 <div className="placeholder" key={x}></div>
             )
         } else {
-            cards = this.state.results.slice((this.state.page - 1) * this.resultsPerPage, (this.state.page) * this.resultsPerPage).map(result =>
-                <ResultCard key={result.name.toString()} result={result} />)
+            if (this.state.results.length) {
+                cards = this.state.results.slice((this.state.page - 1) * this.resultsPerPage, (this.state.page) * this.resultsPerPage).map(result =>
+                    <ResultCard key={result.name.toString()} result={result} />)
+            } else {
+                cards = <h2 className="empty"> No results </h2>
+            }
         }
 
         return (
@@ -84,7 +82,7 @@ class MainPage extends Component {
                 <main className="main">
                     <div className="inner-main">
                         {cards}
-                        {this.state.fullscreen || this.state.results.length < this.resultsPerPage ? '' : <Pagination className="pagination" variant="outlined" shape="rounded" count={Math.ceil(this.state.results.length / this.resultsPerPage)} onChange={this.handlePaginationChange} />}
+                        {this.state.fullscreen || this.state.results.length < this.resultsPerPage || !this.state.results.length ? '' : <Pagination className="pagination" variant="outlined" shape="rounded" count={Math.ceil(this.state.results.length / this.resultsPerPage)} onChange={this.handlePaginationChange} />}
                     </div>
                 </main>
             </div>

@@ -95,6 +95,7 @@ class Search extends Component {
             <div className="Search">
                 <div className="search-box-wrapper">
                     <input
+                        aria-label="Search field"
                         className="search-box"
                         value = {this.state.query}
                         type="text"
@@ -104,9 +105,8 @@ class Search extends Component {
                         onKeyPress={this.handleKeyPress}
                         onChange={this.handleInputChange}
                     />
-                    <FontAwesomeIcon icon="search" className="fa-search-icon" onClick={this.handleKeyPress} />
-                    <FontAwesomeIcon icon="times" className="fa-times-icon" onClick={this.handleClear} />
-
+                    <FontAwesomeIcon icon="search" aria-label="Search" className="fa-search-icon" onClick={this.handleKeyPress} />
+                    <FontAwesomeIcon icon="times" aria-label="Clear" className="fa-times-icon" onClick={this.handleClear} />
                 </div>
 
                 <div className="queries-row">
@@ -130,7 +130,7 @@ class Search extends Component {
                     </ReactTooltip>
                 </div>
 
-                <div className={'advanced-options-box' + (this.props.fullscreen === false ? ' advanced-options-no-fullscreen' : '') + (this.props.nostretch === true ? ' advanced-options-no-stretch' : '')}>
+                <div className={'advanced-options-box' + (this.props.fullscreen === false ? ' advanced-options-no-fullscreen' : ' advanced-options-fullscreen') + (this.props.nostretch === true ? ' advanced-options-no-stretch' : '')}>
                     <Accordion>
                         <Accordion.Item>
                             <Accordion.Item.Toggle tag={Flex} alignItems="center">
@@ -170,6 +170,7 @@ class Search extends Component {
 
                             </Accordion.Item.Collapse>
                         </Accordion.Item>
+                        <div className="fix"></div>
                     </Accordion>
                 </div>
             </div>
