@@ -31,10 +31,10 @@ class Search extends Component {
     handleClick (type) {
         switch (type) {
         case 'Phrase':
-            this.setState({ query: 'Ups I did * again' })
+            this.setState({ query: 'Oops!... I did * again' })
             break
         case 'Logical':
-            this.setState({ query: 'Ups && did &&|| heart' })
+            this.setState({ query: 'Oops && did || heart' })
             break
         case 'Proximity':
             this.setState({ query: '#15(Ups,again)' })
@@ -113,20 +113,20 @@ class Search extends Component {
                     <Button size="l" use="primary" className="template-button" data-tip data-for="template1" onClick={(e) => this.handleClick('Phrase')}>Phrase Search</Button>
                     <ReactTooltip multiline id='template1' type='dark' effect="solid">
                         <h2>You know a part of the song? </h2>
-                        <span>Then use <b>“Your Query”</b> to find exact expressions. <br/>If you do not know single words,<br/> just add <b>*</b> for each word that you don´t know. <br/>For advanced searches you can also combine <br/>the phrase search with a logical search, <br/>for example if you know an additional<br/> word in the song <b>(“Your Query” &amp;&amp; Word)</b>.</span>
-                        <h3>Example: “Ups I did * again”</h3>
+                        <span>Then use <b>&quot;Your Query&quot;</b> to find exact expressions. <br/>If you do not know single words,<br/> just add <b>*</b> for each word that you don´t know. <br/>For advanced searches you can also combine <br/>the phrase search with a logical search, <br/>for example if you know an additional<br/> word in the song <b>(“Your Query” &amp;&amp; Word)</b>.</span>
+                        <h3>Example: &quot;Oops!... I did * again&quot;</h3>
                     </ReactTooltip>
                     <Button size="l" use="primary" className="template-button" data-tip data-for="template2" onClick={(e) => this.handleClick('Logical')}>Logical Search</Button>
                     <ReactTooltip multiline id='template2' type='dark' effect="solid">
                         <h2>You know single words or want to exclude results?</h2>
                         <span>Then make use of the various helpers to narrow down the results.<br/> <b>Word 1 &amp;&amp; Word 2</b> means that both words are in the song,<br/> <b>Word 1 || Word 2</b> means that at least one of the words is in the song <br/>and with <b>-- Word 1</b> you allow only songs that do not contain Word 1. <br/>Of course, you can also chain the helpers <b>&amp;&amp;, || and --</b>.</span>
-                        <h3>Example: “Ups &amp;&amp; did &amp;&amp;|| heart”</h3>
+                        <h3>Example: Oops &amp;&amp; did || heart</h3>
                     </ReactTooltip>
                     <Button size="l" use="primary" className="template-button" data-tip data-for="template3" onClick={(e) => this.handleClick('Proximity')}>Proximity Search</Button>
                     <ReactTooltip multiline id='template3' type='dark' effect="solid">
                         <h2>You know some words and you can<br/> guess how close they are together?</h2>
                         <span>Then use the proximity search to get the best results. <br/>You can define the maximal word distance between <br/>each two words in your query, if you are unsure just  <br/> make it a little larger. For advanced searches you can  <br/> also combine the proximity search with a logical search, <br/>for example if you know an additional word in the <br/> song <b>(#15(Your, Query) &amp;&amp; Word)</b>.</span>
-                        <h3>Example: #15(Ups,again)</h3>
+                        <h3>Example: #15(Oops,again)</h3>
                     </ReactTooltip>
                 </div>
 

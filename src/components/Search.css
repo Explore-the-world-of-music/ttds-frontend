@@ -21,6 +21,10 @@
     padding-right: 4rem;
 }
 
+.Search .search-box:-webkit-autofill::first-line{
+    font-size: 1.5rem;
+}
+
 .Search .search-box-wrapper {
     box-sizing: border-box;
     position: relative;
