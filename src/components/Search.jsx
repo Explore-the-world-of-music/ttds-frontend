@@ -17,7 +17,7 @@ class Search extends Component {
             query: this.props?.defaultQuery ?? '',
             advOptionsExpanded: false,
             years: this.props.years,
-            author: this.props.author,
+            artist: this.props.artist,
             genre: this.props.genre
         }
         this.handleYearSlider = this.handleYearSlider.bind(this)
@@ -44,7 +44,7 @@ class Search extends Component {
     }
 
     handleArtist (x) {
-        this.setState({ author: x })
+        this.setState({ artist: x })
     }
 
     handleGenre (x) {
@@ -56,10 +56,9 @@ class Search extends Component {
     }
 
     handleKeyPress (event) {
-        console.log(event)
         if (event.key === 'Enter' || event.type === 'click') {
             if (this.state.query !== '') {
-                this.props.onSearchRequest({ query: this.state.query, author: this.state.author, years: this.state.years, genre: this.state.genre })
+                this.props.onSearchRequest({ query: this.state.query, artist: this.state.artist, years: this.state.years, genre: this.state.genre })
             }
         }
     }
@@ -140,9 +139,9 @@ class Search extends Component {
                             <Accordion.Item.Collapse>
 
                                 <Box p="0rem 1.3rem" className="option-row">
-                                    <span>Author:</span>
+                                    <span>Artist:</span>
                                     <span>
-                                        <ArtistSelect defaultValue={this.props.author} handler={this.handleArtist}/>
+                                        <ArtistSelect defaultValue={this.props.artist} handler={this.handleArtist}/>
                                     </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
@@ -181,7 +180,7 @@ class Search extends Component {
 Search.defaultProps = {
     query: '',
     years: [1960, 2021],
-    author: [],
+    artist: [],
     genre: []
 }
 

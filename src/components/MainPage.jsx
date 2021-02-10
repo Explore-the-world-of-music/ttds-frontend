@@ -11,7 +11,7 @@ class MainPage extends Component {
         const queryString = new URLSearchParams(this.props.location.search)
         this.defaults = {
             query: queryString.get('query'),
-            author: queryString.get('author')?.split(',').filter(r => r !== ''),
+            artist: queryString.get('artist')?.split(',').filter(r => r !== ''),
             genre: queryString.get('genre')?.split(',').filter(r => r !== ''),
             years: queryString.get('years')?.split(',').filter(r => r !== '').map(Number)
         }
@@ -33,27 +33,22 @@ class MainPage extends Component {
         }
     }
 
-    processResults (res) {
-        return res.results.map((x) => {
-            const data = { name: x.name.first + ' ' + x.name.last, city: x.location.city, state: x.location.state, picture: x.picture.large }
-            return data
-        })
-    }
-
     handleSearchRequest (data) {
         this.setState({ loading: true, fullscreen: false })
 
-        fetch(`https://randomuser.me/api/?results=35&seed=${data.query}`).then(res => res.json()).then((res) => {
-            // setTimeout(() => {}},100000000)
-            this.setState({ results: this.processResults(res), loading: false, reportedQueryData: data })
-            this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&author=${data.author.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&years=${data.years}`)
+        fetch(`/api/songs?query=${data.query}&artist=${data.artist}&genre=${data.genre}&years=${data.years}`).then(res => res.json()).then((res) => {
+            this.setState({ results: res.songs, loading: false, reportedQueryData: data })
+            this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&years=${data.years}`)
+        }).catch(error => {
+            console.log(error)
+            this.setState({ results: [], loading: false, reportedQueryData: null })
         })
     }
 
     handlePaginationChange (_, newPage) {
         this.setState({ page: newPage })
         const data = this.state.reportedQueryData
-        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&author=${data.author.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&years=${data.years}`)
+        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&years=${data.years}`)
     }
 
     render () {
@@ -76,7 +71,7 @@ class MainPage extends Component {
                 <header className={'header' + (this.state.fullscreen ? ' header-full' : '')}>
                     <div className="inner-header">
                         <div className="logo"><a href="/">Explore the World of Music</a></div>
-                        <Search className="search" defaultQuery={this.defaults.query} onSearchRequest={this.handleSearchRequest} fullscreen={this.state.fullscreen} nostretch={this.state.fullscreen} author={this.defaults.author} genre={this.defaults.genre} years={this.defaults.years}/>
+                        <Search className="search" defaultQuery={this.defaults.query} onSearchRequest={this.handleSearchRequest} fullscreen={this.state.fullscreen} nostretch={this.state.fullscreen} artist={this.defaults.artist} genre={this.defaults.genre} years={this.defaults.years}/>
                     </div>
                 </header>
                 <main className="main">

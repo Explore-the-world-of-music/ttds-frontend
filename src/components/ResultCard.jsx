@@ -7,16 +7,15 @@ class ResultCard extends Component {
             <div className="ResultCard">
                 <div className="top">
                     <div className="title">{this.props.result.name}</div>
-
-                    <div className="author">{this.props.result.state}</div>
+                    <div className="artist">{this.props.result.artist}</div>
                 </div>
                 <div className="bottom">
                     <div className="left">
-                        <div className="lyrics">{(((this.props.result.city + ' ').repeat(3) + '\n').repeat(4) + '\n').repeat(2)}</div>
+                        <div className="lyrics">{this.props.result.lyrics}</div>
                     </div>
                     <div className="right">
                         <div className="album-cover">
-                            <img src={this.props.result.picture} alt="Album Cover" />
+                            <img src={this.props.result.image} alt="Album Cover" />
                         </div>
                     </div>
                 </div>
