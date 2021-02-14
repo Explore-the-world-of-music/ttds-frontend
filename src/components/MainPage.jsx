@@ -58,7 +58,7 @@ class MainPage extends Component {
                 <div className="placeholder" key={x}></div>
             )
         } else {
-            if (this.state.results.length) {
+            if ((this.state.results.length) || (this.state.fullscreen)) {
                 cards = this.state.results.slice((this.state.page - 1) * this.resultsPerPage, (this.state.page) * this.resultsPerPage).map(result =>
                     <ResultCard key={result.name.toString()} result={result} />)
             } else {
