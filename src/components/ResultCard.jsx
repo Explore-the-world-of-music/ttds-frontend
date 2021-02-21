@@ -15,7 +15,7 @@ class ResultCard extends Component {
                     </div>
                     <div className="right">
                         <div className="album-cover">
-                            <img src={this.props.result.image} alt="Album Cover" />
+                            <img src={this.props.result?.image ?? '/album-placeholder.png'} alt="Album Cover" />
                         </div>
                     </div>
                 </div>

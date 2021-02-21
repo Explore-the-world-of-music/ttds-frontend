@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Select, { InputSearch } from '@semcore/ui/select'
 
 import './MultiSelect.css'
 import { Text } from '@semcore/typography'
 
-const options = Array(20)
-    .fill('')
-    .map((i, idx) => ({
-        value: `Option ${idx}`
-    }))
-
 export default function MultiSelect (props) {
     const [filter, setFilter] = useState('')
-    const filteredOptions = options.filter((option) => option.value.toString().toLowerCase().includes(filter.toLowerCase()))
+    const [options, setOptions] = useState([])
+    const filteredOptions = options.filter((option) => option.toString().toLowerCase().includes(filter.toLowerCase()))
+
+    useEffect(() => {
+        fetch('/api/songs/get_genres').then(res => res.json()).then((res) => {
+            setOptions(res.genres)
+        }).catch(error => {
+            console.log(error)
+        })
+    }, [])
 
     return (
         <Select multiselect placeholder="Select value" defaultValue={props.defaultValue} onChange={props.handler} size="l">
@@ -24,7 +27,7 @@ export default function MultiSelect (props) {
                     value // function that controls the internal state of the selected value
                 } = handlers
                 const handleClick = () => {
-                    const newValue = currentValue.length ? [] : options.map(({ value }) => value)
+                    const newValue = currentValue.length ? [] : options
                     value(newValue)
                     return false // cancel the default handler
                 }
@@ -45,7 +48,7 @@ export default function MultiSelect (props) {
                                 }
                                 {filteredOptions.length
                                     ? (
-                                        filteredOptions.map(({ value }) => (
+                                        filteredOptions.map((value) => (
                                             <Select.OptionCheckbox value={value} key={value}>
                                                 {value}
                                             </Select.OptionCheckbox>
