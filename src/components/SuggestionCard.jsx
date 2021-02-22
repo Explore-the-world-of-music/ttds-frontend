@@ -11,7 +11,7 @@ class SuggestionCard extends Component {
                         <img src={this.props.picture} alt="Album Cover" />
                     </div>
                     <div className="title">{this.props.title}</div>
-                    <div className="author">{this.props.author}</div>
+                    <div className="artist">{this.props.artist}</div>
                 </Link>
             </div>
         )

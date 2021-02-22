@@ -34,16 +34,11 @@
     margin-bottom: 1rem;
 }
 
-.ResultCard .album-cover {
-    overflow: hidden;
-    height: 12rem;
-    width: 12rem;
-}
 
 .ResultCard .album-cover>img {
     display: block;
-    min-width: 100%;
-    min-height: 100%;
+    min-width: 170px;
+    min-height: 170px;
 }
 
 .ResultCard .button-lyrics button {

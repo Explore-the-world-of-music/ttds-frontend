@@ -36,7 +36,7 @@ class MainPage extends Component {
     handleSearchRequest (data) {
         this.setState({ loading: true, fullscreen: false })
 
-        fetch(`/api/songs/search?query=${data.query}&artist=${data.artist}&genre=${data.genre}&years=${data.years}`).then(res => res.json()).then((res) => {
+        fetch(`/api/songs/search?query=${encodeURIComponent(data.query)}&artist=${encodeURIComponent(data.artist)}&genre=${encodeURIComponent(data.genre)}&years=${data.years}`).then(res => res.json()).then((res) => {
             this.setState({ results: res.songs, loading: false, reportedQueryData: data })
             this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&years=${data.years}`)
         }).catch(error => {

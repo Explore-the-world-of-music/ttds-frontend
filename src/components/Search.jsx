@@ -31,7 +31,7 @@ class Search extends Component {
     handleClick (type) {
         switch (type) {
         case 'Phrase':
-            this.setState({ query: 'Oops!... I did * again' })
+            this.setState({ query: '"Oops!... I did * again"' })
             break
         case 'Logical':
             this.setState({ query: 'Oops && did || heart' })

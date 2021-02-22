@@ -14,7 +14,7 @@ class LyricsPage extends Component {
     }
 
     redirectRequest (data) {
-        this.props.history.push(`/?query=${data.query}&author=${data.author}&genre=${data.genre}&years=${data.years}`)
+        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&artist=${encodeURIComponent(data.artist)}&genre=${encodeURIComponent(data.genre)}&years=${data.years}`)
     }
 
     render () {
@@ -34,7 +34,7 @@ class LyricsPage extends Component {
         }
 
         const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(result =>
-            <SuggestionCard key={result} author={'Rick Astley'} title={'Never Gonna Give You Up'} picture="https://images.genius.com/a23b3135f345a510fefe813084192479.600x600x1.jpg"/>)
+            <SuggestionCard key={result} artist={'Rick Astley'} title={'Never Gonna Give You Up'} picture="https://images.genius.com/a23b3135f345a510fefe813084192479.600x600x1.jpg"/>)
 
         return (
             <div className="LyricsPage">
@@ -50,7 +50,7 @@ class LyricsPage extends Component {
                         </div>
                         <div className="song-details">
                             <div className="title">{this.props.match.params.id}</div>
-                            <div className="author">Rick Astley</div>
+                            <div className="artist">Rick Astley</div>
                             <div className="album">Whenever You Need Somebody</div>
                             <div className="release-date">1987</div>
                         </div>
