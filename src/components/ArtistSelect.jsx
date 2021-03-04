@@ -31,14 +31,14 @@ class ArtistSelect extends React.Component {
     };
 
     sendData (value) {
-        fetch(`https://suggestions.semrush.com/?type=domain&q=${value}`)
+        fetch(`/api/artists/get_artist?query=${value}`)
             .then((response) => {
                 return response.json()
             })
             .then((json) => {
                 let options = json.results.map((item) => ({
-                    value: item.value,
-                    title: item.value
+                    value: item.id,
+                    title: item.artist
                 }))
                 if (!value.length) {
                     options = []

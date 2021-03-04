@@ -9,6 +9,21 @@ import Button from '@semcore/ui/button'
 import ReactTooltip from 'react-tooltip'
 import ArtistSelect from './ArtistSelect'
 import MultiSelect from './MultiSelect'
+import Select from '@semcore/ui/select'
+import Input from '@semcore/ui/input'
+
+function setUnderlineWord (searchValue, value) {
+    const re = new RegExp(searchValue.toLowerCase(), 'g')
+    const title = {
+        __html: value
+            .toLowerCase()
+            .replace(
+                re,
+                `<span style="text-decoration: underline; padding: 2px 0">${searchValue}</span>`
+            )
+    }
+    return <span dangerouslySetInnerHTML={title} />
+}
 
 class Search extends Component {
     constructor (props) {
@@ -18,26 +33,31 @@ class Search extends Component {
             advOptionsExpanded: false,
             years: this.props.years,
             artist: this.props.artist,
-            genre: this.props.genre
+            genre: this.props.genre,
+            valid: true,
+            options: []
         }
+        this.timer = null
+        this.pattern = /^((\s*--\s*)?(\w+|("(?=.*\w.*)(\w+){1}(\s+(\w+|\*))*\s*(\w+){1}\s*")|(#\d*\(\w+\s*(,\s*\w+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?(\w+|("(?=.*\w.*)(\w+){1}(\s+(\w+|\*))*\s*(\w+){1}\s*")|(#\d*\(\w+\s*(,\s*\w+)*\)))\s*)*)$|(^(\w+\s*)+$)/
         this.handleYearSlider = this.handleYearSlider.bind(this)
         this.handleGenre = this.handleGenre.bind(this)
         this.handleArtist = this.handleArtist.bind(this)
-        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleChange = this.handleChange.bind(this)
         this.handleKeyPress = this.handleKeyPress.bind(this)
         this.handleClear = this.handleClear.bind(this)
+        this.changeValue = this.changeValue.bind(this)
     }
 
     handleClick (type) {
         switch (type) {
         case 'Phrase':
-            this.setState({ query: '"Oops!... I did * again"' })
+            this.setState({ valid: true, query: '"Oops!... I did * again"' })
             break
         case 'Logical':
-            this.setState({ query: 'Oops && did || heart' })
+            this.setState({ valid: true, query: 'Oops && did || heart' })
             break
         case 'Proximity':
-            this.setState({ query: '#15(Ups,again)' })
+            this.setState({ valid: true, query: '#15(Ups,again)' })
             break
         }
         this.input.focus()
@@ -51,14 +71,15 @@ class Search extends Component {
         this.setState({ genre: x })
     }
 
-    handleInputChange (event) {
-        this.setState({ query: event.target.value })
-    }
-
     handleKeyPress (event) {
         if (event.key === 'Enter' || event.type === 'click') {
             if (this.state.query !== '') {
-                this.props.onSearchRequest({ query: this.state.query, artist: this.state.artist, years: this.state.years, genre: this.state.genre })
+                if (this.pattern.test(this.state.query)) {
+                    this.setState({ valid: true, options: [] })
+                    this.props.onSearchRequest({ query: this.state.query, artist: this.state.artist, years: this.state.years, genre: this.state.genre })
+                } else {
+                    this.setState({ valid: false })
+                }
             }
         }
     }
@@ -79,6 +100,43 @@ class Search extends Component {
         this.setState({ years: newYearRange })
     }
 
+    changeValue (query) {
+        this.setState({ query, valid: true })
+        // this.input.focus()
+    }
+
+    handleChange (value) {
+        this.changeValue(value)
+        this.debounceSend(value)
+    };
+
+    debounceSend (value) {
+        if (!this.timer) {
+            this.timer = setTimeout(() => {
+                this.timer = null
+                if (value !== '') {
+                    this.sendData(value)
+                }
+            }, 1) // 250
+        }
+    };
+
+    sendData (value) {
+        fetch(`/api/songs/query_autocomplete?query=${encodeURIComponent(value)}`)
+            .then((response) => {
+                return response.json()
+            })
+            .then((json) => {
+                const options = json.suggestions
+                this.setState({ options })
+            })
+            .catch(console.error)
+    };
+
+    componentWillUnmount () {
+        this.timer = null
+    }
+
     render () {
         const marks = [
             {
@@ -90,24 +148,42 @@ class Search extends Component {
                 label: '2021'
             }]
 
+        const { query, options } = this.state
+
         return (
             <div className="Search">
                 <div className="search-box-wrapper">
-                    <input
-                        aria-label="Search field"
-                        className="search-box"
-                        value = {this.state.query}
-                        type="text"
-                        id="search-input"
-                        placeholder="Search..."
-                        ref={(input) => { this.input = input }}
-                        onKeyPress={this.handleKeyPress}
-                        onChange={this.handleInputChange}
-                    />
+                    <Select className="AutoSuggest" interaction="focus" value={query} onChange={this.changeValue} size="l" >
+                        <Select.Trigger tag={Input} className={'search-box' + (this.state.valid ? '' : ' error-border')}>
+                            <Input.Value
+                                aria-label="Search field"
+                                value = {this.state.query}
+                                type="text"
+                                id="search-input"
+                                placeholder="Search..."
+                                ref={(input) => { this.input = input }}
+                                onKeyDown={this.handleKeyPress}
+                                onChange={this.handleChange}
+                                autocomplete="off"
+                            />
+                        </Select.Trigger>
+                        {options.length > 0 && query && (
+                            <Select.Menu >
+                                {options.map((option) => {
+                                    return (
+                                        <Select.Option value={option} key={option} className="select-option">
+                                            {setUnderlineWord(query, option)}
+                                        </Select.Option>
+                                    )
+                                })}
+                            </Select.Menu>
+                        )}
+                    </Select>
+
                     <FontAwesomeIcon icon="search" aria-label="Search" className="fa-search-icon" onClick={this.handleKeyPress} />
                     <FontAwesomeIcon icon="times" aria-label="Clear" className="fa-times-icon" onClick={this.handleClear} />
                 </div>
-
+                {!this.state.valid ? <div className="error">The query is not valid</div> : ''}
                 <div className="queries-row">
                     <Button size="l" use="primary" className="template-button" data-tip data-for="template1" onClick={(e) => this.handleClick('Phrase')}>Phrase Search</Button>
                     <ReactTooltip multiline id='template1' type='dark' effect="solid">
