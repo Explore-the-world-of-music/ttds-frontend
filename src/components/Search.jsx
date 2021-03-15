@@ -11,6 +11,13 @@ import ArtistSelect from './ArtistSelect'
 import MultiSelect from './MultiSelect'
 import Select from '@semcore/ui/select'
 import Input from '@semcore/ui/input'
+import AwesomeDebouncePromise from 'awesome-debounce-promise'
+
+const searchAPI = value => fetch(`/api/songs/query_autocomplete?query=${encodeURIComponent(value)}`)
+    .then(response => response.json())
+    .then(json => json.suggestions)
+
+const debounce = AwesomeDebouncePromise(searchAPI, 500)
 
 function setUnderlineWord (searchValue, value) {
     const re = new RegExp(searchValue.toLowerCase(), 'g')
@@ -34,14 +41,15 @@ class Search extends Component {
             years: this.props.years,
             artist: this.props.artist,
             genre: this.props.genre,
+            language: this.props.language,
             valid: true,
             options: []
         }
-        this.timer = null
-        this.pattern = /^((\s*--\s*)?(\w+|("(?=.*\w.*)(\w+){1}(\s+(\w+|\*))*\s*(\w+){1}\s*")|(#\d*\(\w+\s*(,\s*\w+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?(\w+|("(?=.*\w.*)(\w+){1}(\s+(\w+|\*))*\s*(\w+){1}\s*")|(#\d*\(\w+\s*(,\s*\w+)*\)))\s*)*)$|(^(\w+\s*)+$)/
+        this.pattern = /^((\s*--\s*)?([\wL.!?,\-&$£]+|("(?=.*\w.*)([\wL.!?,\-&$£]+){1}(\s+([\wL.!?,\-&$£]+|\*))*\s*([\wL.!?,\-&$£]+){1}\s*")|(#\d*\([\wL.!?,\-&$£]+\s*(,\s*[\wL.!?,\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\wL.!?,\-&$£]+|("(?=.*\w.*)([\wL.!?,\-&$£]+){1}(\s+([\wL.!?,\-&$£]+|\*))*\s*([\wL.!?,\-&$£]+){1}\s*")|(#\d*\([\wL.!?,\-&$£]+\s*(,\s*[\wL.!?,\-&$£]+)*\)))\s*)*)$|(^([\wL.!?,\-&$£]+\s*)+$)/
         this.handleYearSlider = this.handleYearSlider.bind(this)
         this.handleGenre = this.handleGenre.bind(this)
         this.handleArtist = this.handleArtist.bind(this)
+        this.handleLanguage = this.handleLanguage.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleKeyPress = this.handleKeyPress.bind(this)
         this.handleClear = this.handleClear.bind(this)
@@ -63,12 +71,16 @@ class Search extends Component {
         this.input.focus()
     }
 
-    handleArtist (x) {
-        this.setState({ artist: x })
+    handleArtist (artist) {
+        this.setState({ artist })
     }
 
-    handleGenre (x) {
-        this.setState({ genre: x })
+    handleLanguage (language) {
+        this.setState({ language })
+    }
+
+    handleGenre (genre) {
+        this.setState({ genre })
     }
 
     handleKeyPress (event) {
@@ -76,7 +88,7 @@ class Search extends Component {
             if (this.state.query !== '') {
                 if (this.pattern.test(this.state.query)) {
                     this.setState({ valid: true, options: [] })
-                    this.props.onSearchRequest({ query: this.state.query, artist: this.state.artist, years: this.state.years, genre: this.state.genre })
+                    this.props.onSearchRequest({ query: this.state.query, artist: this.state.artist, years: this.state.years, genre: this.state.genre, language: this.state.language })
                 } else {
                     this.setState({ valid: false })
                 }
@@ -105,37 +117,11 @@ class Search extends Component {
         // this.input.focus()
     }
 
-    handleChange (value) {
+    async handleChange (value) {
         this.changeValue(value)
-        this.debounceSend(value)
+        const options = await debounce(value)
+        this.setState({ options })
     };
-
-    debounceSend (value) {
-        if (!this.timer) {
-            this.timer = setTimeout(() => {
-                this.timer = null
-                if (value !== '') {
-                    this.sendData(value)
-                }
-            }, 1) // 250
-        }
-    };
-
-    sendData (value) {
-        fetch(`/api/songs/query_autocomplete?query=${encodeURIComponent(value)}`)
-            .then((response) => {
-                return response.json()
-            })
-            .then((json) => {
-                const options = json.suggestions
-                this.setState({ options })
-            })
-            .catch(console.error)
-    };
-
-    componentWillUnmount () {
-        this.timer = null
-    }
 
     render () {
         const marks = [
@@ -164,7 +150,7 @@ class Search extends Component {
                                 ref={(input) => { this.input = input }}
                                 onKeyDown={this.handleKeyPress}
                                 onChange={this.handleChange}
-                                autocomplete="off"
+                                autoComplete="off"
                             />
                         </Select.Trigger>
                         {options.length > 0 && query && (
@@ -221,9 +207,15 @@ class Search extends Component {
                                     </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
+                                    <span>Language:</span>
+                                    <span>
+                                        <MultiSelect method="get_languages" defaultValue={this.props.language} handler={this.handleLanguage}/>
+                                    </span>
+                                </Box>
+                                <Box p="0rem 1.3rem" className="option-row">
                                     <span>Genre:</span>
                                     <span>
-                                        <MultiSelect defaultValue={this.props.genre} handler={this.handleGenre}/>
+                                        <MultiSelect method="get_genres" defaultValue={this.props.genre} handler={this.handleGenre}/>
                                     </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
@@ -257,7 +249,8 @@ Search.defaultProps = {
     query: '',
     years: [1960, 2021],
     artist: [],
-    genre: []
+    genre: [],
+    language: []
 }
 
 export default Search

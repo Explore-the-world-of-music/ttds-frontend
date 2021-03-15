@@ -4,53 +4,37 @@ import Spin from '@semcore/ui/spin'
 
 import './ArtistSelect.css'
 
+import AwesomeDebouncePromise from 'awesome-debounce-promise'
+
+const searchAPI = value => fetch(`/api/artists/get_artist?query=${encodeURIComponent(value)}`)
+    .then(response => response.json())
+    .then(json => {
+        let options = json.results.map((item) => ({
+            value: item.id,
+            title: item.artist
+        }))
+        if (!value.length) {
+            options = []
+        }
+        return options
+    })
+
+const debounce = AwesomeDebouncePromise(searchAPI, 500)
+
 class ArtistSelect extends React.Component {
     constructor (props) {
         super(props)
         this.timer = null
         this.state = { options: [], filter: '', value: this.props?.defaultValue ?? [], loading: false }
         this.handleChange = this.handleChange.bind(this)
-        this.sendData = this.sendData.bind(this)
-        this.debounceSend = this.debounceSend.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
     }
 
-    handleFilterChange (filter) {
+    async handleFilterChange (filter) {
         this.setState({ filter })
-        this.debounceSend(filter)
+        const options = await debounce(filter)
+        this.setState({ options, loading: false })
     };
-
-    debounceSend (value) {
-        if (!this.timer) {
-            this.setState({ loading: true })
-            this.timer = setTimeout(() => {
-                this.timer = null
-                this.sendData(value)
-            }, 250)
-        }
-    };
-
-    sendData (value) {
-        fetch(`/api/artists/get_artist?query=${value}`)
-            .then((response) => {
-                return response.json()
-            })
-            .then((json) => {
-                let options = json.results.map((item) => ({
-                    value: item.id,
-                    title: item.artist
-                }))
-                if (!value.length) {
-                    options = []
-                }
-                this.setState({ options, loading: false })
-            })
-            .catch(console.error)
-    };
-
-    componentWillUnmount () {
-        this.timer = null
-    }
 
     handleChange (value) {
         this.setState({ value })
