@@ -1,5 +1,5 @@
 {
     "rewrites": [
-      { "source": "/api/:match*", "destination": "https://ttds-dev.herokuapp.com/api/:match*"}
+      { "source": "/api/:match*", "destination": "https://ttds-backend.ml:q/api/:match*"}
     ]
 }

@@ -24,7 +24,6 @@ const debounce = AwesomeDebouncePromise(searchAPI, 500)
 class ArtistSelect extends React.Component {
     constructor (props) {
         super(props)
-        this.timer = null
         this.state = { options: [], filter: '', value: this.props?.defaultValue ?? [], loading: false }
         this.handleChange = this.handleChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
