@@ -3,15 +3,19 @@ import Select, { InputSearch } from '@semcore/ui/select'
 
 import './MultiSelect.css'
 import { Text } from '@semcore/typography'
+import Spin from '@semcore/ui/spin'
 
 export default function MultiSelect (props) {
     const [filter, setFilter] = useState('')
+    const [loading, setLoading] = useState(false)
     const [options, setOptions] = useState([])
     const filteredOptions = options.filter((option) => option.toString().toLowerCase().includes(filter.toLowerCase()))
 
     useEffect(() => {
+        setLoading(true)
         fetch('/api/songs/get_genres').then(res => res.json()).then((res) => {
             setOptions(res.genres)
+            setLoading(false)
         }).catch(error => {
             console.log(error)
         })
@@ -56,7 +60,7 @@ export default function MultiSelect (props) {
 
                                     )
                                     : (
-                                        <Select.OptionHint key="Nothing">Nothing found</Select.OptionHint>
+                                        loading ? <Spin centered size="xs" /> : <Select.OptionHint key="Nothing">Nothing found</Select.OptionHint>
                                     )}
                             </Select.List>
                         </Select.Popper>

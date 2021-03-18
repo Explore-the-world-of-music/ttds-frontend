@@ -17,7 +17,7 @@
 .MainPage .header-full {
     height: 100vh;
     background-color: #3E66D0;
-    padding-top: 30vh;
+    padding-top: 26vh;
 }
 
 .MainPage .placeholder {
@@ -32,6 +32,9 @@
 }
 
 @media only screen and (max-width: 1400px) {
+    .MainPage .header-full{
+        padding-top: 4rem;
+    }
     .MainPage .inner-header {
         width: 100%;
     }

@@ -26,6 +26,7 @@ class MainPage extends Component {
 
         this.handlePaginationChange = this.handlePaginationChange.bind(this)
         this.handleSearchRequest = this.handleSearchRequest.bind(this)
+        this.handleSearchRequestFromUser = this.handleSearchRequestFromUser.bind(this)
     }
 
     componentDidMount () {
@@ -38,7 +39,7 @@ class MainPage extends Component {
         this.setState({ loading: true, fullscreen: false })
 
         fetch(`/api/songs/search?query=${encodeURIComponent(data.query)}&artist=${encodeURIComponent(data.artist)}&genre=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}`).then(res => res.json()).then((res) => {
-            this.setState({ results: res.songs, loading: false, reportedQueryData: data })
+            this.setState({ results: res.songs, loading: false, reportedQueryData: data, page: 1 })
             this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}`)
         }).catch(error => {
             console.log(error)
@@ -46,10 +47,15 @@ class MainPage extends Component {
         })
     }
 
+    handleSearchRequestFromUser (data) {
+        this.setState({ page: 1 })
+        this.handleSearchRequest(data)
+    }
+
     handlePaginationChange (_, newPage) {
         this.setState({ page: newPage })
         const data = this.state.reportedQueryData
-        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}`)
+        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${newPage}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}`)
     }
 
     render () {
@@ -72,13 +78,13 @@ class MainPage extends Component {
                 <header className={'header' + (this.state.fullscreen ? ' header-full' : '')}>
                     <div className="inner-header">
                         <div className="logo"><a href="/">Explore the World of Music</a></div>
-                        <Search className="search" defaultQuery={this.defaults.query} onSearchRequest={this.handleSearchRequest} fullscreen={this.state.fullscreen} nostretch={this.state.fullscreen} artist={this.defaults.artist} genre={this.defaults.genre} language={this.defaults.language} years={this.defaults.years}/>
+                        <Search className="search" defaultQuery={this.defaults.query} onSearchRequest={this.handleSearchRequestFromUser} fullscreen={this.state.fullscreen} nostretch={false} artist={this.defaults.artist} genre={this.defaults.genre} language={this.defaults.language} years={this.defaults.years}/>
                     </div>
                 </header>
                 <main className="main">
                     <div className="inner-main">
                         {cards}
-                        {this.state.fullscreen || this.state.results.length < this.resultsPerPage || !this.state.results.length ? '' : <Pagination className="pagination" variant="outlined" shape="rounded" count={Math.ceil(this.state.results.length / this.resultsPerPage)} onChange={this.handlePaginationChange} />}
+                        {this.state.fullscreen || this.state.results.length < this.resultsPerPage || !this.state.results.length ? '' : <Pagination className="pagination" variant="outlined" shape="rounded" page={this.state.page} count={Math.ceil(this.state.results.length / this.resultsPerPage)} onChange={this.handlePaginationChange} />}
                     </div>
                 </main>
             </div>
