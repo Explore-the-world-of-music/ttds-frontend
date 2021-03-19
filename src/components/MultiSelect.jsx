@@ -13,7 +13,7 @@ export default function MultiSelect (props) {
 
     useEffect(() => {
         setLoading(true)
-        fetch('/api/songs/get_genres').then(res => res.json()).then((res) => {
+        fetch(`/api/songs/${props.method}`).then(res => res.json()).then((res) => {
             setOptions(res.genres)
             setLoading(false)
         }).catch(error => {

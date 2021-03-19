@@ -14,6 +14,7 @@ class MainPage extends Component {
             artist: queryString.get('artist')?.split(',').filter(r => r !== ''),
             genre: queryString.get('genre')?.split(',').filter(r => r !== ''),
             language: queryString.get('language')?.split(',').filter(r => r !== ''),
+            phraseSearchByDefault: (queryString.get('phraseSearchByDefault') !== 'false'),
             years: queryString.get('years')?.split(',').filter(r => r !== '').map(Number)
         }
         this.state = {
@@ -37,10 +38,14 @@ class MainPage extends Component {
 
     handleSearchRequest (data) {
         this.setState({ loading: true, fullscreen: false })
-
-        fetch(`/api/songs/search?query=${encodeURIComponent(data.query)}&artist=${encodeURIComponent(data.artist)}&genre=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}`).then(res => res.json()).then((res) => {
+        if (data.phraseSearchByDefault) {
+            if (data.query.length > 0 && data.query.charAt(data.query.length - 1) !== '"' && data.query.charAt(0) !== '"') {
+                data.query = `"${data.query}"`
+            }
+        }
+        fetch(`/api/songs/search?query=${encodeURIComponent(data.query)}&artist=${encodeURIComponent(data.artist)}&genre=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`).then(res => res.json()).then((res) => {
             this.setState({ results: res.songs, loading: false, reportedQueryData: data, page: 1 })
-            this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}`)
+            this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
         }).catch(error => {
             console.log(error)
             this.setState({ results: [], loading: false, reportedQueryData: null })
@@ -55,7 +60,7 @@ class MainPage extends Component {
     handlePaginationChange (_, newPage) {
         this.setState({ page: newPage })
         const data = this.state.reportedQueryData
-        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${newPage}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}`)
+        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${newPage}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
     }
 
     render () {
@@ -78,7 +83,7 @@ class MainPage extends Component {
                 <header className={'header' + (this.state.fullscreen ? ' header-full' : '')}>
                     <div className="inner-header">
                         <div className="logo"><a href="/">Explore the World of Music</a></div>
-                        <Search className="search" defaultQuery={this.defaults.query} onSearchRequest={this.handleSearchRequestFromUser} fullscreen={this.state.fullscreen} nostretch={false} artist={this.defaults.artist} genre={this.defaults.genre} language={this.defaults.language} years={this.defaults.years}/>
+                        <Search className="search" defaultQuery={this.defaults.query} onSearchRequest={this.handleSearchRequestFromUser} fullscreen={this.state.fullscreen} nostretch={false} artist={this.defaults.artist} genre={this.defaults.genre} language={this.defaults.language} years={this.defaults.years} phraseSearchByDefault={this.defaults.phraseSearchByDefault}/>
                     </div>
                 </header>
                 <main className="main">

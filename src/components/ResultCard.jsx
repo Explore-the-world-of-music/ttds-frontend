@@ -19,7 +19,7 @@ class ResultCard extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="button-lyrics"><a href={'/song/' + this.props.result.name}><button>Full Lyrics</button></a></div>
+                <div className="button-lyrics"><a href={'/song/' + this.props.result.id}><button>Full Lyrics</button></a></div>
             </div>
         )
     }

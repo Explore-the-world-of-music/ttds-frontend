@@ -14,7 +14,7 @@ class LyricsPage extends Component {
     }
 
     redirectRequest (data) {
-        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&artist=${encodeURIComponent(data.artist)}&genre=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}`)
+        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&artist=${encodeURIComponent(data.artist)}&genre=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
     }
 
     render () {

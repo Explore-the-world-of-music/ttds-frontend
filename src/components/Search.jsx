@@ -2,6 +2,7 @@ import './Search.css'
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Slider from '@material-ui/core/Slider'
+import Switch from '@material-ui/core/Switch'
 import Accordion from '@semcore/ui/accordion'
 import { Text } from '@semcore/ui/typography'
 import { Flex, Box } from '@semcore/ui/flex-box'
@@ -12,6 +13,22 @@ import MultiSelect from './MultiSelect'
 import Select from '@semcore/ui/select'
 import Input from '@semcore/ui/input'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
+
+import { withStyles } from '@material-ui/core/styles'
+
+const CustomSwitch = withStyles({
+    switchBase: {
+        color: '#CCCCCC',
+        '&$checked': {
+            color: '#FFFFFF'
+        },
+        '&$checked + $track': {
+            backgroundColor: '#6B93F8'
+        }
+    },
+    checked: {},
+    track: {}
+})(Switch)
 
 const searchAPI = value => fetch(`/api/songs/query_autocomplete?query=${encodeURIComponent(value)}`)
     .then(response => response.json())
@@ -43,14 +60,17 @@ class Search extends Component {
             genre: this.props.genre,
             language: this.props.language,
             valid: true,
+            phraseSearchByDefault: this.props.phraseSearchByDefault,
             options: []
         }
-        this.pattern = /^((\s*--\s*)?([\wL.!?,\-&$£]+|("(?=.*\w.*)([\wL.!?,\-&$£]+){1}(\s+([\wL.!?,\-&$£]+|\*))*\s*([\wL.!?,\-&$£]+){1}\s*")|(#\d*\([\wL.!?,\-&$£]+\s*(,\s*[\wL.!?,\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\wL.!?,\-&$£]+|("(?=.*\w.*)([\wL.!?,\-&$£]+){1}(\s+([\wL.!?,\-&$£]+|\*))*\s*([\wL.!?,\-&$£]+){1}\s*")|(#\d*\([\wL.!?,\-&$£]+\s*(,\s*[\wL.!?,\-&$£]+)*\)))\s*)*)$|(^([\wL.!?,\-&$£]+\s*)+$)/
+        this.pattern = /^((\s*--\s*)?([\wL.!?,'\-&$£]+|("(?=.*\w.*)([\wL.!?,'\-&$£]+){1}(\s+([\wL.!?,'\-&$£]+|\*))*\s*([\wL.!?,'\-&$£]+){1}\s*")|(#\d*\([\wL.!?,'\-&$£]+\s*(,\s*[\wL.!?,'\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\wL.!?,'\-&$£]+|("(?=.*\w.*)([\wL.!?,'\-&$£]+){1}(\s+([\wL.!?,'\-&$£]+|\*))*\s*([\wL.!?,'\-&$£]+){1}\s*")|(#\d*\([\wL.!?,'\-&$£]+\s*(,\s*[\wL.!?,'\-&$£]+)*\)))\s*)*)$|(^([\wL.!?,'\-&$£]+\s*)+$)/
+        this.patternPh = /(^"[\wL.!?,'\-&$£ ]+"$)|(^[\wL.!?,'\-&$£ ]+$)/
         this.handleYearSlider = this.handleYearSlider.bind(this)
         this.handleGenre = this.handleGenre.bind(this)
         this.handleArtist = this.handleArtist.bind(this)
         this.handleLanguage = this.handleLanguage.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleDefaultModeChange = this.handleDefaultModeChange.bind(this)
         this.handleKeyPress = this.handleKeyPress.bind(this)
         this.handleClear = this.handleClear.bind(this)
         this.changeValue = this.changeValue.bind(this)
@@ -59,13 +79,13 @@ class Search extends Component {
     handleClick (type) {
         switch (type) {
         case 'Phrase':
-            this.setState({ valid: true, query: '"Oops!... I did * again"' })
+            this.setState({ valid: true, phraseSearchByDefault: false, query: '"Oops!... I did * again"' })
             break
         case 'Logical':
-            this.setState({ valid: true, query: 'Oops && did || heart' })
+            this.setState({ valid: true, phraseSearchByDefault: false, query: 'Oops && did || heart' })
             break
         case 'Proximity':
-            this.setState({ valid: true, query: '#15(Ups,again)' })
+            this.setState({ valid: true, phraseSearchByDefault: false, query: '#15(Ups,again)' })
             break
         }
         this.input.focus()
@@ -86,9 +106,9 @@ class Search extends Component {
     handleKeyPress (event) {
         if (event.key === 'Enter' || event.type === 'click') {
             if (this.state.query !== '') {
-                if (this.pattern.test(this.state.query)) {
+                if ((this.pattern.test(this.state.query) && !this.state.phraseSearchByDefault) || (this.patternPh.test(this.state.query) && this.state.phraseSearchByDefault)) {
                     this.setState({ valid: true, options: [] })
-                    this.props.onSearchRequest({ query: this.state.query, artist: this.state.artist, years: this.state.years, genre: this.state.genre, language: this.state.language })
+                    this.props.onSearchRequest({ query: this.state.query, artist: this.state.artist, years: this.state.years, genre: this.state.genre, language: this.state.language, phraseSearchByDefault: this.state.phraseSearchByDefault })
                 } else {
                     this.setState({ valid: false })
                 }
@@ -106,6 +126,10 @@ class Search extends Component {
         this.setState({
             advOptionsExpanded: !this.state.advOptionsExpanded
         })
+    }
+
+    handleDefaultModeChange (event) {
+        this.setState({ phraseSearchByDefault: event.target.checked })
     }
 
     handleYearSlider (_, newYearRange) {
@@ -199,7 +223,10 @@ class Search extends Component {
                                 <Text>{'Advanced Options'}</Text>
                             </Accordion.Item.Toggle>
                             <Accordion.Item.Collapse>
-
+                                <Box p="0rem 1.3rem" className="option-row-switch">
+                                    <Text>Use phrase search  </Text><FontAwesomeIcon icon="info-circle" aria-label="info" data-tip data-for="info" className="fa-info-circle" /><CustomSwitch checked={this.state.phraseSearchByDefault} onChange={this.handleDefaultModeChange} name="phraseSearchByDefault" inputProps={{ 'aria-label': 'Enable phrase search by default' }} />
+                                    <ReactTooltip multiline id="info" type="dark" effect="solid">Use phrase search instead of TF-IDF  <br/> for simple queries without operators</ReactTooltip>
+                                </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Artist:</span>
                                     <span>

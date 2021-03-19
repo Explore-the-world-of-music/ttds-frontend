@@ -123,11 +123,15 @@
 }
 
 .Search .option-row {
-    margin-top: 0.5rem;
+    margin-top: 0.5rem
 }
 
 .Search .option-row>* {
     display: block;
+    margin: 0.24rem 0.5rem;
+}
+
+.Search .option-row-switch:first-child {
     margin: 0.24rem 0.5rem;
 }
 
@@ -153,6 +157,11 @@
 
 .Search .MuiSlider-markLabel {
     color: white;
+}
+
+.Search .MuiSwitch-track{
+    opacity: 1 !important;
+    background-color: #253D7D; 
 }
 
 .Search .error{
