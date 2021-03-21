@@ -138,7 +138,8 @@ class Search extends Component {
 
     changeValue (query) {
         this.setState({ query, valid: true })
-        // this.input.focus()
+        this.input.blur()
+        this.input.focus()
     }
 
     async handleChange (value) {
