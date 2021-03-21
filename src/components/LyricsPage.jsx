@@ -78,7 +78,7 @@ class LyricsPage extends Component {
                         <div className="header-details">
                             <div className="meta-info">
                                 <div className="album-cover">
-                                    <img src={this.state.song.image} alt="album cover" />
+                                    <img src={this.state.song.image ?? '/album-placeholder.png'} alt="album cover" />
                                 </div>
                                 <div className="info-container">
                                     {this.state.song.released ? <div>Released: {this.state.song.released}</div> : ''}
