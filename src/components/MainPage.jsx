@@ -15,7 +15,7 @@ class MainPage extends Component {
             genre: queryString.get('genre')?.split(',').filter(r => r !== '') ?? [],
             language: queryString.get('language')?.split(',').filter(r => r !== '') ?? [],
             phraseSearchByDefault: (queryString.get('phraseSearchByDefault') !== 'false'),
-            years: queryString.get('years')?.split(',').filter(r => r !== '')?.map(Number) ?? ['1960, 2021']
+            years: queryString.get('years')?.split(',').filter(r => r !== '')?.map(Number) ?? [1960, 2021]
         }
         this.state = {
             results: [],
