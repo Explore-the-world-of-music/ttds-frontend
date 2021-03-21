@@ -12,11 +12,11 @@
 
 .SuggestionCard .title {
     margin-top: 1rem;
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 .SuggestionCard .author {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     margin-top: 0.8rem;
 }
 

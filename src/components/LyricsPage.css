@@ -39,10 +39,9 @@
     font-size: 2.5rem;
 }
 
-.LyricsPage .author {
+.LyricsPage .artist {
     font-weight: normal;
     font-size: 1.8rem;
-    margin-bottom: 1rem;
 }
 
 .LyricsPage .lyrics {
@@ -73,7 +72,7 @@
 }
 
 .LyricsPage .lyrics {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     text-align: left;
     width: 100%;
     padding-left: 28rem;
@@ -89,29 +88,46 @@
 .LyricsPage .carousel-wrapper {
     width: 90%;
     margin: auto;
-    padding-top: 1rem;
 }
 
 .LyricsPage .suggestions-title {
     text-align: center;
     color: white;
     font-weight: bold;
-    font-size: 2.5rem;
+    font-size: 2rem;
+}
+
+.LyricsPage .release-date{
+    font-size: 1.2rem;
 }
 
 .LyricsPage .info-container {
     padding-top: 1rem;
     padding-left: 0.5rem;
-    line-height: 1.6rem;
-    font-size: 1.4rem;
+    line-height: 1.4rem;
+    font-size: 1.2rem;
     color: black;
     box-sizing: border-box;
+}
+
+.LyricsPage .info-container-small{
+    padding: 0;
+    display: none;
+    color: white;
 }
 
 @media only screen and (max-width: 1400px) {
     .LyricsPage .inner-header {
         width: 100%;
         display: block;
+    }
+
+    .LyricsPage .info-container-small{
+        display: block;
+    }
+
+    .LyricsPage .info-container{
+        display: none;
     }
 
     .LyricsPage .header-details {
@@ -125,11 +141,6 @@
         padding-left: 0;
         left: 0;
         text-align: center;
-    }
-
-    .LyricsPage .info-container {
-        padding: 0;
-        color: white;
     }
 
     .LyricsPage .lyrics {

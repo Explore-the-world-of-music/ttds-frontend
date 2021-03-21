@@ -81,7 +81,6 @@ class LyricsPage extends Component {
                                     <img src={this.state.song.image ?? '/album-placeholder.png'} alt="album cover" />
                                 </div>
                                 <div className="info-container">
-                                    {this.state.song.released ? <div>Released: {this.state.song.released}</div> : ''}
                                     {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
                                     {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
                                     {this.state.song.rating ? <div>Rating: {this.state.song.rating}</div> : ''}
@@ -97,6 +96,15 @@ class LyricsPage extends Component {
                                 <div className="artist">{this.state.song.artist}</div>
                                 {/* <div className="album">{this.state.song.album}</div> */}
                                 <div className="release-date">{this.state.song.released}</div>
+                                <div className="info-container-small">
+                                    {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
+                                    {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
+                                    {this.state.song.rating ? <div>Rating: {this.state.song.rating}</div> : ''}
+                                    {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
+                                    {this.state.song.bpm ? <div>BPM: {this.state.song.bpm}</div> : ''}
+                                    {this.state.song.topic_id ? <div>Topic: {this.state.song.topic_id}</div> : ''}
+                                    {this.state.song.key ? <div>Key: {this.state.song.key}</div> : ''}
+                                </div>
                             </div>
                         </div>
                     </header>
