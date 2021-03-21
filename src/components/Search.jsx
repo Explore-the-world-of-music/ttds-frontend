@@ -143,8 +143,10 @@ class Search extends Component {
 
     async handleChange (value) {
         this.changeValue(value)
-        const options = await debounce(value)
-        this.setState({ options })
+        if (value !== '') {
+            const options = await debounce(value)
+            this.setState({ options })
+        }
     };
 
     render () {
@@ -178,7 +180,7 @@ class Search extends Component {
                             />
                         </Select.Trigger>
                         {options.length > 0 && query && (
-                            <Select.Menu >
+                            <Select.Menu>
                                 {options.map((option) => {
                                     return (
                                         <Select.Option value={option} key={option} className="select-option">
