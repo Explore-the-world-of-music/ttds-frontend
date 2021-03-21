@@ -108,6 +108,7 @@ class Search extends Component {
             if (this.state.query !== '') {
                 if ((this.pattern.test(this.state.query) && !this.state.phraseSearchByDefault) || (this.patternPh.test(this.state.query) && this.state.phraseSearchByDefault)) {
                     this.setState({ valid: true, options: [] })
+                    this.input.blur()
                     this.props.onSearchRequest({ query: this.state.query, artist: this.state.artist, years: this.state.years, genre: this.state.genre, language: this.state.language, phraseSearchByDefault: this.state.phraseSearchByDefault })
                 } else {
                     this.setState({ valid: false })
