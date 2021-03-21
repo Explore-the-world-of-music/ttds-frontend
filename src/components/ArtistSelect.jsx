@@ -18,7 +18,7 @@ const searchAPI = value => fetch(`/api/artists/get_artist?query=${encodeURICompo
         return options
     })
 
-const debounce = AwesomeDebouncePromise(searchAPI, 500)
+const debounce = AwesomeDebouncePromise(searchAPI, 250)
 
 class ArtistSelect extends React.Component {
     constructor (props) {

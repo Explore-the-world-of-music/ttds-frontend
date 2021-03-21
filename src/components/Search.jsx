@@ -34,7 +34,7 @@ const searchAPI = value => fetch(`/api/songs/query_autocomplete?query=${encodeUR
     .then(response => response.json())
     .then(json => json.suggestions)
 
-const debounce = AwesomeDebouncePromise(searchAPI, 500)
+const debounce = AwesomeDebouncePromise(searchAPI, 250)
 
 function setUnderlineWord (searchValue, value) {
     const re = new RegExp(searchValue.toLowerCase(), 'g')
