@@ -33,7 +33,7 @@ class LyricsPage extends Component {
 
     componentDidMount () {
         const id = this.props.match.params.id
-        const mapping = { 1: 'Love', 2: 'Rap', 3: 'Party', 4: 'Lifecycle' }
+        const mapping = { 0: 'Love', 1: 'Rap', 2: 'Party', 3: 'Lifecycle' }
         fetch(`/api/songs/get_lyrics?id=${id}`).then(res => res.json()).then(res => {
             res.topic_id = mapping[res.topic_id]
             res.length = ~~(res.length / 60) + ':' + res.length % 60 + (res.length % 60 < 10 ? '0' : '')
@@ -87,7 +87,7 @@ class LyricsPage extends Component {
                                     {this.state.song.rating ? <div>Rating: {this.state.song.rating}</div> : ''}
                                     {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
                                     {this.state.song.bpm ? <div>BPM: {this.state.song.bpm}</div> : ''}
-                                    {this.state.song.topic ? <div>Topic: {this.state.song.topic}</div> : ''}
+                                    {this.state.song.topic_id ? <div>Topic: {this.state.song.topic_id}</div> : ''}
                                     {this.state.song.key ? <div>Key: {this.state.song.key}</div> : ''}
                                 </div>
                             </div>
