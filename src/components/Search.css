@@ -185,6 +185,7 @@
     .Search .advanced-options-box {
         width: auto;
         margin: 0;
+        padding-bottom: 1rem;
     }
 
     .Search .queries-row {

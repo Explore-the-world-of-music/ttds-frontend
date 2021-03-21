@@ -11,11 +11,11 @@ class MainPage extends Component {
         const queryString = new URLSearchParams(this.props.location.search)
         this.defaults = {
             query: queryString.get('query'),
-            artist: queryString.get('artist')?.split(',').filter(r => r !== ''),
-            genre: queryString.get('genre')?.split(',').filter(r => r !== ''),
-            language: queryString.get('language')?.split(',').filter(r => r !== ''),
+            artist: queryString.get('artist')?.split(',').filter(r => r !== '') ?? [],
+            genre: queryString.get('genre')?.split(',').filter(r => r !== '') ?? [],
+            language: queryString.get('language')?.split(',').filter(r => r !== '') ?? [],
             phraseSearchByDefault: (queryString.get('phraseSearchByDefault') !== 'false'),
-            years: queryString.get('years')?.split(',').filter(r => r !== '').map(Number)
+            years: queryString.get('years')?.split(',').filter(r => r !== '')?.map(Number) ?? ['1960, 2021']
         }
         this.state = {
             results: [],
@@ -44,6 +44,8 @@ class MainPage extends Component {
             } else {
                 data.new_query = data.query
             }
+        } else {
+            data.new_query = data.query
         }
         fetch(`/api/songs/search?query=${encodeURIComponent(data.new_query)}&artists=${encodeURIComponent(data.artist)}&genres=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`).then(res => res.json()).then((res) => {
             this.setState({ results: res.songs, loading: false, reportedQueryData: data, page: 1 })

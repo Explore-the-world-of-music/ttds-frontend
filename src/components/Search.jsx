@@ -85,7 +85,7 @@ class Search extends Component {
             this.setState({ valid: true, phraseSearchByDefault: false, query: 'Oops && did || heart' })
             break
         case 'Proximity':
-            this.setState({ valid: true, phraseSearchByDefault: false, query: '#15(Ups,again)' })
+            this.setState({ valid: true, phraseSearchByDefault: false, query: '#15(Oops,again)' })
             break
         }
         this.input.focus()
