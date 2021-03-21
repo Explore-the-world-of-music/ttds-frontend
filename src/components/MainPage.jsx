@@ -11,15 +11,15 @@ class MainPage extends Component {
         const queryString = new URLSearchParams(this.props.location.search)
         this.defaults = {
             query: queryString.get('query'),
-            artist: queryString.get('artist')?.split(',').filter(r => r !== '') ?? [],
-            genre: queryString.get('genre')?.split(',').filter(r => r !== '') ?? [],
+            artist: queryString.get('artists')?.split(',').filter(r => r !== '') ?? [],
+            genre: queryString.get('genres')?.split(',').filter(r => r !== '') ?? [],
             language: queryString.get('language')?.split(',').filter(r => r !== '') ?? [],
             phraseSearchByDefault: (queryString.get('phraseSearchByDefault') !== 'false'),
             years: queryString.get('years')?.split(',').filter(r => r !== '')?.map(Number) ?? [1960, 2021]
         }
         this.state = {
             results: [],
-            page: queryString.get('page') !== null ? queryString.get('page') : 1,
+            page: !isNaN(Number(queryString.get('page'))) ? Number(queryString.get('page')) : 1,
             loading: false,
             fullscreen: true,
             queryUrlData: this.defaults
@@ -48,7 +48,7 @@ class MainPage extends Component {
             data.new_query = data.query
         }
         fetch(`/api/songs/search?query=${encodeURIComponent(data.new_query)}&artists=${encodeURIComponent(data.artist)}&genres=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`).then(res => res.json()).then((res) => {
-            this.setState({ results: res.songs, loading: false, reportedQueryData: data, page: 1 })
+            this.setState({ results: res.songs, loading: false, reportedQueryData: data })
             this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artists=${data.artist.map(x => encodeURIComponent(x))}&genres=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
         }).catch(error => {
             console.log(error)
@@ -64,7 +64,7 @@ class MainPage extends Component {
     handlePaginationChange (_, newPage) {
         this.setState({ page: newPage })
         const data = this.state.reportedQueryData
-        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${newPage}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
+        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${newPage}&artists=${data.artist.map(x => encodeURIComponent(x))}&genres=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
     }
 
     render () {
@@ -76,7 +76,7 @@ class MainPage extends Component {
         } else {
             if ((this.state.results.length) || (this.state.fullscreen)) {
                 cards = this.state.results.slice((this.state.page - 1) * this.resultsPerPage, (this.state.page) * this.resultsPerPage).map(result =>
-                    <ResultCard key={result.name.toString()} result={result} />)
+                    <ResultCard key={result.id} result={result} />)
             } else {
                 cards = <h2 className="empty"> No results </h2>
             }
