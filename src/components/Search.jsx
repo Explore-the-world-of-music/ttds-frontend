@@ -64,7 +64,7 @@ class Search extends Component {
             options: []
         }
         this.pattern = /^((\s*--\s*)?([\wL.!?,'\-&$£]+|("(?=.*\w.*)([\wL.!?,'\-&$£]+){1}(\s+([\wL.!?,'\-&$£]+|\*))*\s*([\wL.!?,'\-&$£]+){1}\s*")|(#\d*\([\wL.!?,'\-&$£]+\s*(,\s*[\wL.!?,'\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\wL.!?,'\-&$£]+|("(?=.*\w.*)([\wL.!?,'\-&$£]+){1}(\s+([\wL.!?,'\-&$£]+|\*))*\s*([\wL.!?,'\-&$£]+){1}\s*")|(#\d*\([\wL.!?,'\-&$£]+\s*(,\s*[\wL.!?,'\-&$£]+)*\)))\s*)*)$|(^([\wL.!?,'\-&$£]+\s*)+$)/
-        this.patternPh = /(^"[\wL.!?,'\-&$£ ]+"$)|(^[\wL.!?,'\-&$£ ]+$)/
+        this.patternPh = /(^"(?!(.*&&))(?!(.*\* *"$))[\wL.!?,*'\-&$£ ]+"$)|(^(?!(.*&&))(?!(.*\* *$))[\wL.!?,*'\-&$£ ]+$)/
         this.handleYearSlider = this.handleYearSlider.bind(this)
         this.handleGenre = this.handleGenre.bind(this)
         this.handleArtist = this.handleArtist.bind(this)
