@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import './SuggestionCard.css'
-import { Link } from 'react-router-dom'
 
 class SuggestionCard extends Component {
     render () {
         return (
             <div className="SuggestionCard">
-                <Link to={'/song/' + this.props.title}>
+                <a href={'/song/' + this.props.id}>
                     <div className="suggestion-album-cover">
                         <img src={this.props.picture} alt="Album Cover" />
                     </div>
-                    <div className="title">{this.props.title}</div>
+                    <div className="title">{this.props.name}</div>
                     <div className="artist">{this.props.artist}</div>
-                </Link>
+                </a>
             </div>
         )
     }

@@ -4,17 +4,45 @@ import Search from './Search'
 
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
-
 import SuggestionCard from './SuggestionCard'
+import Spin from '@semcore/ui/spin'
+
+/*
+"id": result.id,
+            "name": result.name,
+            "artist": result.artist.name,
+            "lyrics": result.lyrics,
+            "album": result.album,
+            "image": result.artist.image,
+            "rating": result.rating,
+            "released": result.released,
+            "genre": result.genre,
+            "bpm": result.bpm,
+            "key": result.key,
+            "topic_id": result.topic_id,
+            "length": result.length,
+            "language": result.language
+*/
 
 class LyricsPage extends Component {
     constructor (props) {
         super(props)
         this.redirectRequest = this.redirectRequest.bind(this)
+        this.state = { isLoaded: false, song: null }
+    }
+
+    componentDidMount () {
+        const id = this.props.match.params.id
+        const mapping = { 1: 'Love', 2: 'Rap', 3: 'Party', 4: 'Lifecycle' }
+        fetch(`/api/songs/get_lyrics?id=${id}`).then(res => res.json()).then(res => {
+            res.topic_id = mapping[res.topic_id]
+            res.length = ~~(res.length / 60) + ':' + res.length % 60 + (res.length % 60 < 10 ? '0' : '')
+            this.setState({ isLoaded: true, song: res })
+        })
     }
 
     redirectRequest (data) {
-        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&artist=${encodeURIComponent(data.artist)}&genre=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
+        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&artists=${encodeURIComponent(data.artist)}&genres=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
     }
 
     render () {
@@ -33,46 +61,62 @@ class LyricsPage extends Component {
             }
         }
 
-        const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(result =>
-            <SuggestionCard key={result} artist={'Rick Astley'} title={'Never Gonna Give You Up'} picture="https://images.genius.com/a23b3135f345a510fefe813084192479.600x600x1.jpg"/>)
-
+        const cards = this.state.isLoaded
+            ? this.state.song.recommendations.map(rec =>
+                <SuggestionCard key={rec.id} id={rec.id} artist={rec.artist} name={rec.name} picture={rec.image}/>)
+            : []
         return (
-            <div className="LyricsPage">
-                <header className={'header'}>
-                    <div className="inner-header">
-                        <div className="logo logo-small"><a href="/">Explore the World of Music</a></div>
-                        <Search onSearchRequest={this.redirectRequest} fullscreen={false} nostretch />
+            !this.state.isLoaded
+                ? <div className="spinner-wrapper"><Spin centered size="xxl" theme="dark" /></div>
+                : <div className="LyricsPage">
+                    <header className={'header'}>
+                        <div className="inner-header">
+                            <div className="logo logo-small"><a href="/">Explore the World of Music</a></div>
+                            <Search onSearchRequest={this.redirectRequest} fullscreen={false} nostretch />
 
-                    </div>
-                    <div className="header-details">
-                        <div className="album-cover">
-                            <img src="https://images.genius.com/a23b3135f345a510fefe813084192479.600x600x1.jpg" alt="album cover" />
                         </div>
-                        <div className="song-details">
-                            <div className="title">{this.props.match.params.id}</div>
-                            <div className="artist">Rick Astley</div>
-                            <div className="album">Whenever You Need Somebody</div>
-                            <div className="release-date">1987</div>
-                        </div>
-                    </div>
-                </header>
-                <main className="main">
-                    <div className="inner-main">
-                        <div className="lyrics">
-                            {"We're no strangers to love\nYou know the rules and so do I\nA full commitment's what I'm thinking of\nYou wouldn't get this from any other guy\nI just wanna tell you how I'm feeling\nGotta make you understand\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\nWe've known each other for so long\nYour heart's been aching but\nYou're too shy to say it\nInside we both know what's been going on\nWe know the game and we're gonna play it\nAnd if you ask me how I'm feeling\nDon't tell me you're too blind to see\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\n(Ooh, give you up)\n(Ooh, give you up)\n(Ooh)\nNever gonna give, never gonna give\n(Give you up)(Ooh)\nNever gonna give, never gonna give(Give you up)\nWe've know each other for so long\nYour heart's been aching but\nYou're too shy to say it\nInside we both know what's been going on\nWe know the game and we're gonna play it\nI just wanna tell you how I'm feeling\nGotta make you understand\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you\nNever gonna give you up\nNever gonna let you down\nNever gonna run around and desert you\nNever gonna make you cry\nNever gonna say goodbye\nNever gonna tell a lie and hurt you"}
-                        </div>
-                        <div className="suggestions">
-                            <div className="suggestions-title">You might also like:</div>
-                            <div className="carousel-wrapper">
-                                <Carousel responsive={responsive} containerClass="carousel-wrapper" item-class="suggestion-card">
-                                    {cards}
-                                </Carousel>
+                        <div className="header-details">
+                            <div className="meta-info">
+                                <div className="album-cover">
+                                    <img src={this.state.song.image} alt="album cover" />
+                                </div>
+                                <div className="info-container">
+                                    {this.state.song.released ? <div>Released: {this.state.song.released}</div> : ''}
+                                    {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
+                                    {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
+                                    {this.state.song.rating ? <div>Rating: {this.state.song.rating}</div> : ''}
+                                    {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
+                                    {this.state.song.bpm ? <div>BPM: {this.state.song.bpm}</div> : ''}
+                                    {this.state.song.topic ? <div>Topic: {this.state.song.topic}</div> : ''}
+                                    {this.state.song.key ? <div>Key: {this.state.song.key}</div> : ''}
+                                </div>
+                            </div>
+
+                            <div className="song-details">
+                                <div className="title">{this.state.song.name}</div>
+                                <div className="artist">{this.state.song.artist}</div>
+                                {/* <div className="album">{this.state.song.album}</div> */}
+                                <div className="release-date">{this.state.song.released}</div>
                             </div>
                         </div>
-                    </div>
+                    </header>
+                    <main className="main">
+                        <div className="inner-main">
+                            <div className="lyrics">
+                                {this.state.song.lyrics}
+                            </div>
+                            <div className="suggestions">
+                                <div className="suggestions-title">You might also like:</div>
+                                <div className="carousel-wrapper">
+                                    <Carousel responsive={responsive} containerClass="carousel-wrapper" item-class="suggestion-card">
+                                        {cards}
+                                    </Carousel>
+                                </div>
+                            </div>
+                        </div>
 
-                </main>
-            </div>
+                    </main>
+                </div>
         )
     }
 }

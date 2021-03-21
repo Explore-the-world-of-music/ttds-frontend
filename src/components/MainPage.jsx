@@ -40,12 +40,14 @@ class MainPage extends Component {
         this.setState({ loading: true, fullscreen: false })
         if (data.phraseSearchByDefault) {
             if (data.query.length > 0 && data.query.charAt(data.query.length - 1) !== '"' && data.query.charAt(0) !== '"') {
-                data.query = `"${data.query}"`
+                data.new_query = `"${data.query}"`
+            } else {
+                data.new_query = data.query
             }
         }
-        fetch(`/api/songs/search?query=${encodeURIComponent(data.query)}&artist=${encodeURIComponent(data.artist)}&genre=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`).then(res => res.json()).then((res) => {
+        fetch(`/api/songs/search?query=${encodeURIComponent(data.new_query)}&artists=${encodeURIComponent(data.artist)}&genres=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`).then(res => res.json()).then((res) => {
             this.setState({ results: res.songs, loading: false, reportedQueryData: data, page: 1 })
-            this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artist=${data.artist.map(x => encodeURIComponent(x))}&genre=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
+            this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artists=${data.artist.map(x => encodeURIComponent(x))}&genres=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
         }).catch(error => {
             console.log(error)
             this.setState({ results: [], loading: false, reportedQueryData: null })

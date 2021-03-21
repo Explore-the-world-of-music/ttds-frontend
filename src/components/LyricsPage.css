@@ -56,9 +56,7 @@
     position: relative;
 }
 
-.LyricsPage .album-cover {
-    height: 20rem;
-    width: 20rem;
+.LyricsPage .meta-info {
     position: absolute;
     z-index: 1;
     left: 3rem;
@@ -70,8 +68,8 @@
 }
 
 .LyricsPage .album-cover img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 20rem;
+    height: 20rem;
 }
 
 .LyricsPage .lyrics {
@@ -101,6 +99,15 @@
     font-size: 2.5rem;
 }
 
+.LyricsPage .info-container {
+    padding-top: 1rem;
+    padding-left: 0.5rem;
+    line-height: 1.6rem;
+    font-size: 1.4rem;
+    color: black;
+    box-sizing: border-box;
+}
+
 @media only screen and (max-width: 1400px) {
     .LyricsPage .inner-header {
         width: 100%;
@@ -120,6 +127,11 @@
         text-align: center;
     }
 
+    .LyricsPage .info-container {
+        padding: 0;
+        color: white;
+    }
+
     .LyricsPage .lyrics {
         padding-left: 0;
         text-align: center;
@@ -134,13 +146,13 @@
         text-align: center;
     }
 
-    .LyricsPage .album-cover{
+    .LyricsPage .meta-info{
         position: relative;
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .LyricsPage .album-cover{
+    .LyricsPage .meta-info{
         width: auto;
         margin-left: 0;
     }

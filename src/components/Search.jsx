@@ -277,7 +277,8 @@ Search.defaultProps = {
     years: [1960, 2021],
     artist: [],
     genre: [],
-    language: []
+    language: [],
+    phraseSearchByDefault: true
 }
 
 export default Search

@@ -10,8 +10,7 @@ const searchAPI = value => fetch(`/api/artists/get_artist?query=${encodeURICompo
     .then(response => response.json())
     .then(json => {
         let options = json.results.map((item) => ({
-            value: item.id,
-            title: item.artist
+            label: item.artist
         }))
         if (!value.length) {
             options = []
@@ -24,19 +23,23 @@ const debounce = AwesomeDebouncePromise(searchAPI, 500)
 class ArtistSelect extends React.Component {
     constructor (props) {
         super(props)
-        this.state = { options: [], filter: '', value: this.props?.defaultValue ?? [], loading: false }
+        this.state = { options: [], mapping: {}, filter: '', value: this.props?.defaultValue ?? [], loading: false }
         this.handleChange = this.handleChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
     }
 
     async handleFilterChange (filter) {
         this.setState({ filter })
-        const options = await debounce(filter)
+        const resp = await debounce(filter)
+        const options = resp.map(x => x.label)
         this.setState({ options, loading: false })
     };
 
     handleChange (value) {
         this.setState({ value })
+        if (!(value instanceof Array)) {
+            value = [value]
+        }
         this.props.handler(value)
     }
 
@@ -54,10 +57,9 @@ class ArtistSelect extends React.Component {
                                 )
                             } else if (this.state.filter !== '' && this.state.options.length) {
                                 return (this.state.options.map((option, idx) => {
-                                    const { value: valueOption, title } = option
                                     return (
-                                        <Select.OptionCheckbox value={valueOption} key={idx} className="select-option">
-                                            {title}
+                                        <Select.OptionCheckbox value={option} key={idx} className="select-option">
+                                            {option}
                                         </Select.OptionCheckbox>
                                     )
                                 }))

@@ -32,9 +32,6 @@
 }
 
 @media only screen and (max-width: 1400px) {
-    .MainPage .header-full{
-        padding-top: 4rem;
-    }
     .MainPage .inner-header {
         width: 100%;
     }
@@ -47,6 +44,10 @@
 @media only screen and (max-width: 1100px) {
     .MainPage .logo {
         font-size: 3rem;
+    }
+
+    .MainPage .header-full{
+        padding-top: 4rem;
     }
 }
 
