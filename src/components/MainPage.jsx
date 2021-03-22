@@ -3,6 +3,7 @@ import './MainPage.css'
 import Search from './Search'
 import ResultCard from './ResultCard'
 import Pagination from '@material-ui/lab/Pagination'
+import background from '../background.jpg'
 
 class MainPage extends Component {
     constructor (props) {
@@ -84,7 +85,7 @@ class MainPage extends Component {
         }
 
         return (
-            <div className="MainPage" style={{ backgroundImage: "url('background.jpg')" }}>
+            <div className="MainPage" style={{ backgroundImage: `url('${background}')` }}>
                 <header className={'header' + (this.state.fullscreen ? ' header-full' : '')}>
                     <div className="inner-header">
                         <div className="logo"><a href="/">Explore the World of Music</a></div>

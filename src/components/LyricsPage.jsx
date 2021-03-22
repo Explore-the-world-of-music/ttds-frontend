@@ -6,6 +6,7 @@ import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import SuggestionCard from './SuggestionCard'
 import Spin from '@semcore/ui/spin'
+import background from '../background.jpg'
 
 /*
 "id": result.id,
@@ -77,7 +78,7 @@ class LyricsPage extends Component {
         return (
             !this.state.isLoaded
                 ? <div className="spinner-wrapper"><Spin centered size="xxl" theme="dark" /></div>
-                : <div className="LyricsPage" style={{ backgroundImage: "url('../background.jpg')" }}>
+                : <div className="LyricsPage" style={{ background: `url('${background}')` }}>
                     <header className={'header'}>
                         <div className="inner-header">
                             <div className="logo logo-small"><a href="/">Explore the World of Music</a></div>
