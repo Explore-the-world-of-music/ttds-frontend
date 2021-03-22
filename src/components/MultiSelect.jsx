@@ -14,6 +14,10 @@ export default function MultiSelect (props) {
     useEffect(() => {
         setLoading(true)
         fetch(`/api/songs/${props.method}`).then(res => res.json()).then((res) => {
+            if (props.method === 'get_languages') {
+                const languageNames = new Intl.DisplayNames(['en'], { type: 'language' })
+                res.response = res.response.map(x => languageNames.of(x))
+            }
             setOptions(res.response)
             setLoading(false)
         }).catch(error => {
@@ -22,7 +26,7 @@ export default function MultiSelect (props) {
     }, [])
 
     return (
-        <Select multiselect placeholder="Select value" defaultValue={props.defaultValue} onChange={props.handler} size="l">
+        <Select multiselect placeholder="Select value" defaultValue={props.defaultValue} onChange={props.handler} size="xl">
             {(props, handlers) => {
                 const {
                     value: currentValue // the current value of the select

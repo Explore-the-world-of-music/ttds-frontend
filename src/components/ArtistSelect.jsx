@@ -45,7 +45,7 @@ class ArtistSelect extends React.Component {
 
     render () {
         return (
-            <Select multiselect placeholder="Select value" value={this.state.value} size="l" onChange={this.handleChange}>
+            <Select multiselect placeholder="Select value" value={this.state.value} size="xl" onChange={this.handleChange}>
                 <Select.Trigger className="ArtistSelectSuggest" />
                 <Select.Popper>
                     <InputSearch value={this.state.filter} onChange={this.handleFilterChange} placeholder="Search"/>

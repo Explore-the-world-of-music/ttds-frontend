@@ -34,15 +34,24 @@ class LyricsPage extends Component {
     componentDidMount () {
         const id = this.props.match.params.id
         const mapping = { 0: 'Love', 1: 'Rap', 2: 'Party', 3: 'Lifecycle' }
+        const languageNames = new Intl.DisplayNames(['en'], { type: 'language' })
         fetch(`/api/songs/get_lyrics?id=${id}`).then(res => res.json()).then(res => {
             res.topic_id = mapping[res.topic_id]
-            res.length = ~~(res.length / 60) + ':' + res.length % 60 + (res.length % 60 < 10 ? '0' : '')
+            if (res.length > 0) {
+                res.length = ~~(res.length / 60) + ':' + res.length % 60 + (res.length % 60 < 10 ? '0' : '')
+            } else {
+                res.length = undefined
+            }
+
+            res.language = languageNames.of(res.language)
+
             this.setState({ isLoaded: true, song: res })
+            document.title = `${res.name} - Explore The World Of Music`
         })
     }
 
     redirectRequest (data) {
-        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&artists=${encodeURIComponent(data.artist)}&genres=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
+        this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=1&artists=${encodeURIComponent(data.artist)}&genres=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
     }
 
     render () {
@@ -83,7 +92,6 @@ class LyricsPage extends Component {
                                 <div className="info-container">
                                     {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
                                     {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
-                                    {this.state.song.rating ? <div>Rating: {this.state.song.rating}</div> : ''}
                                     {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
                                     {this.state.song.bpm ? <div>BPM: {this.state.song.bpm}</div> : ''}
                                     {this.state.song.topic_id ? <div>Topic: {this.state.song.topic_id}</div> : ''}
@@ -99,7 +107,6 @@ class LyricsPage extends Component {
                                 <div className="info-container-small">
                                     {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
                                     {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
-                                    {this.state.song.rating ? <div>Rating: {this.state.song.rating}</div> : ''}
                                     {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
                                     {this.state.song.bpm ? <div>BPM: {this.state.song.bpm}</div> : ''}
                                     {this.state.song.topic_id ? <div>Topic: {this.state.song.topic_id}</div> : ''}

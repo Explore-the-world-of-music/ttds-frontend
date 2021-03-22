@@ -9,6 +9,7 @@ class MainPage extends Component {
         super(props)
         this.resultsPerPage = 5
         const queryString = new URLSearchParams(this.props.location.search)
+        document.title = 'Explore The World of Music'
         this.defaults = {
             query: queryString.get('query'),
             artist: queryString.get('artists')?.split(',').filter(r => r !== '') ?? [],
@@ -19,12 +20,11 @@ class MainPage extends Component {
         }
         this.state = {
             results: [],
-            page: !isNaN(Number(queryString.get('page'))) ? Number(queryString.get('page')) : 1,
+            page: (!isNaN(Number(queryString.get('page'))) && Number(queryString.get('page')) != null) ? Number(queryString.get('page')) : 1,
             loading: false,
             fullscreen: true,
             queryUrlData: this.defaults
         }
-
         this.handlePaginationChange = this.handlePaginationChange.bind(this)
         this.handleSearchRequest = this.handleSearchRequest.bind(this)
         this.handleSearchRequestFromUser = this.handleSearchRequestFromUser.bind(this)
@@ -65,6 +65,7 @@ class MainPage extends Component {
         this.setState({ page: newPage })
         const data = this.state.reportedQueryData
         this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${newPage}&artists=${data.artist.map(x => encodeURIComponent(x))}&genres=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
+        window.scrollTo(0, 0)
     }
 
     render () {

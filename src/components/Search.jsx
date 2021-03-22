@@ -37,12 +37,11 @@ const searchAPI = value => fetch(`/api/songs/query_autocomplete?query=${encodeUR
 const debounce = AwesomeDebouncePromise(searchAPI, 250)
 
 function setUnderlineWord (searchValue, value) {
-    const re = new RegExp(searchValue.toLowerCase(), 'g')
     const title = {
         __html: value
             .toLowerCase()
             .replace(
-                re,
+                searchValue.toLowerCase(),
                 `<span style="text-decoration: underline; padding: 2px 0">${searchValue}</span>`
             )
     }
@@ -63,8 +62,8 @@ class Search extends Component {
             phraseSearchByDefault: this.props.phraseSearchByDefault,
             options: []
         }
-        this.pattern = /^((\s*--\s*)?([\wL.!?,'\-&$£]+|("(?=.*\w.*)([\wL.!?,'\-&$£]+){1}(\s+([\wL.!?,'\-&$£]+|\*))*\s*([\wL.!?,'\-&$£]+){1}\s*")|(#\d*\([\wL.!?,'\-&$£]+\s*(,\s*[\wL.!?,'\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\wL.!?,'\-&$£]+|("(?=.*\w.*)([\wL.!?,'\-&$£]+){1}(\s+([\wL.!?,'\-&$£]+|\*))*\s*([\wL.!?,'\-&$£]+){1}\s*")|(#\d*\([\wL.!?,'\-&$£]+\s*(,\s*[\wL.!?,'\-&$£]+)*\)))\s*)*)$|(^([\wL.!?,'\-&$£]+\s*)+$)/
-        this.patternPh = /(^"(?!(.*&&))(?!(.*\* *"$))[\wL.!?,*'\-&$£ ]+"$)|(^(?!(.*&&))(?!(.*\* *$))[\wL.!?,*'\-&$£ ]+$)/
+        this.pattern = /^((\s*--\s*)?([\p{L}.!?,'\-&$£]+|("(?=.*\w.*)([\p{L}.!?,'\-&$£]+){1}(\s+([\p{L}.!?,'\-&$£]+|\*))*\s*([\p{L}.!?,'\-&$£]+){1}\s*")|(#\d*\([\p{L}.!?,'\-&$£]+\s*(,\s*[\p{L}.!?,'\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\p{L}.!?,'\-&$£]+|("(?=.*\w.*)([\p{L}.!?,'\-&$£]+){1}(\s+([\p{L}.!?,'\-&$£]+|\*))*\s*([\p{L}.!?,'\-&$£]+){1}\s*")|(#\d*\([\p{L}.!?,'\-&$£]+\s*(,\s*[\p{L}.!?,'\-&$£]+)*\)))\s*)*)$|(^([\p{L}.!?,'\-&$£]+\s*)+$)/u
+        this.patternPh = /(^"(?!(.*&&))(?!(.*\*\*))(?!(.*\* *"$))[\p{L}.!?,*'\-&$£ ]+"$)|(^(?!(.*&&))(?!(.*\*\*))(?!(.*\* *$))[\p{L}.!?,*'\-&$£ ]+$)/u
         this.handleYearSlider = this.handleYearSlider.bind(this)
         this.handleGenre = this.handleGenre.bind(this)
         this.handleArtist = this.handleArtist.bind(this)
@@ -74,6 +73,11 @@ class Search extends Component {
         this.handleKeyPress = this.handleKeyPress.bind(this)
         this.handleClear = this.handleClear.bind(this)
         this.changeValue = this.changeValue.bind(this)
+    }
+
+    componentWillUnmount () {
+        this.setState = (state, callback) => {
+        }
     }
 
     handleClick (type) {
@@ -145,9 +149,13 @@ class Search extends Component {
 
     async handleChange (value) {
         this.changeValue(value)
-        if (value !== '') {
+        const list = value.split(' ').filter(n => n)
+        const regex = /\p{L}+/u
+        if (value !== '' && (regex.test(list[list.length - 1])) && (length < 2 || regex.test(list[list.length - 2]))) {
             const options = await debounce(value)
             this.setState({ options })
+        } else {
+            this.setState({ options: [] })
         }
     };
 
@@ -199,19 +207,19 @@ class Search extends Component {
                 </div>
                 {!this.state.valid ? <div className="error">The query is not valid</div> : ''}
                 <div className="queries-row">
-                    <Button size="l" use="primary" className="template-button" data-tip data-for="template1" onClick={(e) => this.handleClick('Phrase')}>Phrase Search</Button>
+                    <Button size="xl" use="primary" className="template-button" data-tip data-for="template1" onClick={(e) => this.handleClick('Phrase')}>Phrase Search</Button>
                     <ReactTooltip multiline id='template1' type='dark' effect="solid">
                         <h2>You know a part of the song? </h2>
                         <span>Then use <b>&quot;Your Query&quot;</b> to find exact expressions. <br/>If you do not know single words,<br/> just add <b>*</b> for each word that you don´t know. <br/>For advanced searches you can also combine <br/>the phrase search with a logical search, <br/>for example if you know an additional<br/> word in the song <b>(“Your Query” &amp;&amp; Word)</b>.</span>
                         <h3>Example: &quot;Oops!... I did * again&quot;</h3>
                     </ReactTooltip>
-                    <Button size="l" use="primary" className="template-button" data-tip data-for="template2" onClick={(e) => this.handleClick('Logical')}>Logical Search</Button>
+                    <Button size="xl" use="primary" className="template-button" data-tip data-for="template2" onClick={(e) => this.handleClick('Logical')}>Logical Search</Button>
                     <ReactTooltip multiline id='template2' type='dark' effect="solid">
                         <h2>You know single words or want to exclude results?</h2>
                         <span>Then make use of the various helpers to narrow down the results.<br/> <b>Word 1 &amp;&amp; Word 2</b> means that both words are in the song,<br/> <b>Word 1 || Word 2</b> means that at least one of the words is in the song <br/>and with <b>-- Word 1</b> you allow only songs that do not contain Word 1. <br/>Of course, you can also chain the helpers <b>&amp;&amp;, || and --</b>.</span>
                         <h3>Example: Oops &amp;&amp; did || heart</h3>
                     </ReactTooltip>
-                    <Button size="l" use="primary" className="template-button" data-tip data-for="template3" onClick={(e) => this.handleClick('Proximity')}>Proximity Search</Button>
+                    <Button size="xl" use="primary" className="template-button" data-tip data-for="template3" onClick={(e) => this.handleClick('Proximity')}>Proximity Search</Button>
                     <ReactTooltip multiline id='template3' type='dark' effect="solid">
                         <h2>You know some words and you can<br/> guess how close they are together?</h2>
                         <span>Then use the proximity search to get the best results. <br/>You can define the maximal word distance between <br/>each two words in your query, if you are unsure just  <br/> make it a little larger. For advanced searches you can  <br/> also combine the proximity search with a logical search, <br/>for example if you know an additional word in the <br/> song <b>(#15(Your, Query) &amp;&amp; Word)</b>.</span>
@@ -232,22 +240,24 @@ class Search extends Component {
                                     <ReactTooltip multiline id="info" type="dark" effect="solid">Use phrase search instead of TF-IDF  <br/> for simple queries without operators</ReactTooltip>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
-                                    <span>Artist:</span>
-                                    <span>
-                                        <ArtistSelect defaultValue={this.props.artist} handler={this.handleArtist}/>
-                                    </span>
-                                </Box>
-                                <Box p="0rem 1.3rem" className="option-row">
-                                    <span>Language:</span>
-                                    <span>
-                                        <MultiSelect method="get_languages" defaultValue={this.props.language} handler={this.handleLanguage}/>
-                                    </span>
-                                </Box>
-                                <Box p="0rem 1.3rem" className="option-row">
-                                    <span>Genre:</span>
-                                    <span>
-                                        <MultiSelect method="get_genres" defaultValue={this.props.genre} handler={this.handleGenre}/>
-                                    </span>
+                                    <Box className="option-row-element">
+                                        <span className="select-title">Artist:</span>
+                                        <span>
+                                            <ArtistSelect defaultValue={this.props.artist} handler={this.handleArtist}/>
+                                        </span>
+                                    </Box>
+                                    <Box className="option-row-element">
+                                        <span className="select-title">Language:</span>
+                                        <span>
+                                            <MultiSelect method="get_languages" defaultValue={this.props.language} handler={this.handleLanguage}/>
+                                        </span>
+                                    </Box>
+                                    <Box className="option-row-element">
+                                        <span className="select-title">Genre:</span>
+                                        <span>
+                                            <MultiSelect method="get_genres" defaultValue={this.props.genre} handler={this.handleGenre}/>
+                                        </span>
+                                    </Box>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Year range:</span>
