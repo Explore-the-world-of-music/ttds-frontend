@@ -189,22 +189,7 @@
         position: relative;
     }
 
-    .LyricsPage .Search .queries-row{
-        justify-content: flex-start;
-    }
-    
-    .LyricsPage .Search .queries-row > *{
-        margin-right: 0.5rem;
-    } 
-
-    .LyricsPage .Search .advanced-options-no-fullscreen.advanced-options-no-stretch{
-        max-width: 24.8rem;
-    }
-}
-
-.LyricsPage .Search .queries-row{
-    margin: 1rem 0 0 0;
-    width: 100%;
+   
 }
 
 @media only screen and (max-width: 600px) {
@@ -215,5 +200,9 @@
 
     .LyricsPage .lyrics {
         padding: 0.5rem;
+    }
+
+    .LyricsPage .inner-header{
+        padding: 1rem;
     }
 }
