@@ -1,6 +1,6 @@
 .SuggestionCard {
     padding: 1rem;
-    color: white;
+    color: black;
     margin: 1rem;
     text-align: center;
 }
@@ -25,9 +25,9 @@
 .SuggestionCard a:hover,
 .SuggestionCard a:active {
     text-decoration: none;
-    color: white
+    color: black
 }
 
 .SuggestionCard:hover {
-    background-color: #4473eb;
+    background-color: #afafaf3f;
 }

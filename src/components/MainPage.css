@@ -12,23 +12,42 @@
     text-align: center;
     display: flex;
     flex-direction: column;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+    /*background-position: 0 -150px;*/
 }
 
 .MainPage .header-full {
     height: 100vh;
-    background-color: #3E66D0;
-    padding-top: 26vh;
+    /*background-color: #3E66D0;*/
+    background-color: rgba(0, 0, 0, 0);
+    padding-top: 22.5vh;
+}
+
+.MainPage .header-full .inner-header{
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .MainPage .placeholder {
     animation: loading 1s linear infinite alternate;
     width: 70%;
+    border-radius: 5px;
     height: 20rem;
     margin: 1.2rem 0;
 }
 
 .MainPage .pagination {
     margin-bottom: 1.2rem;
+    background-color: white;
+    padding: 0.4rem;
+    width: 70%;
+    border-radius: 5px;
+    display: flex;
+}
+
+.MainPage .pagination > *{
+    margin: auto;
 }
 
 @media only screen and (max-width: 1400px) {

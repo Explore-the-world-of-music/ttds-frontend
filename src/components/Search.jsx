@@ -14,22 +14,6 @@ import Select from '@semcore/ui/select'
 import Input from '@semcore/ui/input'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 
-import { withStyles } from '@material-ui/core/styles'
-
-const CustomSwitch = withStyles({
-    switchBase: {
-        color: '#CCCCCC',
-        '&$checked': {
-            color: '#FFFFFF'
-        },
-        '&$checked + $track': {
-            backgroundColor: '#6B93F8'
-        }
-    },
-    checked: {},
-    track: {}
-})(Switch)
-
 const searchAPI = value => fetch(`/api/songs/query_autocomplete?query=${encodeURIComponent(value)}`)
     .then(response => response.json())
     .then(json => json.suggestions)
@@ -236,7 +220,7 @@ class Search extends Component {
                             </Accordion.Item.Toggle>
                             <Accordion.Item.Collapse>
                                 <Box p="0rem 1.3rem" className="option-row-switch">
-                                    <Text>Use phrase search  </Text><FontAwesomeIcon icon="info-circle" aria-label="info" data-tip data-for="info" className="fa-info-circle" /><CustomSwitch checked={this.state.phraseSearchByDefault} onChange={this.handleDefaultModeChange} name="phraseSearchByDefault" inputProps={{ 'aria-label': 'Enable phrase search by default' }} />
+                                    <Text>Use phrase search  </Text><FontAwesomeIcon icon="info-circle" aria-label="info" data-tip data-for="info" className="fa-info-circle" /><Switch color="default" checked={this.state.phraseSearchByDefault} onChange={this.handleDefaultModeChange} name="phraseSearchByDefault" inputProps={{ 'aria-label': 'Enable phrase search by default' }} />
                                     <ReactTooltip multiline id="info" type="dark" effect="solid">Use phrase search instead of TF-IDF  <br/> for simple queries without operators</ReactTooltip>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">

@@ -77,7 +77,7 @@ class LyricsPage extends Component {
         return (
             !this.state.isLoaded
                 ? <div className="spinner-wrapper"><Spin centered size="xxl" theme="dark" /></div>
-                : <div className="LyricsPage">
+                : <div className="LyricsPage" style={{ backgroundImage: "url('../background.jpg')" }}>
                     <header className={'header'}>
                         <div className="inner-header">
                             <div className="logo logo-small"><a href="/">Explore the World of Music</a></div>
@@ -118,19 +118,20 @@ class LyricsPage extends Component {
                     <main className="main">
                         <div className="inner-main">
                             <div className="lyrics">
-                                {this.state.song.lyrics}
-                            </div>
-                            <div className="suggestions">
-                                <div className="suggestions-title">You might also like:</div>
-                                <div className="carousel-wrapper">
-                                    <Carousel responsive={responsive} containerClass="carousel-wrapper" item-class="suggestion-card">
-                                        {cards}
-                                    </Carousel>
+                                <div className="lyrics-container">
+                                    {this.state.song.lyrics}
                                 </div>
                             </div>
                         </div>
-
                     </main>
+                    <div className="suggestions">
+                        <div className="suggestions-title">You might also like:</div>
+                        <div className="carousel-wrapper">
+                            <Carousel responsive={responsive} containerClass="carousel-wrapper" item-class="suggestion-card">
+                                {cards}
+                            </Carousel>
+                        </div>
+                    </div>
                 </div>
         )
     }

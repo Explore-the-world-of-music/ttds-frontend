@@ -84,7 +84,7 @@ class MainPage extends Component {
         }
 
         return (
-            <div className="MainPage">
+            <div className="MainPage" style={{ backgroundImage: "url('background.jpg')" }}>
                 <header className={'header' + (this.state.fullscreen ? ' header-full' : '')}>
                     <div className="inner-header">
                         <div className="logo"><a href="/">Explore the World of Music</a></div>
