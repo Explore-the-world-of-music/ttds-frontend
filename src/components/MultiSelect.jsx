@@ -41,7 +41,7 @@ export default function MultiSelect (props) {
                 }
                 return (
                     <React.Fragment>
-                        <Select.Trigger className="MultiSelect"/>
+                        <Select.Trigger w={180} className="MultiSelect"/>
                         <Select.Popper>
                             <InputSearch value={filter} onChange={setFilter} placeholder="Search" />
                             <Select.List hMax={'10rem'}>
