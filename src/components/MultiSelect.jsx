@@ -26,7 +26,7 @@ export default function MultiSelect (props) {
     }, [])
 
     return (
-        <Select multiselect placeholder="Select value" defaultValue={props.defaultValue} onChange={props.handler} size="xl">
+        <Select multiselect placeholder="Select value" defaultValue={props.defaultValue} onChange={props.handler} size="l">
             {(props, handlers) => {
                 const {
                     value: currentValue // the current value of the select
@@ -41,7 +41,7 @@ export default function MultiSelect (props) {
                 }
                 return (
                     <React.Fragment>
-                        <Select.Trigger w={180} className="MultiSelect"/>
+                        <Select.Trigger className="MultiSelect"/>
                         <Select.Popper>
                             <InputSearch value={filter} onChange={setFilter} placeholder="Search" />
                             <Select.List hMax={'10rem'}>

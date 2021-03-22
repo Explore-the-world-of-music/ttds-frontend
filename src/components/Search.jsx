@@ -240,24 +240,22 @@ class Search extends Component {
                                     <ReactTooltip multiline id="info" type="dark" effect="solid">Use phrase search instead of TF-IDF  <br/> for simple queries without operators</ReactTooltip>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
-                                    <Box className="option-row-element">
-                                        <span className="select-title">Artist:</span>
-                                        <span>
-                                            <ArtistSelect defaultValue={this.props.artist} handler={this.handleArtist}/>
-                                        </span>
-                                    </Box>
-                                    <Box className="option-row-element">
-                                        <span className="select-title">Language:</span>
-                                        <span>
-                                            <MultiSelect method="get_languages" defaultValue={this.props.language} handler={this.handleLanguage}/>
-                                        </span>
-                                    </Box>
-                                    <Box className="option-row-element">
-                                        <span className="select-title">Genre:</span>
-                                        <span>
-                                            <MultiSelect method="get_genres" defaultValue={this.props.genre} handler={this.handleGenre}/>
-                                        </span>
-                                    </Box>
+                                    <span>Artist:</span>
+                                    <span>
+                                        <ArtistSelect defaultValue={this.props.artist} handler={this.handleArtist}/>
+                                    </span>
+                                </Box>
+                                <Box p="0rem 1.3rem" className="option-row">
+                                    <span>Language:</span>
+                                    <span>
+                                        <MultiSelect method="get_languages" defaultValue={this.props.language} handler={this.handleLanguage}/>
+                                    </span>
+                                </Box>
+                                <Box p="0rem 1.3rem" className="option-row">
+                                    <span>Genre:</span>
+                                    <span>
+                                        <MultiSelect method="get_genres" defaultValue={this.props.genre} handler={this.handleGenre}/>
+                                    </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Year range:</span>
