@@ -9,6 +9,7 @@
 
 .LyricsPage .Search{
     width: auto;
+    margin-left: 2rem;
 }
 
 .LyricsPage .logo-small {
@@ -95,9 +96,6 @@
 .LyricsPage .suggestions {
     background-color: white;
     color: black;
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-attachment: fixed;
     width: 100%;
     padding: 2rem 0;
 }
@@ -141,6 +139,10 @@
     .LyricsPage .inner-header {
         width: 100%;
         display: block;
+    }
+
+    .LyricsPage .Search{
+        margin: auto;
     }
 
     .LyricsPage .info-container-small{

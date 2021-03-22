@@ -50,6 +50,10 @@
     margin: auto;
 }
 
+.MainPage .Search .queries-row, .MainPage .Search .advanced-options-box {
+    margin-left: 2rem;
+}
+
 @media only screen and (max-width: 1400px) {
     .MainPage .inner-header {
         width: 100%;

@@ -14,10 +14,6 @@ html, body, .root, .MainPage, .spinner-wrapper{
     background-color: #525252;
 }
 
-.root{
-    background-image: linear-gradient(to bottom, #3a3a3a, #fff);
-}
-
 .header {
     flex: 0 1 auto;
     /*background-color: #294CAB;*/
@@ -30,7 +26,7 @@ html, body, .root, .MainPage, .spinner-wrapper{
 
 .inner-header {
     /*background-color: #3E66D0;*/
-    width: 90rem;
+    /*width: 90rem;*/
     transition: all 1s;
 }
 
