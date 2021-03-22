@@ -6,7 +6,7 @@ class ResultCard extends Component {
         return (
             <div className="ResultCard">
                 <div className="top">
-                    <div className="title">{this.props.result.name}</div>
+                    <div className="title">{`${this.props.result.name} (${this.props.result.released})` }</div>
                 </div>
                 <div className="bottom">
                     <div className="left">
