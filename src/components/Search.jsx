@@ -226,26 +226,26 @@ class Search extends Component {
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Artist:</span>
                                     <span>
-                                        <ArtistSelect defaultValue={this.props.artist} handler={this.handleArtist}/>
+                                        <ArtistSelect defaultValue={this.state.artist} handler={this.handleArtist}/>
                                     </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Language:</span>
                                     <span>
-                                        <MultiSelect method="get_languages" defaultValue={this.props.language} handler={this.handleLanguage}/>
+                                        <MultiSelect method="get_languages" defaultValue={this.state.language} handler={this.handleLanguage}/>
                                     </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Genre:</span>
                                     <span>
-                                        <MultiSelect method="get_genres" defaultValue={this.props.genre} handler={this.handleGenre}/>
+                                        <MultiSelect method="get_genres" defaultValue={this.state.genre} handler={this.handleGenre}/>
                                     </span>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Year range:</span>
                                     <span>
                                         <Slider
-                                            defaultValue={this.props.years}
+                                            value={this.state.years}
                                             onChange={this.handleYearSlider}
                                             valueLabelDisplay="auto"
                                             aria-labelledby="range-slider"
