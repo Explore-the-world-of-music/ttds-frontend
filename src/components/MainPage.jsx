@@ -80,7 +80,7 @@ class MainPage extends Component {
                 cards = this.state.results.slice((this.state.page - 1) * this.resultsPerPage, (this.state.page) * this.resultsPerPage).map(result =>
                     <ResultCard key={result.id} result={result} />)
             } else {
-                cards = <h2 className="empty"> No results </h2>
+                cards = <h1 className="empty"> No results </h1>
             }
         }
 

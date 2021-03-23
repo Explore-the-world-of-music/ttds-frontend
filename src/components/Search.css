@@ -162,22 +162,24 @@
    z-index: 1;
 }
 
+.Search .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track{
+    opacity: 0.9;
+}
+
+.Search .MuiSwitch-track{
+    opacity: 0.3
+}
+
 @media only screen and (max-width: 1400px) {
     .Search .queries-row > *{
         margin: 0 0.5rem 0 0;
     } 
 
-    .Search{
-        text-align: center;
-    }
-
     .Search .queries-row{
         justify-content: flex-start;
-        margin-left: 2rem;
     }
     
     .Search .advanced-options-box{
-        margin-left: 2rem;
         max-width: 24.8rem;
 
     }

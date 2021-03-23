@@ -90,6 +90,7 @@
     background-color: white;
     width: fit-content;
     padding: 1rem;
+    min-width: 30rem;
     border-radius: 5px;
 }
 
