@@ -77,7 +77,7 @@ class LyricsPage extends Component {
             : []
         return (
             !this.state.isLoaded
-                ? <div className="spinner-wrapper"><Spin centered size="xxl" theme="dark" /></div>
+                ? <div className="spinner-wrapper"><Spin centered size="xxl" theme="invert" /></div>
                 : <div className="LyricsPage" style={{ backgroundImage: `url('${background}')` }}>
                     <header className={'header'}>
                         <div className="inner-header">
