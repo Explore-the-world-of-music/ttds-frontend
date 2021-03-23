@@ -6,6 +6,7 @@ import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import SuggestionCard from './SuggestionCard'
 import Spin from '@semcore/ui/spin'
+import background from '../background.jpg'
 
 /*
 "id": result.id,
@@ -76,8 +77,8 @@ class LyricsPage extends Component {
             : []
         return (
             !this.state.isLoaded
-                ? <div className="spinner-wrapper"><Spin centered size="xxl" theme="dark" /></div>
-                : <div className="LyricsPage">
+                ? <div className="spinner-wrapper"><Spin centered size="xxl" theme="invert" /></div>
+                : <div className="LyricsPage" style={{ backgroundImage: `url('${background}')` }}>
                     <header className={'header'}>
                         <div className="inner-header">
                             <div className="logo logo-small"><a href="/">Explore the World of Music</a></div>
@@ -90,6 +91,7 @@ class LyricsPage extends Component {
                                     <img src={this.state.song.image ?? '/album-placeholder.png'} alt="album cover" />
                                 </div>
                                 <div className="info-container">
+                                    <h2>Song info:</h2>
                                     {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
                                     {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
                                     {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
@@ -105,6 +107,7 @@ class LyricsPage extends Component {
                                 {/* <div className="album">{this.state.song.album}</div> */}
                                 <div className="release-date">{this.state.song.released}</div>
                                 <div className="info-container-small">
+                                    <h2>Song info:</h2>
                                     {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
                                     {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
                                     {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
@@ -118,19 +121,20 @@ class LyricsPage extends Component {
                     <main className="main">
                         <div className="inner-main">
                             <div className="lyrics">
-                                {this.state.song.lyrics}
-                            </div>
-                            <div className="suggestions">
-                                <div className="suggestions-title">You might also like:</div>
-                                <div className="carousel-wrapper">
-                                    <Carousel responsive={responsive} containerClass="carousel-wrapper" item-class="suggestion-card">
-                                        {cards}
-                                    </Carousel>
+                                <div className="lyrics-container">
+                                    {this.state.song.lyrics}
                                 </div>
                             </div>
                         </div>
-
                     </main>
+                    <div className="suggestions">
+                        <div className="suggestions-title">You might also like:</div>
+                        <div className="carousel-wrapper">
+                            <Carousel responsive={responsive} containerClass="carousel-wrapper" item-class="suggestion-card">
+                                {cards}
+                            </Carousel>
+                        </div>
+                    </div>
                 </div>
         )
     }

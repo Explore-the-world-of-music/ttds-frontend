@@ -13,7 +13,7 @@ library.add(faSearch, faTimes, faAngleDown, faInfoCircle)
 
 function App () {
     return (
-        <Suspense fallback={<div className="spinner-wrapper"><Spin centered size="xxl" theme="dark" /></div> }>
+        <Suspense fallback={<div className="spinner-wrapper"><Spin centered size="xxl" theme="invert" /></div> }>
             <Switch>
                 <Route path="/" component={MainPage} exact />
                 <Route path="/song/:id" component={LyricsPage} />

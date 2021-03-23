@@ -4,7 +4,7 @@
     }
 
     to {
-        background-color: rgb(231, 231, 231);
+        background-color: rgb(255, 255, 255);
     }
 }
 
@@ -12,23 +12,47 @@
     text-align: center;
     display: flex;
     flex-direction: column;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+    color: white;
+    /*background-position: 0 -150px;*/
 }
 
 .MainPage .header-full {
     height: 100vh;
-    background-color: #3E66D0;
-    padding-top: 26vh;
+    /*background-color: #3E66D0;*/
+    background-color: rgba(0, 0, 0, 0);
+    padding-top: 22.3vh;
+}
+
+.MainPage .header-full .inner-header{
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .MainPage .placeholder {
     animation: loading 1s linear infinite alternate;
     width: 70%;
-    height: 20rem;
+    border-radius: 5px;
+    height: 22.5rem;
     margin: 1.2rem 0;
 }
 
 .MainPage .pagination {
     margin-bottom: 1.2rem;
+    background-color: white;
+    padding: 0.4rem;
+    width: 70%;
+    border-radius: 5px;
+    display: flex;
+}
+
+.MainPage .pagination > *{
+    margin: auto;
+}
+
+.MainPage .Search .queries-row, .MainPage .Search .advanced-options-box {
+    margin-left: 2rem;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -51,3 +75,13 @@
     }
 }
 
+
+@media only screen and (max-width: 600px) {
+    .MainPage .inner-header{
+        padding: 1rem;
+    }
+
+    .MainPage .Search .queries-row, .MainPage .Search .advanced-options-box {
+        margin-left: 0rem;
+    }
+}

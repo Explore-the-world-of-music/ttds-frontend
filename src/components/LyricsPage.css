@@ -1,11 +1,15 @@
 .LyricsPage {
     display: flex;
     flex-direction: column;
-    height: 100%
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
 }
 
 .LyricsPage .Search{
     width: auto;
+    margin-left: 2rem;
 }
 
 .LyricsPage .logo-small {
@@ -13,7 +17,6 @@
 }
 
 .LyricsPage .inner-main {
-    padding-top: 3rem;
     text-align: left;
 }
 
@@ -46,10 +49,12 @@
 
 .LyricsPage .lyrics {
     white-space: pre-wrap;
+    color: black;
+
 }
 
 .LyricsPage .header-details {
-    background-color: #3E66D0;
+    /*background-color: #3E66D0;*/
     width: 90rem;
     padding-bottom: 2rem;
     position: relative;
@@ -69,6 +74,7 @@
 .LyricsPage .album-cover img {
     width: 20rem;
     height: 20rem;
+    border-radius: 5px;
 }
 
 .LyricsPage .lyrics {
@@ -76,11 +82,21 @@
     text-align: left;
     width: 100%;
     padding-left: 28rem;
-    padding-bottom: 3rem;
+    margin-bottom: 2rem;
+    /*padding: 1rem;*/
+}
+
+.LyricsPage .lyrics-container {
+    background-color: white;
+    width: fit-content;
+    padding: 2rem;
+    min-width: 40rem;
+    border-radius: 5px;
 }
 
 .LyricsPage .suggestions {
-    background-color: #3E66D0;
+    background-color: white;
+    color: black;
     width: 100%;
     padding: 2rem 0;
 }
@@ -92,7 +108,6 @@
 
 .LyricsPage .suggestions-title {
     text-align: center;
-    color: white;
     font-weight: bold;
     font-size: 2rem;
 }
@@ -102,12 +117,17 @@
 }
 
 .LyricsPage .info-container {
-    padding-top: 1rem;
+    padding-top: 0.1rem;
     padding-left: 0.5rem;
     line-height: 1.4rem;
     font-size: 1.2rem;
+    margin-top: 0.5rem;
     color: black;
+    background-color: white;
     box-sizing: border-box;
+    border-radius: 5px;
+    padding-bottom: 0.4rem;
+    text-align: center;
 }
 
 .LyricsPage .info-container-small{
@@ -120,6 +140,10 @@
     .LyricsPage .inner-header {
         width: 100%;
         display: block;
+    }
+
+    .LyricsPage .Search{
+        margin: auto;
     }
 
     .LyricsPage .info-container-small{
@@ -146,6 +170,13 @@
     .LyricsPage .lyrics {
         padding-left: 0;
         text-align: center;
+        margin-bottom: 0;
+    }
+
+    .LyricsPage .lyrics-container{
+        width: 100%;
+        border-radius: 5px 5px 0 0;
+
     }
 
     .LyricsPage .inner-main {
@@ -160,6 +191,8 @@
     .LyricsPage .meta-info{
         position: relative;
     }
+
+   
 }
 
 @media only screen and (max-width: 600px) {
@@ -169,6 +202,10 @@
     }
 
     .LyricsPage .lyrics {
-        padding: 0.5rem;
+        padding: 0 0.5rem 0 0.5rem;
+    }
+
+    .LyricsPage .inner-header{
+        padding: 1rem;
     }
 }

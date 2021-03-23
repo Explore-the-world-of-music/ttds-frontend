@@ -3,6 +3,7 @@ import './MainPage.css'
 import Search from './Search'
 import ResultCard from './ResultCard'
 import Pagination from '@material-ui/lab/Pagination'
+import background from '../background.jpg'
 
 class MainPage extends Component {
     constructor (props) {
@@ -79,12 +80,12 @@ class MainPage extends Component {
                 cards = this.state.results.slice((this.state.page - 1) * this.resultsPerPage, (this.state.page) * this.resultsPerPage).map(result =>
                     <ResultCard key={result.id} result={result} />)
             } else {
-                cards = <h2 className="empty"> No results </h2>
+                cards = <h1 className="empty"> No results </h1>
             }
         }
 
         return (
-            <div className="MainPage">
+            <div className="MainPage" style={{ backgroundImage: `url('${background}')` }}>
                 <header className={'header' + (this.state.fullscreen ? ' header-full' : '')}>
                     <div className="inner-header">
                         <div className="logo"><a href="/">Explore the World of Music</a></div>
