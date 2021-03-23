@@ -46,8 +46,8 @@ class Search extends Component {
             phraseSearchByDefault: this.props.phraseSearchByDefault,
             options: []
         }
-        this.pattern = /^((\s*--\s*)?([\p{L}.!?,'\-&$£]+|("(?=.*\w.*)([\p{L}.!?,'\-&$£]+){1}(\s+([\p{L}.!?,'\-&$£]+|\*))*\s*([\p{L}.!?,'\-&$£]+){1}\s*")|(#\d*\([\p{L}.!?,'\-&$£]+\s*(,\s*[\p{L}.!?,'\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\p{L}.!?,'\-&$£]+|("(?=.*\w.*)([\p{L}.!?,'\-&$£]+){1}(\s+([\p{L}.!?,'\-&$£]+|\*))*\s*([\p{L}.!?,'\-&$£]+){1}\s*")|(#\d*\([\p{L}.!?,'\-&$£]+\s*(,\s*[\p{L}.!?,'\-&$£]+)*\)))\s*)*)$|(^([\p{L}.!?,'\-&$£]+\s*)+$)/u
-        this.patternPh = /(^"(?!(.*&&))(?!(.*\*\*))(?!(.*\* *"$))[\p{L}.!?,*'\-&$£ ]+"$)|(^(?!(.*&&))(?!(.*\*\*))(?!(.*\* *$))[\p{L}.!?,*'\-&$£ ]+$)/u
+        this.pattern = /^((\s*--\s*)?([\p{L}0-9.!?,'\-&$£]+|("(?=.*\w.*)([\p{L}0-9.!?,'\-&$£]+){1}(\s+([\p{L}0-9.!?,'\-&$£]+|\*))*\s*([\p{L}0-9.!?,'\-&$£]+){1}\s*")|(#\d*\([\p{L}0-9.!?,'\-&$£]+\s*(,\s*[\p{L}0-9.!?,'\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\p{L}0-9.!?,'\-&$£]+|("(?=.*\w.*)([\p{L}0-9.!?,'\-&$£]+){1}(\s+([\p{L}0-9.!?,'\-&$£]+|\*))*\s*([\p{L}0-9.!?,'\-&$£]+){1}\s*")|(#\d*\([\p{L}0-9.!?,'\-&$£]+\s*(,\s*[\p{L}0-9.!?,'\-&$£]+)*\)))\s*)*)$|(^([\p{L}0-9.!?,'\-&$£]+\s*)+$)/u
+        this.patternPh = /(^"(?!(.*&&))(?!(.*\*\*))(?!(.*\* *"$))[\p{L}0-9.!?,*'\-&$£ ]+"$)|(^(?!(.*&&))(?!(.*\*\*))(?!(.*\* *$))[\p{L}0-9.!?,*'\-&$£ ]+$)/u
         this.handleYearSlider = this.handleYearSlider.bind(this)
         this.handleGenre = this.handleGenre.bind(this)
         this.handleArtist = this.handleArtist.bind(this)
@@ -57,6 +57,7 @@ class Search extends Component {
         this.handleKeyPress = this.handleKeyPress.bind(this)
         this.handleClear = this.handleClear.bind(this)
         this.changeValue = this.changeValue.bind(this)
+        this.handleSuggestionClick = this.handleSuggestionClick.bind(this)
     }
 
     componentWillUnmount () {
@@ -67,13 +68,13 @@ class Search extends Component {
     handleClick (type) {
         switch (type) {
         case 'Phrase':
-            this.setState({ valid: true, phraseSearchByDefault: false, query: '"Oops!... I did * again"' })
+            this.setState({ valid: true, phraseSearchByDefault: false, query: '"smells like * spirit" && Nirvana' })
             break
         case 'Logical':
-            this.setState({ valid: true, phraseSearchByDefault: false, query: 'Oops && did || heart' })
+            this.setState({ valid: true, phraseSearchByDefault: false, query: 'smells && teen && Nirvana' })
             break
         case 'Proximity':
-            this.setState({ valid: true, phraseSearchByDefault: false, query: '#15(Oops,again)' })
+            this.setState({ valid: true, phraseSearchByDefault: false, query: '#15(smells,spirit) && Nirvana' })
             break
         }
         this.input.focus()
@@ -105,6 +106,11 @@ class Search extends Component {
         }
     }
 
+    handleSuggestionClick (event) {
+        this.handleChange()
+        this.handleKeyPress(event)
+    }
+
     handleClear (_) {
         this.setState({
             query: ''
@@ -127,14 +133,14 @@ class Search extends Component {
 
     changeValue (query) {
         this.setState({ query, valid: true })
-        this.input.blur()
-        this.input.focus()
+        // this.input.blur()
+        // this.input.focus()
     }
 
     async handleChange (value) {
         this.changeValue(value)
         const list = value.split(' ').filter(n => n)
-        const regex = /\p{L}+/u
+        const regex = /^([\p{L}0-9'])+$/u
         if (value !== '' && (regex.test(list[list.length - 1])) && (length < 2 || regex.test(list[list.length - 2]))) {
             const options = await debounce(value)
             this.setState({ options })
@@ -177,7 +183,7 @@ class Search extends Component {
                             <Select.Menu>
                                 {options.map((option) => {
                                     return (
-                                        <Select.Option value={option} key={option} className="select-option">
+                                        <Select.Option value={option} key={option} onClick={this.handleSuggestionClick} className="select-option">
                                             {setUnderlineWord(query, option)}
                                         </Select.Option>
                                     )
@@ -195,19 +201,19 @@ class Search extends Component {
                     <ReactTooltip multiline id='template1' type='dark' effect="solid">
                         <h2>You know a part of the song? </h2>
                         <span>Then use <b>&quot;Your Query&quot;</b> to find exact expressions. <br/>If you do not know single words,<br/> just add <b>*</b> for each word that you don´t know. <br/>For advanced searches you can also combine <br/>the phrase search with a logical search, <br/>for example if you know an additional<br/> word in the song <b>(“Your Query” &amp;&amp; Word)</b>.</span>
-                        <h3>Example: &quot;Oops!... I did * again&quot;</h3>
+                        <h3>Example: &quot;smells like * spirit&quot; &amp;&amp; Nirvana</h3>
                     </ReactTooltip>
                     <Button size="l" use="primary" className="template-button" data-tip data-for="template2" onClick={(e) => this.handleClick('Logical')}>Logical Search</Button>
-                    <ReactTooltip multiline id='template2' type='dark' effect="solid">
+                    <ReactTooltip multiline id='template2' t1ype='dark' effect="solid">
                         <h2>You know single words or want to exclude results?</h2>
                         <span>Then make use of the various helpers to narrow down the results.<br/> <b>Word 1 &amp;&amp; Word 2</b> means that both words are in the song,<br/> <b>Word 1 || Word 2</b> means that at least one of the words is in the song <br/>and with <b>-- Word 1</b> you allow only songs that do not contain Word 1. <br/>Of course, you can also chain the helpers <b>&amp;&amp;, || and --</b>.</span>
-                        <h3>Example: Oops &amp;&amp; did || heart</h3>
+                        <h3>Example:  smells &amp;&amp; teen &amp;&amp; Nirvana</h3>
                     </ReactTooltip>
                     <Button size="l" use="primary" className="template-button" data-tip data-for="template3" onClick={(e) => this.handleClick('Proximity')}>Proximity Search</Button>
                     <ReactTooltip multiline id='template3' type='dark' effect="solid">
                         <h2>You know some words and you can<br/> guess how close they are together?</h2>
                         <span>Then use the proximity search to get the best results. <br/>You can define the maximal word distance between <br/>each two words in your query, if you are unsure just  <br/> make it a little larger. For advanced searches you can  <br/> also combine the proximity search with a logical search, <br/>for example if you know an additional word in the <br/> song <b>(#15(Your, Query) &amp;&amp; Word)</b>.</span>
-                        <h3>Example: #15(Oops,again)</h3>
+                        <h3>Example: #15(smells,spirit) &amp;&amp; Nirvana</h3>
                     </ReactTooltip>
                 </div>
 
@@ -220,8 +226,8 @@ class Search extends Component {
                             </Accordion.Item.Toggle>
                             <Accordion.Item.Collapse>
                                 <Box p="0rem 1.3rem" className="option-row-switch">
-                                    <Text>Use phrase search  </Text><FontAwesomeIcon icon="info-circle" aria-label="info" data-tip data-for="info" className="fa-info-circle" /><Switch color="default" checked={this.state.phraseSearchByDefault} onChange={this.handleDefaultModeChange} name="phraseSearchByDefault" inputProps={{ 'aria-label': 'Enable phrase search by default' }} />
-                                    <ReactTooltip multiline id="info" type="dark" effect="solid">Use phrase search instead of TF-IDF  <br/> for simple queries without operators</ReactTooltip>
+                                    <Text>Use phrase search for simple queries </Text><FontAwesomeIcon icon="info-circle" aria-label="info" data-tip data-for="info" className="fa-info-circle" /><Switch color="default" checked={this.state.phraseSearchByDefault} onChange={this.handleDefaultModeChange} name="phraseSearchByDefault" inputProps={{ 'aria-label': 'Enable phrase search by default' }} />
+                                    <ReactTooltip multiline id="info" type="dark" effect="solid">Search for an exact match<br/> if your query doesn&apos;t contain <br/>any boolean/proximity operators. <br/> If disabled, tf-idf will be used <br/> for simple searches instead.</ReactTooltip>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Artist:</span>

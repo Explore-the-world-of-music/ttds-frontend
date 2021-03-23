@@ -90,7 +90,7 @@
     position: relative;
     z-index: 2;
     width: 26rem;
-    background-color: hsl(0, 0%, 32%);  
+    background-color: #4B6D76;  
     padding: 0.4rem;
     border-radius: 4px;  
 }
@@ -134,13 +134,13 @@
 }
 
 .Search .template-button {
-    background-color: hsl(0, 0%, 32%) !important;
+    background-color: #4B6D76 !important;
     color: white !important;
     font-size: 1rem !important;
 }
 
 .Search .template-button:hover {
-    background-color: hsl(0, 0%, 24%) !important;
+    background-color: rgb(91, 141, 155)!important;
 }
 
 .Search .MuiSlider-root.MuiSlider-colorPrimary {
