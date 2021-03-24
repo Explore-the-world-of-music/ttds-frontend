@@ -116,9 +116,17 @@
     font-size: 1.2rem;
 }
 
+.LyricsPage .info-wrapper{
+    color: white;
+    background-color: #4B6D76;
+    padding: 0.5rem;
+    border-radius: 5px 5px 0 0;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
 .LyricsPage .info-container {
-    padding-top: 0.1rem;
-    padding-left: 0.5rem;
     line-height: 1.4rem;
     font-size: 1.2rem;
     margin-top: 0.5rem;
@@ -201,11 +209,15 @@
         margin-left: 0;
     }
 
-    .LyricsPage .lyrics {
-        padding: 0 0.5rem 0 0.5rem;
-    }
 
     .LyricsPage .inner-header{
         padding: 1rem;
+    }
+
+    .LyricsPage .lyrics-container {
+        min-width: 0;
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+
     }
 }
