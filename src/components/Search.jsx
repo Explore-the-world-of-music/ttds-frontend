@@ -47,7 +47,7 @@ class Search extends Component {
             options: []
         }
         this.pattern = /^((\s*--\s*)?([\p{L}0-9.!?,'\-&$£]+|("(?=.*\w.*)([\p{L}0-9.!?,'\-&$£]+){1}(\s+([\p{L}0-9.!?,'\-&$£]+|\*))*\s*([\p{L}0-9.!?,'\-&$£]+){1}\s*")|(#\d*\([\p{L}0-9.!?,'\-&$£]+\s*(,\s*[\p{L}0-9.!?,'\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\p{L}0-9.!?,'\-&$£]+|("(?=.*\w.*)([\p{L}0-9.!?,'\-&$£]+){1}(\s+([\p{L}0-9.!?,'\-&$£]+|\*))*\s*([\p{L}0-9.!?,'\-&$£]+){1}\s*")|(#\d*\([\p{L}0-9.!?,'\-&$£]+\s*(,\s*[\p{L}0-9.!?,'\-&$£]+)*\)))\s*)*)$|(^([\p{L}0-9.!?,'\-&$£]+\s*)+$)/u
-        this.patternPh = /(^"(?!(.*&&))(?!(.*\*\*))(?!(.*\* *"$))[\p{L}0-9.!?,*'\-&$£ ]+"$)|(^(?!(.*&&))(?!(.*\*\*))(?!(.*\* *$))[\p{L}0-9.!?,*'\-&$£ ]+$)/u
+        this.patternPh = /^((\s*--\s*)?([\p{L}0-9.!?,'\-&$£]+|((?=.*\w.*)([\p{L}0-9.!?,'\-&$£]+){1}(\s+([\p{L}0-9.!?,'\-&$£]+|\*))*\s*([\p{L}0-9.!?,'\-&$£]+){1}\s*)|(#\d*\([\p{L}0-9.!?,'\-&$£]+\s*(,\s*[\p{L}0-9.!?,'\-&$£]+)*\)))\s*(((\|\|)|(&&))\s*(\s*--\s*)?([\p{L}0-9.!?,'\-&$£]+|((?=.*\w.*)([\p{L}0-9.!?,'\-&$£]+){1}(\s+([\p{L}0-9.!?,'\-&$£]+|\*))*\s*([\p{L}0-9.!?,'\-&$£]+){1}\s*)|(#\d*\([\p{L}0-9.!?,'\-&$£]+\s*(,\s*[\p{L}0-9.!?,'\-&$£]+)*\)))\s*)*)$|(^([\p{L}0-9.!?,'\-&$£]+\s*)+$)/u
         this.handleYearSlider = this.handleYearSlider.bind(this)
         this.handleGenre = this.handleGenre.bind(this)
         this.handleArtist = this.handleArtist.bind(this)
@@ -68,13 +68,13 @@ class Search extends Component {
     handleClick (type) {
         switch (type) {
         case 'Phrase':
-            this.setState({ valid: true, phraseSearchByDefault: false, query: '"smells like * spirit" && Nirvana' })
+            this.setState({ valid: true, query: '"smells like * spirit" && Nirvana' })
             break
         case 'Logical':
-            this.setState({ valid: true, phraseSearchByDefault: false, query: 'smells && teen && Nirvana' })
+            this.setState({ valid: true, query: 'smells && teen && Nirvana' })
             break
         case 'Proximity':
-            this.setState({ valid: true, phraseSearchByDefault: false, query: '#15(smells,spirit) && Nirvana' })
+            this.setState({ valid: true, query: '#15(smells,spirit) && Nirvana' })
             break
         }
         this.input.focus()
@@ -95,7 +95,8 @@ class Search extends Component {
     handleKeyPress (event) {
         if (event.key === 'Enter' || event.type === 'click') {
             if (this.state.query !== '') {
-                if ((this.pattern.test(this.state.query) && !this.state.phraseSearchByDefault) || (this.patternPh.test(this.state.query) && this.state.phraseSearchByDefault)) {
+                // if ((this.pattern.test(this.state.query) && !this.state.phraseSearchByDefault) || (this.patternPh.test(this.state.query) && this.state.phraseSearchByDefault)) {
+                if ((this.pattern.test(this.state.query) && !this.state.phraseSearchByDefault) || (this.pattern.test(this.state.query) || (this.patternPh.test(this.state.query) && this.state.phraseSearchByDefault))) {
                     this.setState({ valid: true, options: [] })
                     this.input.blur()
                     this.props.onSearchRequest({ query: this.state.query, artist: this.state.artist, years: this.state.years, genre: this.state.genre, language: this.state.language, phraseSearchByDefault: this.state.phraseSearchByDefault })
@@ -124,7 +125,7 @@ class Search extends Component {
     }
 
     handleDefaultModeChange (event) {
-        this.setState({ phraseSearchByDefault: event.target.checked })
+        this.setState({ phraseSearchByDefault: event.target.checked, valid: true })
     }
 
     handleYearSlider (_, newYearRange) {
@@ -141,7 +142,7 @@ class Search extends Component {
         this.changeValue(value)
         const list = value.split(' ').filter(n => n)
         const regex = /^([\p{L}0-9'])+$/u
-        if (value !== '' && (regex.test(list[list.length - 1])) && (length < 2 || regex.test(list[list.length - 2]))) {
+        if (value.trim() !== '' && (regex.test(list[list.length - 1])) && (length < 2 || regex.test(list[list.length - 2]))) {
             const options = await debounce(value)
             this.setState({ options })
         } else {
@@ -226,8 +227,8 @@ class Search extends Component {
                             </Accordion.Item.Toggle>
                             <Accordion.Item.Collapse>
                                 <Box p="0rem 1.3rem" className="option-row-switch">
-                                    <Text>Use phrase search for simple queries </Text><FontAwesomeIcon icon="info-circle" aria-label="info" data-tip data-for="info" className="fa-info-circle" /><Switch color="default" checked={this.state.phraseSearchByDefault} onChange={this.handleDefaultModeChange} name="phraseSearchByDefault" inputProps={{ 'aria-label': 'Enable phrase search by default' }} />
-                                    <ReactTooltip multiline id="info" type="dark" effect="solid">Search for an exact match<br/> if your query doesn&apos;t contain <br/>any boolean/proximity operators. <br/> If disabled, tf-idf will be used <br/> for simple searches instead.</ReactTooltip>
+                                    <Text>Use phrase search for basic queries </Text><FontAwesomeIcon icon="info-circle" aria-label="info" data-tip data-for="info" className="fa-info-circle" /><Switch color="default" checked={this.state.phraseSearchByDefault} onChange={this.handleDefaultModeChange} name="phraseSearchByDefault" inputProps={{ 'aria-label': 'Enable phrase search by default' }} />
+                                    <ReactTooltip multiline id="info" type="dark" effect="solid">Search for an exact match<br/> even if your query doesn&apos;t contain <br/>any speechmarks. <br/>(for example, <i>smells &amp;&amp; teen spirit</i>).<br/> If disabled, word frequency (tf-idf) <br/>will be used  for each term instead.</ReactTooltip>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Artist:</span>

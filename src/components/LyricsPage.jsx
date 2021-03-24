@@ -91,7 +91,7 @@ class LyricsPage extends Component {
                                     <img src={this.state.song.image ?? '/album-placeholder.png'} alt="album cover" />
                                 </div>
                                 <div className="info-container">
-                                    <h2>Song info:</h2>
+                                    <div className="info-wrapper">Song info:</div>
                                     {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
                                     {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
                                     {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
@@ -107,7 +107,7 @@ class LyricsPage extends Component {
                                 {/* <div className="album">{this.state.song.album}</div> */}
                                 <div className="release-date">{this.state.song.released}</div>
                                 <div className="info-container-small">
-                                    <h2>Song info:</h2>
+                                    <h1>Song info:</h1>
                                     {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
                                     {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
                                     {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
