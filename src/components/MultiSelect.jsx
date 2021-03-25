@@ -10,13 +10,17 @@ export default function MultiSelect (props) {
     const [loading, setLoading] = useState(false)
     const [options, setOptions] = useState([])
     const filteredOptions = options.filter((option) => option.toString().toLowerCase().includes(filter.toLowerCase()))
+    const [translationMap, setTranslationMap] = useState({})
 
     useEffect(() => {
         setLoading(true)
         fetch(`/api/songs/${props.method}`).then(res => res.json()).then((res) => {
             if (props.method === 'get_languages') {
                 const languageNames = new Intl.DisplayNames(['en'], { type: 'language' })
-                res.response = res.response.map(x => languageNames.of(x))
+                const converted = res.response.map(x => languageNames.of(x))
+                setTranslationMap(Object.fromEntries(converted.map((_, i) => [converted[i], res.response[i]])))
+                console.log(translationMap)
+                res.response = converted
             }
             setOptions(res.response)
             setLoading(false)
@@ -25,8 +29,16 @@ export default function MultiSelect (props) {
         })
     }, [])
 
+    function handlerWrapper (value) {
+        if (props.method === 'get_languages') {
+            console.log(translationMap)
+            value = value.map(x => translationMap[x])
+        }
+        props.handler(value)
+    }
+
     return (
-        <Select multiselect placeholder="Select value" defaultValue={props.defaultValue} onChange={props.handler} size="l">
+        <Select multiselect placeholder="Select value" defaultValue={props.defaultValue} onChange={handlerWrapper} size="l">
             {(props, handlers) => {
                 const {
                     value: currentValue // the current value of the select
