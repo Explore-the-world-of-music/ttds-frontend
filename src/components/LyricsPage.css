@@ -81,9 +81,8 @@
     font-size: 1.4rem;
     text-align: left;
     width: 100%;
-    padding-left: 28rem;
+    padding-left: 30rem;
     margin-bottom: 2rem;
-    /*padding: 1rem;*/
 }
 
 .LyricsPage .lyrics-container {
@@ -144,7 +143,21 @@
     color: white;
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1458px) {
+    .LyricsPage .header-details {
+        width: 100%;
+    }
+
+    .LyricsPage .lyrics {
+        padding-left: 28rem;
+    }
+
+    .LyricsPage .inner-main{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
     .LyricsPage .inner-header {
         width: 100%;
         display: block;

@@ -40,7 +40,7 @@ class MainPage extends Component {
     handleSearchRequest (data) {
         this.setState({ loading: true, fullscreen: false })
         if (data.phraseSearchByDefault) {
-            data.newQuery = data.query.replace(/(((?!&)(?!-)[\p{L}0-9.!?\-&,'$£])+([\p{L}0-9. *!?\-&,'$£](?!&&)(?!-))*[\p{L}0-9.!?\-&,'$£]+)(?!(\s*[\p{L}0-9.*!?\-&,'$£]*\s*(\)|\()))/ug, ' "$1" ').trim()
+            data.newQuery = data.query.replace(/(((?!&)(?!-)[\p{L}0-9.!?\-&,'$£])+([\p{L}0-9. *!?\-&,'$£](?!&&)(?!-))*[\p{L}0-9.!?\-&,'$£]+)(?!(\s*[\p{L}0-9.*!?\-&,'$£]*\s*(\)|\(|")))(?!([\p{L}0-9. *!?\-&,'$£]*"))/ug, ' "$1" ').trim()
         } else {
             data.newQuery = data.query
         }

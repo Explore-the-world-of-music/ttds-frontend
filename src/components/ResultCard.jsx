@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import './ResultCard.css'
 
 class ResultCard extends Component {
+    createLyrics () {
+        return { __html: this.props.result.lyrics }
+    }
+
     render () {
         return (
             <div className="ResultCard">
@@ -11,7 +15,7 @@ class ResultCard extends Component {
                 <div className="bottom">
                     <div className="left">
                         <div className="artist">{this.props.result.artist}</div>
-                        <div className="lyrics">{this.props.result.lyrics}</div>
+                        <div className="lyrics" dangerouslySetInnerHTML={this.createLyrics()}/>
                     </div>
                     <div className="right">
                         <div className="album-cover">
