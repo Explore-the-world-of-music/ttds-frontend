@@ -108,8 +108,7 @@ class Search extends Component {
     }
 
     handleSuggestionClick (event) {
-        this.handleChange()
-        this.handleKeyPress(event)
+        this.setState({ query: event.target.innerText, valid: true }, this.handleKeyPress.bind(null, event))
     }
 
     handleClear (_) {
