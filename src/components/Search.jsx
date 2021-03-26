@@ -227,7 +227,7 @@ class Search extends Component {
                             <Accordion.Item.Collapse>
                                 <Box p="0rem 1.3rem" className="option-row-switch">
                                     <Text>Use phrase search for basic queries </Text><FontAwesomeIcon icon="info-circle" aria-label="info" data-tip data-for="info" className="fa-info-circle" /><Switch color="default" checked={this.state.phraseSearchByDefault} onChange={this.handleDefaultModeChange} name="phraseSearchByDefault" inputProps={{ 'aria-label': 'Enable phrase search by default' }} />
-                                    <ReactTooltip multiline id="info" type="dark" effect="solid">Search for an exact match<br/> even if your query doesn&apos;t contain <br/>any speechmarks. <br/>(for example, <i>smells &amp;&amp; teen spirit</i>).<br/> If disabled, word frequency (tf-idf) <br/>will be used  for each term instead.</ReactTooltip>
+                                    <ReactTooltip multiline id="info" type="dark" effect="solid">Search for documents that contain<br/>an exact match even if your query <br/> doesn&apos;t have any speechmarks.<br/> If disabled, songs will be shown based <br/>on the frequency of each word (tf-idf)</ReactTooltip>
                                 </Box>
                                 <Box p="0rem 1.3rem" className="option-row">
                                     <span>Artist:</span>
