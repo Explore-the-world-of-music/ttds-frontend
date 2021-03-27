@@ -44,7 +44,7 @@ class MainPage extends Component {
         } else {
             data.newQuery = data.query
         }
-        console.log(data.newQuery)
+        data.newQuery = data.newQuery.trim()
         fetch(`/api/songs/search?query=${encodeURIComponent(data.newQuery)}&artists=${encodeURIComponent(data.artist)}&genres=${encodeURIComponent(data.genre)}&language=${encodeURIComponent(data.language)}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`).then(res => res.json()).then((res) => {
             this.setState({ results: res.songs, loading: false, reportedQueryData: data })
             this.props.history.push(`/?query=${encodeURIComponent(data.query)}&page=${this.state.page}&artists=${data.artist.map(x => encodeURIComponent(x))}&genres=${data.genre.map(x => encodeURIComponent(x))}&language=${data.language.map(x => encodeURIComponent(x))}&years=${data.years}&phraseSearchByDefault=${data.phraseSearchByDefault}`)
