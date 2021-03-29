@@ -50,7 +50,7 @@
 .LyricsPage .lyrics {
     white-space: pre-wrap;
     color: black;
-
+    min-height: 30rem;
 }
 
 .LyricsPage .header-details {

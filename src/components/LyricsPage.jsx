@@ -92,6 +92,7 @@ class LyricsPage extends Component {
                                 </div>
                                 <div className="info-container">
                                     <div className="info-wrapper">Song info:</div>
+                                    {this.state.song.album ? <div>Album: {this.state.song.album}</div> : ''}
                                     {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
                                     {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
                                     {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
@@ -108,6 +109,7 @@ class LyricsPage extends Component {
                                 <div className="release-date">{this.state.song.released}</div>
                                 <div className="info-container-small">
                                     <h1>Song info:</h1>
+                                    {this.state.song.album ? <div>Album: {this.state.song.album}</div> : ''}
                                     {this.state.song.genre ? <div>Genre: {this.state.song.genre}</div> : ''}
                                     {this.state.song.language ? <div>Language: {this.state.song.language}</div> : ''}
                                     {this.state.song.length ? <div>Length: {this.state.song.length}</div> : ''}
