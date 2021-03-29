@@ -15,7 +15,7 @@ export default function MultiSelect (props) {
     useEffect(() => {
         setLoading(true)
         fetch(`/api/songs/${props.method}`).then(res => res.json()).then((res) => {
-            if (props.method === 'get_languages') {
+            if (props.method === 'get_languages' && Intl.DisplayNames !== undefined) {
                 const languageNames = new Intl.DisplayNames(['en'], { type: 'language' })
                 const converted = res.response.map(x => languageNames.of(x))
                 setTranslationMap(Object.fromEntries(converted.map((_, i) => [converted[i], res.response[i]])))
@@ -30,7 +30,7 @@ export default function MultiSelect (props) {
     }, [])
 
     function handlerWrapper (value) {
-        if (props.method === 'get_languages') {
+        if (props.method === 'get_languages' && Intl.DisplayNames !== undefined) {
             console.log(translationMap)
             value = value.map(x => translationMap[x])
         }
