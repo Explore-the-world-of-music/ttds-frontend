@@ -55,7 +55,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "https://ttds-backend.ml",
   "devDependencies": {
     "eslint": "^7.19.0",
     "eslint-config-standard": "^16.0.2",

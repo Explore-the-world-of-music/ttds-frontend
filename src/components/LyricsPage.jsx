@@ -35,7 +35,15 @@ class LyricsPage extends Component {
     componentDidMount () {
         const id = this.props.match.params.id
         const mapping = { 0: 'Love', 1: 'Rap', 2: 'Party', 3: 'Lifecycle' }
-        const languageNames = new Intl.DisplayNames(['en'], { type: 'language' })
+        let languageNames
+        if (Intl !== undefined) {
+            languageNames = new Intl.DisplayNames(['en'], { type: 'language' })
+        } else {
+            languageNames = {
+                of: (x) => x
+            }
+        }
+
         fetch(`/api/songs/get_lyrics?id=${id}`).then(res => res.json()).then(res => {
             res.topic_id = mapping[res.topic_id]
             if (res.length > 0) {
