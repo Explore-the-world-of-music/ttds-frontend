@@ -36,7 +36,7 @@ class LyricsPage extends Component {
         const id = this.props.match.params.id
         const mapping = { 0: 'Love', 1: 'Rap', 2: 'Party', 3: 'Lifecycle' }
         let languageNames
-        if (Intl !== undefined) {
+        if (Intl.DisplayNames !== undefined) {
             languageNames = new Intl.DisplayNames(['en'], { type: 'language' })
         } else {
             languageNames = {
